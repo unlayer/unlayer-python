@@ -34,10 +34,10 @@ __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Unlayer", 
 
 
 class Unlayer(SyncAPIClient):
-    project_v1: project_v1.ProjectV1Resource
-    project: project.ProjectResource
     emails_v1: emails_v1.EmailsV1Resource
     emails: emails.EmailsResource
+    project_v1: project_v1.ProjectV1Resource
+    project: project.ProjectResource
     documents_v1: documents_v1.DocumentsV1Resource
     documents: documents.DocumentsResource
     pages_v1: pages_v1.PagesV1Resource
@@ -99,10 +99,10 @@ class Unlayer(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.project_v1 = project_v1.ProjectV1Resource(self)
-        self.project = project.ProjectResource(self)
         self.emails_v1 = emails_v1.EmailsV1Resource(self)
         self.emails = emails.EmailsResource(self)
+        self.project_v1 = project_v1.ProjectV1Resource(self)
+        self.project = project.ProjectResource(self)
         self.documents_v1 = documents_v1.DocumentsV1Resource(self)
         self.documents = documents.DocumentsResource(self)
         self.pages_v1 = pages_v1.PagesV1Resource(self)
@@ -216,10 +216,10 @@ class Unlayer(SyncAPIClient):
 
 
 class AsyncUnlayer(AsyncAPIClient):
-    project_v1: project_v1.AsyncProjectV1Resource
-    project: project.AsyncProjectResource
     emails_v1: emails_v1.AsyncEmailsV1Resource
     emails: emails.AsyncEmailsResource
+    project_v1: project_v1.AsyncProjectV1Resource
+    project: project.AsyncProjectResource
     documents_v1: documents_v1.AsyncDocumentsV1Resource
     documents: documents.AsyncDocumentsResource
     pages_v1: pages_v1.AsyncPagesV1Resource
@@ -281,10 +281,10 @@ class AsyncUnlayer(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.project_v1 = project_v1.AsyncProjectV1Resource(self)
-        self.project = project.AsyncProjectResource(self)
         self.emails_v1 = emails_v1.AsyncEmailsV1Resource(self)
         self.emails = emails.AsyncEmailsResource(self)
+        self.project_v1 = project_v1.AsyncProjectV1Resource(self)
+        self.project = project.AsyncProjectResource(self)
         self.documents_v1 = documents_v1.AsyncDocumentsV1Resource(self)
         self.documents = documents.AsyncDocumentsResource(self)
         self.pages_v1 = pages_v1.AsyncPagesV1Resource(self)
@@ -399,10 +399,10 @@ class AsyncUnlayer(AsyncAPIClient):
 
 class UnlayerWithRawResponse:
     def __init__(self, client: Unlayer) -> None:
-        self.project_v1 = project_v1.ProjectV1ResourceWithRawResponse(client.project_v1)
-        self.project = project.ProjectResourceWithRawResponse(client.project)
         self.emails_v1 = emails_v1.EmailsV1ResourceWithRawResponse(client.emails_v1)
         self.emails = emails.EmailsResourceWithRawResponse(client.emails)
+        self.project_v1 = project_v1.ProjectV1ResourceWithRawResponse(client.project_v1)
+        self.project = project.ProjectResourceWithRawResponse(client.project)
         self.documents_v1 = documents_v1.DocumentsV1ResourceWithRawResponse(client.documents_v1)
         self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
         self.pages_v1 = pages_v1.PagesV1ResourceWithRawResponse(client.pages_v1)
@@ -411,10 +411,10 @@ class UnlayerWithRawResponse:
 
 class AsyncUnlayerWithRawResponse:
     def __init__(self, client: AsyncUnlayer) -> None:
-        self.project_v1 = project_v1.AsyncProjectV1ResourceWithRawResponse(client.project_v1)
-        self.project = project.AsyncProjectResourceWithRawResponse(client.project)
         self.emails_v1 = emails_v1.AsyncEmailsV1ResourceWithRawResponse(client.emails_v1)
         self.emails = emails.AsyncEmailsResourceWithRawResponse(client.emails)
+        self.project_v1 = project_v1.AsyncProjectV1ResourceWithRawResponse(client.project_v1)
+        self.project = project.AsyncProjectResourceWithRawResponse(client.project)
         self.documents_v1 = documents_v1.AsyncDocumentsV1ResourceWithRawResponse(client.documents_v1)
         self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
         self.pages_v1 = pages_v1.AsyncPagesV1ResourceWithRawResponse(client.pages_v1)
@@ -423,10 +423,10 @@ class AsyncUnlayerWithRawResponse:
 
 class UnlayerWithStreamedResponse:
     def __init__(self, client: Unlayer) -> None:
-        self.project_v1 = project_v1.ProjectV1ResourceWithStreamingResponse(client.project_v1)
-        self.project = project.ProjectResourceWithStreamingResponse(client.project)
         self.emails_v1 = emails_v1.EmailsV1ResourceWithStreamingResponse(client.emails_v1)
         self.emails = emails.EmailsResourceWithStreamingResponse(client.emails)
+        self.project_v1 = project_v1.ProjectV1ResourceWithStreamingResponse(client.project_v1)
+        self.project = project.ProjectResourceWithStreamingResponse(client.project)
         self.documents_v1 = documents_v1.DocumentsV1ResourceWithStreamingResponse(client.documents_v1)
         self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
         self.pages_v1 = pages_v1.PagesV1ResourceWithStreamingResponse(client.pages_v1)
@@ -435,10 +435,10 @@ class UnlayerWithStreamedResponse:
 
 class AsyncUnlayerWithStreamedResponse:
     def __init__(self, client: AsyncUnlayer) -> None:
-        self.project_v1 = project_v1.AsyncProjectV1ResourceWithStreamingResponse(client.project_v1)
-        self.project = project.AsyncProjectResourceWithStreamingResponse(client.project)
         self.emails_v1 = emails_v1.AsyncEmailsV1ResourceWithStreamingResponse(client.emails_v1)
         self.emails = emails.AsyncEmailsResourceWithStreamingResponse(client.emails)
+        self.project_v1 = project_v1.AsyncProjectV1ResourceWithStreamingResponse(client.project_v1)
+        self.project = project.AsyncProjectResourceWithStreamingResponse(client.project)
         self.documents_v1 = documents_v1.AsyncDocumentsV1ResourceWithStreamingResponse(client.documents_v1)
         self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
         self.pages_v1 = pages_v1.AsyncPagesV1ResourceWithStreamingResponse(client.pages_v1)
