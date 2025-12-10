@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from .email_retrieve_response import EmailRetrieveResponse as EmailRetrieveResponse
 from .email_send_create_params import EmailSendCreateParams as EmailSendCreateParams
 from .page_render_create_params import PageRenderCreateParams as PageRenderCreateParams
 from .email_render_create_params import EmailRenderCreateParams as EmailRenderCreateParams
@@ -12,7 +13,6 @@ from .project_current_list_response import ProjectCurrentListResponse as Project
 from .project_domains_create_params import ProjectDomainsCreateParams as ProjectDomainsCreateParams
 from .project_domains_list_response import ProjectDomainsListResponse as ProjectDomainsListResponse
 from .project_domains_update_params import ProjectDomainsUpdateParams as ProjectDomainsUpdateParams
-from .email_emails_retrieve_response import EmailEmailsRetrieveResponse as EmailEmailsRetrieveResponse
 from .project_api_keys_create_params import ProjectAPIKeysCreateParams as ProjectAPIKeysCreateParams
 from .project_api_keys_list_response import ProjectAPIKeysListResponse as ProjectAPIKeysListResponse
 from .project_api_keys_update_params import ProjectAPIKeysUpdateParams as ProjectAPIKeysUpdateParams

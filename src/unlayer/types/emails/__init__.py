@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
+from .v1_retrieve_response import V1RetrieveResponse as V1RetrieveResponse
 from .v1_send_create_params import V1SendCreateParams as V1SendCreateParams
 from .v1_render_create_params import V1RenderCreateParams as V1RenderCreateParams
 from .v1_send_create_response import V1SendCreateResponse as V1SendCreateResponse
 from .v1_render_create_response import V1RenderCreateResponse as V1RenderCreateResponse
-from .v1_emails_retrieve_response import V1EmailsRetrieveResponse as V1EmailsRetrieveResponse
 from .v1_send_template_template_params import V1SendTemplateTemplateParams as V1SendTemplateTemplateParams
 from .v1_send_template_template_response import V1SendTemplateTemplateResponse as V1SendTemplateTemplateResponse

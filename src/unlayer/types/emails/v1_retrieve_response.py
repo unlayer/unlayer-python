@@ -6,12 +6,12 @@ from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
-from .._models import BaseModel
+from ..._models import BaseModel
 
-__all__ = ["EmailEmailsRetrieveResponse"]
+__all__ = ["V1RetrieveResponse"]
 
 
-class EmailEmailsRetrieveResponse(BaseModel):
+class V1RetrieveResponse(BaseModel):
     id: Optional[str] = None
     """Email message ID"""
 

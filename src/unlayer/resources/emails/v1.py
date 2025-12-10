@@ -18,9 +18,9 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.emails import v1_send_create_params, v1_render_create_params, v1_send_template_template_params
+from ...types.emails.v1_retrieve_response import V1RetrieveResponse
 from ...types.emails.v1_send_create_response import V1SendCreateResponse
 from ...types.emails.v1_render_create_response import V1RenderCreateResponse
-from ...types.emails.v1_emails_retrieve_response import V1EmailsRetrieveResponse
 from ...types.emails.v1_send_template_template_response import V1SendTemplateTemplateResponse
 
 __all__ = ["V1Resource", "AsyncV1Resource"]
@@ -46,7 +46,7 @@ class V1Resource(SyncAPIResource):
         """
         return V1ResourceWithStreamingResponse(self)
 
-    def emails_retrieve(
+    def retrieve(
         self,
         id: str,
         *,
@@ -56,7 +56,7 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1EmailsRetrieveResponse:
+    ) -> V1RetrieveResponse:
         """
         Retrieve details of a previously sent email.
 
@@ -76,7 +76,7 @@ class V1Resource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1EmailsRetrieveResponse,
+            cast_to=V1RetrieveResponse,
         )
 
     def render_create(
@@ -249,7 +249,7 @@ class AsyncV1Resource(AsyncAPIResource):
         """
         return AsyncV1ResourceWithStreamingResponse(self)
 
-    async def emails_retrieve(
+    async def retrieve(
         self,
         id: str,
         *,
@@ -259,7 +259,7 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1EmailsRetrieveResponse:
+    ) -> V1RetrieveResponse:
         """
         Retrieve details of a previously sent email.
 
@@ -279,7 +279,7 @@ class AsyncV1Resource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1EmailsRetrieveResponse,
+            cast_to=V1RetrieveResponse,
         )
 
     async def render_create(
@@ -436,8 +436,8 @@ class V1ResourceWithRawResponse:
     def __init__(self, v1: V1Resource) -> None:
         self._v1 = v1
 
-        self.emails_retrieve = to_raw_response_wrapper(
-            v1.emails_retrieve,
+        self.retrieve = to_raw_response_wrapper(
+            v1.retrieve,
         )
         self.render_create = to_raw_response_wrapper(
             v1.render_create,
@@ -454,8 +454,8 @@ class AsyncV1ResourceWithRawResponse:
     def __init__(self, v1: AsyncV1Resource) -> None:
         self._v1 = v1
 
-        self.emails_retrieve = async_to_raw_response_wrapper(
-            v1.emails_retrieve,
+        self.retrieve = async_to_raw_response_wrapper(
+            v1.retrieve,
         )
         self.render_create = async_to_raw_response_wrapper(
             v1.render_create,
@@ -472,8 +472,8 @@ class V1ResourceWithStreamingResponse:
     def __init__(self, v1: V1Resource) -> None:
         self._v1 = v1
 
-        self.emails_retrieve = to_streamed_response_wrapper(
-            v1.emails_retrieve,
+        self.retrieve = to_streamed_response_wrapper(
+            v1.retrieve,
         )
         self.render_create = to_streamed_response_wrapper(
             v1.render_create,
@@ -490,8 +490,8 @@ class AsyncV1ResourceWithStreamingResponse:
     def __init__(self, v1: AsyncV1Resource) -> None:
         self._v1 = v1
 
-        self.emails_retrieve = async_to_streamed_response_wrapper(
-            v1.emails_retrieve,
+        self.retrieve = async_to_streamed_response_wrapper(
+            v1.retrieve,
         )
         self.render_create = async_to_streamed_response_wrapper(
             v1.render_create,

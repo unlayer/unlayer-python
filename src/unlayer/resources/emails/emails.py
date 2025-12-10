@@ -26,9 +26,9 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
+from ...types.email_retrieve_response import EmailRetrieveResponse
 from ...types.email_send_create_response import EmailSendCreateResponse
 from ...types.email_render_create_response import EmailRenderCreateResponse
-from ...types.email_emails_retrieve_response import EmailEmailsRetrieveResponse
 from ...types.email_send_template_template_response import EmailSendTemplateTemplateResponse
 
 __all__ = ["EmailsResource", "AsyncEmailsResource"]
@@ -58,7 +58,7 @@ class EmailsResource(SyncAPIResource):
         """
         return EmailsResourceWithStreamingResponse(self)
 
-    def emails_retrieve(
+    def retrieve(
         self,
         id: str,
         *,
@@ -68,7 +68,7 @@ class EmailsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmailEmailsRetrieveResponse:
+    ) -> EmailRetrieveResponse:
         """
         Retrieve details of a previously sent email.
 
@@ -88,7 +88,7 @@ class EmailsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EmailEmailsRetrieveResponse,
+            cast_to=EmailRetrieveResponse,
         )
 
     def render_create(
@@ -265,7 +265,7 @@ class AsyncEmailsResource(AsyncAPIResource):
         """
         return AsyncEmailsResourceWithStreamingResponse(self)
 
-    async def emails_retrieve(
+    async def retrieve(
         self,
         id: str,
         *,
@@ -275,7 +275,7 @@ class AsyncEmailsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmailEmailsRetrieveResponse:
+    ) -> EmailRetrieveResponse:
         """
         Retrieve details of a previously sent email.
 
@@ -295,7 +295,7 @@ class AsyncEmailsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=EmailEmailsRetrieveResponse,
+            cast_to=EmailRetrieveResponse,
         )
 
     async def render_create(
@@ -452,8 +452,8 @@ class EmailsResourceWithRawResponse:
     def __init__(self, emails: EmailsResource) -> None:
         self._emails = emails
 
-        self.emails_retrieve = to_raw_response_wrapper(
-            emails.emails_retrieve,
+        self.retrieve = to_raw_response_wrapper(
+            emails.retrieve,
         )
         self.render_create = to_raw_response_wrapper(
             emails.render_create,
@@ -474,8 +474,8 @@ class AsyncEmailsResourceWithRawResponse:
     def __init__(self, emails: AsyncEmailsResource) -> None:
         self._emails = emails
 
-        self.emails_retrieve = async_to_raw_response_wrapper(
-            emails.emails_retrieve,
+        self.retrieve = async_to_raw_response_wrapper(
+            emails.retrieve,
         )
         self.render_create = async_to_raw_response_wrapper(
             emails.render_create,
@@ -496,8 +496,8 @@ class EmailsResourceWithStreamingResponse:
     def __init__(self, emails: EmailsResource) -> None:
         self._emails = emails
 
-        self.emails_retrieve = to_streamed_response_wrapper(
-            emails.emails_retrieve,
+        self.retrieve = to_streamed_response_wrapper(
+            emails.retrieve,
         )
         self.render_create = to_streamed_response_wrapper(
             emails.render_create,
@@ -518,8 +518,8 @@ class AsyncEmailsResourceWithStreamingResponse:
     def __init__(self, emails: AsyncEmailsResource) -> None:
         self._emails = emails
 
-        self.emails_retrieve = async_to_streamed_response_wrapper(
-            emails.emails_retrieve,
+        self.retrieve = async_to_streamed_response_wrapper(
+            emails.retrieve,
         )
         self.render_create = async_to_streamed_response_wrapper(
             emails.render_create,

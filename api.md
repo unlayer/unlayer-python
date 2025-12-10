@@ -86,7 +86,7 @@ Types:
 
 ```python
 from unlayer.types import (
-    EmailEmailsRetrieveResponse,
+    EmailRetrieveResponse,
     EmailRenderCreateResponse,
     EmailSendCreateResponse,
     EmailSendTemplateTemplateResponse,
@@ -95,7 +95,7 @@ from unlayer.types import (
 
 Methods:
 
-- <code title="get /emails/v1/emails/{id}">client.emails.<a href="./src/unlayer/resources/emails/emails.py">emails_retrieve</a>(id) -> <a href="./src/unlayer/types/email_emails_retrieve_response.py">EmailEmailsRetrieveResponse</a></code>
+- <code title="get /emails/v1/emails/{id}">client.emails.<a href="./src/unlayer/resources/emails/emails.py">retrieve</a>(id) -> <a href="./src/unlayer/types/email_retrieve_response.py">EmailRetrieveResponse</a></code>
 - <code title="post /emails/v1/render">client.emails.<a href="./src/unlayer/resources/emails/emails.py">render_create</a>(\*\*<a href="src/unlayer/types/email_render_create_params.py">params</a>) -> <a href="./src/unlayer/types/email_render_create_response.py">EmailRenderCreateResponse</a></code>
 - <code title="post /emails/v1/send">client.emails.<a href="./src/unlayer/resources/emails/emails.py">send_create</a>(\*\*<a href="src/unlayer/types/email_send_create_params.py">params</a>) -> <a href="./src/unlayer/types/email_send_create_response.py">EmailSendCreateResponse</a></code>
 - <code title="post /emails/v1/send/template">client.emails.<a href="./src/unlayer/resources/emails/emails.py">send_template_template</a>(\*\*<a href="src/unlayer/types/email_send_template_template_params.py">params</a>) -> <a href="./src/unlayer/types/email_send_template_template_response.py">EmailSendTemplateTemplateResponse</a></code>
@@ -106,7 +106,7 @@ Types:
 
 ```python
 from unlayer.types.emails import (
-    V1EmailsRetrieveResponse,
+    V1RetrieveResponse,
     V1RenderCreateResponse,
     V1SendCreateResponse,
     V1SendTemplateTemplateResponse,
@@ -115,7 +115,7 @@ from unlayer.types.emails import (
 
 Methods:
 
-- <code title="get /emails/v1/emails/{id}">client.emails.v1.<a href="./src/unlayer/resources/emails/v1.py">emails_retrieve</a>(id) -> <a href="./src/unlayer/types/emails/v1_emails_retrieve_response.py">V1EmailsRetrieveResponse</a></code>
+- <code title="get /emails/v1/emails/{id}">client.emails.v1.<a href="./src/unlayer/resources/emails/v1.py">retrieve</a>(id) -> <a href="./src/unlayer/types/emails/v1_retrieve_response.py">V1RetrieveResponse</a></code>
 - <code title="post /emails/v1/render">client.emails.v1.<a href="./src/unlayer/resources/emails/v1.py">render_create</a>(\*\*<a href="src/unlayer/types/emails/v1_render_create_params.py">params</a>) -> <a href="./src/unlayer/types/emails/v1_render_create_response.py">V1RenderCreateResponse</a></code>
 - <code title="post /emails/v1/send">client.emails.v1.<a href="./src/unlayer/resources/emails/v1.py">send_create</a>(\*\*<a href="src/unlayer/types/emails/v1_send_create_params.py">params</a>) -> <a href="./src/unlayer/types/emails/v1_send_create_response.py">V1SendCreateResponse</a></code>
 - <code title="post /emails/v1/send/template">client.emails.v1.<a href="./src/unlayer/resources/emails/v1.py">send_template_template</a>(\*\*<a href="src/unlayer/types/emails/v1_send_template_template_params.py">params</a>) -> <a href="./src/unlayer/types/emails/v1_send_template_template_response.py">V1SendTemplateTemplateResponse</a></code>
