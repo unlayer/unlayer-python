@@ -35,7 +35,7 @@ client = Unlayer(
     api_key=os.environ.get("UNLAYER_API_KEY"),  # This is the default and can be omitted
 )
 
-response = client.project_v1.current_list()
+response = client.project.current_list()
 print(response.data)
 ```
 
@@ -59,7 +59,7 @@ client = AsyncUnlayer(
 
 
 async def main() -> None:
-    response = await client.project_v1.current_list()
+    response = await client.project.current_list()
     print(response.data)
 
 
@@ -93,7 +93,7 @@ async def main() -> None:
         api_key=os.environ.get("UNLAYER_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        response = await client.project_v1.current_list()
+        response = await client.project.current_list()
         print(response.data)
 
 
@@ -125,7 +125,7 @@ from unlayer import Unlayer
 client = Unlayer()
 
 try:
-    client.project_v1.current_list()
+    client.project.current_list()
 except unlayer.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -168,7 +168,7 @@ client = Unlayer(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).project_v1.current_list()
+client.with_options(max_retries=5).project.current_list()
 ```
 
 ### Timeouts
@@ -191,7 +191,7 @@ client = Unlayer(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).project_v1.current_list()
+client.with_options(timeout=5.0).project.current_list()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -232,11 +232,11 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from unlayer import Unlayer
 
 client = Unlayer()
-response = client.project_v1.with_raw_response.current_list()
+response = client.project.with_raw_response.current_list()
 print(response.headers.get('X-My-Header'))
 
-project_v1 = response.parse()  # get the object that `project_v1.current_list()` would have returned
-print(project_v1.data)
+project = response.parse()  # get the object that `project.current_list()` would have returned
+print(project.data)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/unlayer-python/tree/main/src/unlayer/_response.py) object.
@@ -250,7 +250,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.project_v1.with_streaming_response.current_list() as response:
+with client.project.with_streaming_response.current_list() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():

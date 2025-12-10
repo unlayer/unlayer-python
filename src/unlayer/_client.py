@@ -21,7 +21,6 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import pages, emails, project, pages_v1, documents, emails_v1, project_v1, documents_v1
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import UnlayerError, APIStatusError
 from ._base_client import (
@@ -29,18 +28,18 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+from .resources.pages import pages
+from .resources.emails import emails
+from .resources.project import project
+from .resources.documents import documents
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Unlayer", "AsyncUnlayer", "Client", "AsyncClient"]
 
 
 class Unlayer(SyncAPIClient):
-    emails_v1: emails_v1.EmailsV1Resource
-    emails: emails.EmailsResource
-    project_v1: project_v1.ProjectV1Resource
     project: project.ProjectResource
-    documents_v1: documents_v1.DocumentsV1Resource
+    emails: emails.EmailsResource
     documents: documents.DocumentsResource
-    pages_v1: pages_v1.PagesV1Resource
     pages: pages.PagesResource
     with_raw_response: UnlayerWithRawResponse
     with_streaming_response: UnlayerWithStreamedResponse
@@ -99,13 +98,9 @@ class Unlayer(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.emails_v1 = emails_v1.EmailsV1Resource(self)
-        self.emails = emails.EmailsResource(self)
-        self.project_v1 = project_v1.ProjectV1Resource(self)
         self.project = project.ProjectResource(self)
-        self.documents_v1 = documents_v1.DocumentsV1Resource(self)
+        self.emails = emails.EmailsResource(self)
         self.documents = documents.DocumentsResource(self)
-        self.pages_v1 = pages_v1.PagesV1Resource(self)
         self.pages = pages.PagesResource(self)
         self.with_raw_response = UnlayerWithRawResponse(self)
         self.with_streaming_response = UnlayerWithStreamedResponse(self)
@@ -216,13 +211,9 @@ class Unlayer(SyncAPIClient):
 
 
 class AsyncUnlayer(AsyncAPIClient):
-    emails_v1: emails_v1.AsyncEmailsV1Resource
-    emails: emails.AsyncEmailsResource
-    project_v1: project_v1.AsyncProjectV1Resource
     project: project.AsyncProjectResource
-    documents_v1: documents_v1.AsyncDocumentsV1Resource
+    emails: emails.AsyncEmailsResource
     documents: documents.AsyncDocumentsResource
-    pages_v1: pages_v1.AsyncPagesV1Resource
     pages: pages.AsyncPagesResource
     with_raw_response: AsyncUnlayerWithRawResponse
     with_streaming_response: AsyncUnlayerWithStreamedResponse
@@ -281,13 +272,9 @@ class AsyncUnlayer(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.emails_v1 = emails_v1.AsyncEmailsV1Resource(self)
-        self.emails = emails.AsyncEmailsResource(self)
-        self.project_v1 = project_v1.AsyncProjectV1Resource(self)
         self.project = project.AsyncProjectResource(self)
-        self.documents_v1 = documents_v1.AsyncDocumentsV1Resource(self)
+        self.emails = emails.AsyncEmailsResource(self)
         self.documents = documents.AsyncDocumentsResource(self)
-        self.pages_v1 = pages_v1.AsyncPagesV1Resource(self)
         self.pages = pages.AsyncPagesResource(self)
         self.with_raw_response = AsyncUnlayerWithRawResponse(self)
         self.with_streaming_response = AsyncUnlayerWithStreamedResponse(self)
@@ -399,49 +386,33 @@ class AsyncUnlayer(AsyncAPIClient):
 
 class UnlayerWithRawResponse:
     def __init__(self, client: Unlayer) -> None:
-        self.emails_v1 = emails_v1.EmailsV1ResourceWithRawResponse(client.emails_v1)
-        self.emails = emails.EmailsResourceWithRawResponse(client.emails)
-        self.project_v1 = project_v1.ProjectV1ResourceWithRawResponse(client.project_v1)
         self.project = project.ProjectResourceWithRawResponse(client.project)
-        self.documents_v1 = documents_v1.DocumentsV1ResourceWithRawResponse(client.documents_v1)
+        self.emails = emails.EmailsResourceWithRawResponse(client.emails)
         self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
-        self.pages_v1 = pages_v1.PagesV1ResourceWithRawResponse(client.pages_v1)
         self.pages = pages.PagesResourceWithRawResponse(client.pages)
 
 
 class AsyncUnlayerWithRawResponse:
     def __init__(self, client: AsyncUnlayer) -> None:
-        self.emails_v1 = emails_v1.AsyncEmailsV1ResourceWithRawResponse(client.emails_v1)
-        self.emails = emails.AsyncEmailsResourceWithRawResponse(client.emails)
-        self.project_v1 = project_v1.AsyncProjectV1ResourceWithRawResponse(client.project_v1)
         self.project = project.AsyncProjectResourceWithRawResponse(client.project)
-        self.documents_v1 = documents_v1.AsyncDocumentsV1ResourceWithRawResponse(client.documents_v1)
+        self.emails = emails.AsyncEmailsResourceWithRawResponse(client.emails)
         self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
-        self.pages_v1 = pages_v1.AsyncPagesV1ResourceWithRawResponse(client.pages_v1)
         self.pages = pages.AsyncPagesResourceWithRawResponse(client.pages)
 
 
 class UnlayerWithStreamedResponse:
     def __init__(self, client: Unlayer) -> None:
-        self.emails_v1 = emails_v1.EmailsV1ResourceWithStreamingResponse(client.emails_v1)
-        self.emails = emails.EmailsResourceWithStreamingResponse(client.emails)
-        self.project_v1 = project_v1.ProjectV1ResourceWithStreamingResponse(client.project_v1)
         self.project = project.ProjectResourceWithStreamingResponse(client.project)
-        self.documents_v1 = documents_v1.DocumentsV1ResourceWithStreamingResponse(client.documents_v1)
+        self.emails = emails.EmailsResourceWithStreamingResponse(client.emails)
         self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
-        self.pages_v1 = pages_v1.PagesV1ResourceWithStreamingResponse(client.pages_v1)
         self.pages = pages.PagesResourceWithStreamingResponse(client.pages)
 
 
 class AsyncUnlayerWithStreamedResponse:
     def __init__(self, client: AsyncUnlayer) -> None:
-        self.emails_v1 = emails_v1.AsyncEmailsV1ResourceWithStreamingResponse(client.emails_v1)
-        self.emails = emails.AsyncEmailsResourceWithStreamingResponse(client.emails)
-        self.project_v1 = project_v1.AsyncProjectV1ResourceWithStreamingResponse(client.project_v1)
         self.project = project.AsyncProjectResourceWithStreamingResponse(client.project)
-        self.documents_v1 = documents_v1.AsyncDocumentsV1ResourceWithStreamingResponse(client.documents_v1)
+        self.emails = emails.AsyncEmailsResourceWithStreamingResponse(client.emails)
         self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
-        self.pages_v1 = pages_v1.AsyncPagesV1ResourceWithStreamingResponse(client.pages_v1)
         self.pages = pages.AsyncPagesResourceWithStreamingResponse(client.pages)
 
 
