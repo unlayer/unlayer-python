@@ -10,9 +10,9 @@ import pytest
 from unlayer import Unlayer, AsyncUnlayer
 from tests.utils import assert_matches_type
 from unlayer.types import (
+    EmailRetrieveResponse,
     EmailSendCreateResponse,
     EmailRenderCreateResponse,
-    EmailEmailsRetrieveResponse,
     EmailSendTemplateTemplateResponse,
 )
 
@@ -23,40 +23,40 @@ class TestEmails:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_emails_retrieve(self, client: Unlayer) -> None:
-        email = client.emails.emails_retrieve(
+    def test_method_retrieve(self, client: Unlayer) -> None:
+        email = client.emails.retrieve(
             "id",
         )
-        assert_matches_type(EmailEmailsRetrieveResponse, email, path=["response"])
+        assert_matches_type(EmailRetrieveResponse, email, path=["response"])
 
     @parametrize
-    def test_raw_response_emails_retrieve(self, client: Unlayer) -> None:
-        response = client.emails.with_raw_response.emails_retrieve(
+    def test_raw_response_retrieve(self, client: Unlayer) -> None:
+        response = client.emails.with_raw_response.retrieve(
             "id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         email = response.parse()
-        assert_matches_type(EmailEmailsRetrieveResponse, email, path=["response"])
+        assert_matches_type(EmailRetrieveResponse, email, path=["response"])
 
     @parametrize
-    def test_streaming_response_emails_retrieve(self, client: Unlayer) -> None:
-        with client.emails.with_streaming_response.emails_retrieve(
+    def test_streaming_response_retrieve(self, client: Unlayer) -> None:
+        with client.emails.with_streaming_response.retrieve(
             "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             email = response.parse()
-            assert_matches_type(EmailEmailsRetrieveResponse, email, path=["response"])
+            assert_matches_type(EmailRetrieveResponse, email, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_emails_retrieve(self, client: Unlayer) -> None:
+    def test_path_params_retrieve(self, client: Unlayer) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.emails.with_raw_response.emails_retrieve(
+            client.emails.with_raw_response.retrieve(
                 "",
             )
 
@@ -219,40 +219,40 @@ class TestAsyncEmails:
     )
 
     @parametrize
-    async def test_method_emails_retrieve(self, async_client: AsyncUnlayer) -> None:
-        email = await async_client.emails.emails_retrieve(
+    async def test_method_retrieve(self, async_client: AsyncUnlayer) -> None:
+        email = await async_client.emails.retrieve(
             "id",
         )
-        assert_matches_type(EmailEmailsRetrieveResponse, email, path=["response"])
+        assert_matches_type(EmailRetrieveResponse, email, path=["response"])
 
     @parametrize
-    async def test_raw_response_emails_retrieve(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.emails.with_raw_response.emails_retrieve(
+    async def test_raw_response_retrieve(self, async_client: AsyncUnlayer) -> None:
+        response = await async_client.emails.with_raw_response.retrieve(
             "id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         email = await response.parse()
-        assert_matches_type(EmailEmailsRetrieveResponse, email, path=["response"])
+        assert_matches_type(EmailRetrieveResponse, email, path=["response"])
 
     @parametrize
-    async def test_streaming_response_emails_retrieve(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.emails.with_streaming_response.emails_retrieve(
+    async def test_streaming_response_retrieve(self, async_client: AsyncUnlayer) -> None:
+        async with async_client.emails.with_streaming_response.retrieve(
             "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             email = await response.parse()
-            assert_matches_type(EmailEmailsRetrieveResponse, email, path=["response"])
+            assert_matches_type(EmailRetrieveResponse, email, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_emails_retrieve(self, async_client: AsyncUnlayer) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncUnlayer) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.emails.with_raw_response.emails_retrieve(
+            await async_client.emails.with_raw_response.retrieve(
                 "",
             )
 
