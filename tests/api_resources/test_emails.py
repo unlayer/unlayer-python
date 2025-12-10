@@ -132,7 +132,7 @@ class TestEmails:
             to="test@example.com",
             html="html",
             merge_tags={"foo": "string"},
-            subject="Test Email",
+            subject="Test",
         )
         assert_matches_type(EmailSendCreateResponse, email, path=["response"])
 
@@ -328,7 +328,7 @@ class TestAsyncEmails:
             to="test@example.com",
             html="html",
             merge_tags={"foo": "string"},
-            subject="Test Email",
+            subject="Test",
         )
         assert_matches_type(EmailSendCreateResponse, email, path=["response"])
 
