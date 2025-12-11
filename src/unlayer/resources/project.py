@@ -4,61 +4,61 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from ..types import (
+    project_domains_create_params,
+    project_domains_update_params,
+    project_api_keys_create_params,
+    project_api_keys_update_params,
+    project_templates_create_params,
+    project_templates_update_params,
+)
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
-from ...types.project import (
-    v1_domains_create_params,
-    v1_domains_update_params,
-    v1_api_keys_create_params,
-    v1_api_keys_update_params,
-    v1_templates_create_params,
-    v1_templates_update_params,
-)
-from ...types.project.v1_current_list_response import V1CurrentListResponse
-from ...types.project.v1_domains_list_response import V1DomainsListResponse
-from ...types.project.v1_api_keys_list_response import V1APIKeysListResponse
-from ...types.project.v1_domains_create_response import V1DomainsCreateResponse
-from ...types.project.v1_domains_update_response import V1DomainsUpdateResponse
-from ...types.project.v1_templates_list_response import V1TemplatesListResponse
-from ...types.project.v1_api_keys_create_response import V1APIKeysCreateResponse
-from ...types.project.v1_api_keys_update_response import V1APIKeysUpdateResponse
-from ...types.project.v1_domains_retrieve_response import V1DomainsRetrieveResponse
-from ...types.project.v1_templates_create_response import V1TemplatesCreateResponse
-from ...types.project.v1_templates_update_response import V1TemplatesUpdateResponse
-from ...types.project.v1_api_keys_retrieve_response import V1APIKeysRetrieveResponse
-from ...types.project.v1_templates_retrieve_response import V1TemplatesRetrieveResponse
+from .._base_client import make_request_options
+from ..types.project_current_list_response import ProjectCurrentListResponse
+from ..types.project_domains_list_response import ProjectDomainsListResponse
+from ..types.project_api_keys_list_response import ProjectAPIKeysListResponse
+from ..types.project_domains_create_response import ProjectDomainsCreateResponse
+from ..types.project_domains_update_response import ProjectDomainsUpdateResponse
+from ..types.project_templates_list_response import ProjectTemplatesListResponse
+from ..types.project_api_keys_create_response import ProjectAPIKeysCreateResponse
+from ..types.project_api_keys_update_response import ProjectAPIKeysUpdateResponse
+from ..types.project_domains_retrieve_response import ProjectDomainsRetrieveResponse
+from ..types.project_templates_create_response import ProjectTemplatesCreateResponse
+from ..types.project_templates_update_response import ProjectTemplatesUpdateResponse
+from ..types.project_api_keys_retrieve_response import ProjectAPIKeysRetrieveResponse
+from ..types.project_templates_retrieve_response import ProjectTemplatesRetrieveResponse
 
-__all__ = ["V1Resource", "AsyncV1Resource"]
+__all__ = ["ProjectResource", "AsyncProjectResource"]
 
 
-class V1Resource(SyncAPIResource):
+class ProjectResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> V1ResourceWithRawResponse:
+    def with_raw_response(self) -> ProjectResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/unlayer-python#accessing-raw-response-data-eg-headers
         """
-        return V1ResourceWithRawResponse(self)
+        return ProjectResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> V1ResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ProjectResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/unlayer-python#with_streaming_response
         """
-        return V1ResourceWithStreamingResponse(self)
+        return ProjectResourceWithStreamingResponse(self)
 
     def api_keys_create(
         self,
@@ -71,7 +71,7 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1APIKeysCreateResponse:
+    ) -> ProjectAPIKeysCreateResponse:
         """
         Create a new API key for the project.
 
@@ -95,12 +95,12 @@ class V1Resource(SyncAPIResource):
                     "name": name,
                     "domains": domains,
                 },
-                v1_api_keys_create_params.V1APIKeysCreateParams,
+                project_api_keys_create_params.ProjectAPIKeysCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1APIKeysCreateResponse,
+            cast_to=ProjectAPIKeysCreateResponse,
         )
 
     def api_keys_delete(
@@ -146,14 +146,14 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1APIKeysListResponse:
+    ) -> ProjectAPIKeysListResponse:
         """List all API keys for the project."""
         return self._get(
             "/project/v1/api-keys",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1APIKeysListResponse,
+            cast_to=ProjectAPIKeysListResponse,
         )
 
     def api_keys_retrieve(
@@ -166,7 +166,7 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1APIKeysRetrieveResponse:
+    ) -> ProjectAPIKeysRetrieveResponse:
         """
         Get API key details by ID.
 
@@ -186,7 +186,7 @@ class V1Resource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1APIKeysRetrieveResponse,
+            cast_to=ProjectAPIKeysRetrieveResponse,
         )
 
     def api_keys_update(
@@ -202,7 +202,7 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1APIKeysUpdateResponse:
+    ) -> ProjectAPIKeysUpdateResponse:
         """
         Update API key settings.
 
@@ -231,12 +231,12 @@ class V1Resource(SyncAPIResource):
                     "domains": domains,
                     "name": name,
                 },
-                v1_api_keys_update_params.V1APIKeysUpdateParams,
+                project_api_keys_update_params.ProjectAPIKeysUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1APIKeysUpdateResponse,
+            cast_to=ProjectAPIKeysUpdateResponse,
         )
 
     def current_list(
@@ -248,14 +248,14 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1CurrentListResponse:
+    ) -> ProjectCurrentListResponse:
         """Get project details for the authenticated project."""
         return self._get(
             "/project/v1/current",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1CurrentListResponse,
+            cast_to=ProjectCurrentListResponse,
         )
 
     def domains_create(
@@ -268,7 +268,7 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1DomainsCreateResponse:
+    ) -> ProjectDomainsCreateResponse:
         """
         Add a new domain to the project.
 
@@ -285,11 +285,11 @@ class V1Resource(SyncAPIResource):
         """
         return self._post(
             "/project/v1/domains",
-            body=maybe_transform({"domain": domain}, v1_domains_create_params.V1DomainsCreateParams),
+            body=maybe_transform({"domain": domain}, project_domains_create_params.ProjectDomainsCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1DomainsCreateResponse,
+            cast_to=ProjectDomainsCreateResponse,
         )
 
     def domains_delete(
@@ -335,14 +335,14 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1DomainsListResponse:
+    ) -> ProjectDomainsListResponse:
         """List all domains for the project."""
         return self._get(
             "/project/v1/domains",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1DomainsListResponse,
+            cast_to=ProjectDomainsListResponse,
         )
 
     def domains_retrieve(
@@ -355,7 +355,7 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1DomainsRetrieveResponse:
+    ) -> ProjectDomainsRetrieveResponse:
         """
         Get domain details by ID.
 
@@ -375,7 +375,7 @@ class V1Resource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1DomainsRetrieveResponse,
+            cast_to=ProjectDomainsRetrieveResponse,
         )
 
     def domains_update(
@@ -389,7 +389,7 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1DomainsUpdateResponse:
+    ) -> ProjectDomainsUpdateResponse:
         """
         Update domain settings.
 
@@ -408,11 +408,11 @@ class V1Resource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._put(
             f"/project/v1/domains/{id}",
-            body=maybe_transform({"domain": domain}, v1_domains_update_params.V1DomainsUpdateParams),
+            body=maybe_transform({"domain": domain}, project_domains_update_params.ProjectDomainsUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1DomainsUpdateResponse,
+            cast_to=ProjectDomainsUpdateResponse,
         )
 
     def templates_create(
@@ -427,7 +427,7 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1TemplatesCreateResponse:
+    ) -> ProjectTemplatesCreateResponse:
         """
         Create a new project template.
 
@@ -454,12 +454,12 @@ class V1Resource(SyncAPIResource):
                     "body": body,
                     "subject": subject,
                 },
-                v1_templates_create_params.V1TemplatesCreateParams,
+                project_templates_create_params.ProjectTemplatesCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1TemplatesCreateResponse,
+            cast_to=ProjectTemplatesCreateResponse,
         )
 
     def templates_delete(
@@ -505,14 +505,14 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1TemplatesListResponse:
+    ) -> ProjectTemplatesListResponse:
         """Get all project templates."""
         return self._get(
             "/project/v1/templates",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1TemplatesListResponse,
+            cast_to=ProjectTemplatesListResponse,
         )
 
     def templates_retrieve(
@@ -525,7 +525,7 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1TemplatesRetrieveResponse:
+    ) -> ProjectTemplatesRetrieveResponse:
         """
         Get project template by ID.
 
@@ -545,7 +545,7 @@ class V1Resource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1TemplatesRetrieveResponse,
+            cast_to=ProjectTemplatesRetrieveResponse,
         )
 
     def templates_update(
@@ -561,7 +561,7 @@ class V1Resource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1TemplatesUpdateResponse:
+    ) -> ProjectTemplatesUpdateResponse:
         """
         Update project template.
 
@@ -590,34 +590,34 @@ class V1Resource(SyncAPIResource):
                     "name": name,
                     "subject": subject,
                 },
-                v1_templates_update_params.V1TemplatesUpdateParams,
+                project_templates_update_params.ProjectTemplatesUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1TemplatesUpdateResponse,
+            cast_to=ProjectTemplatesUpdateResponse,
         )
 
 
-class AsyncV1Resource(AsyncAPIResource):
+class AsyncProjectResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncV1ResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncProjectResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/unlayer-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncV1ResourceWithRawResponse(self)
+        return AsyncProjectResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncV1ResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncProjectResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/unlayer-python#with_streaming_response
         """
-        return AsyncV1ResourceWithStreamingResponse(self)
+        return AsyncProjectResourceWithStreamingResponse(self)
 
     async def api_keys_create(
         self,
@@ -630,7 +630,7 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1APIKeysCreateResponse:
+    ) -> ProjectAPIKeysCreateResponse:
         """
         Create a new API key for the project.
 
@@ -654,12 +654,12 @@ class AsyncV1Resource(AsyncAPIResource):
                     "name": name,
                     "domains": domains,
                 },
-                v1_api_keys_create_params.V1APIKeysCreateParams,
+                project_api_keys_create_params.ProjectAPIKeysCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1APIKeysCreateResponse,
+            cast_to=ProjectAPIKeysCreateResponse,
         )
 
     async def api_keys_delete(
@@ -705,14 +705,14 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1APIKeysListResponse:
+    ) -> ProjectAPIKeysListResponse:
         """List all API keys for the project."""
         return await self._get(
             "/project/v1/api-keys",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1APIKeysListResponse,
+            cast_to=ProjectAPIKeysListResponse,
         )
 
     async def api_keys_retrieve(
@@ -725,7 +725,7 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1APIKeysRetrieveResponse:
+    ) -> ProjectAPIKeysRetrieveResponse:
         """
         Get API key details by ID.
 
@@ -745,7 +745,7 @@ class AsyncV1Resource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1APIKeysRetrieveResponse,
+            cast_to=ProjectAPIKeysRetrieveResponse,
         )
 
     async def api_keys_update(
@@ -761,7 +761,7 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1APIKeysUpdateResponse:
+    ) -> ProjectAPIKeysUpdateResponse:
         """
         Update API key settings.
 
@@ -790,12 +790,12 @@ class AsyncV1Resource(AsyncAPIResource):
                     "domains": domains,
                     "name": name,
                 },
-                v1_api_keys_update_params.V1APIKeysUpdateParams,
+                project_api_keys_update_params.ProjectAPIKeysUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1APIKeysUpdateResponse,
+            cast_to=ProjectAPIKeysUpdateResponse,
         )
 
     async def current_list(
@@ -807,14 +807,14 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1CurrentListResponse:
+    ) -> ProjectCurrentListResponse:
         """Get project details for the authenticated project."""
         return await self._get(
             "/project/v1/current",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1CurrentListResponse,
+            cast_to=ProjectCurrentListResponse,
         )
 
     async def domains_create(
@@ -827,7 +827,7 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1DomainsCreateResponse:
+    ) -> ProjectDomainsCreateResponse:
         """
         Add a new domain to the project.
 
@@ -844,11 +844,13 @@ class AsyncV1Resource(AsyncAPIResource):
         """
         return await self._post(
             "/project/v1/domains",
-            body=await async_maybe_transform({"domain": domain}, v1_domains_create_params.V1DomainsCreateParams),
+            body=await async_maybe_transform(
+                {"domain": domain}, project_domains_create_params.ProjectDomainsCreateParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1DomainsCreateResponse,
+            cast_to=ProjectDomainsCreateResponse,
         )
 
     async def domains_delete(
@@ -894,14 +896,14 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1DomainsListResponse:
+    ) -> ProjectDomainsListResponse:
         """List all domains for the project."""
         return await self._get(
             "/project/v1/domains",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1DomainsListResponse,
+            cast_to=ProjectDomainsListResponse,
         )
 
     async def domains_retrieve(
@@ -914,7 +916,7 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1DomainsRetrieveResponse:
+    ) -> ProjectDomainsRetrieveResponse:
         """
         Get domain details by ID.
 
@@ -934,7 +936,7 @@ class AsyncV1Resource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1DomainsRetrieveResponse,
+            cast_to=ProjectDomainsRetrieveResponse,
         )
 
     async def domains_update(
@@ -948,7 +950,7 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1DomainsUpdateResponse:
+    ) -> ProjectDomainsUpdateResponse:
         """
         Update domain settings.
 
@@ -967,11 +969,13 @@ class AsyncV1Resource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._put(
             f"/project/v1/domains/{id}",
-            body=await async_maybe_transform({"domain": domain}, v1_domains_update_params.V1DomainsUpdateParams),
+            body=await async_maybe_transform(
+                {"domain": domain}, project_domains_update_params.ProjectDomainsUpdateParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1DomainsUpdateResponse,
+            cast_to=ProjectDomainsUpdateResponse,
         )
 
     async def templates_create(
@@ -986,7 +990,7 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1TemplatesCreateResponse:
+    ) -> ProjectTemplatesCreateResponse:
         """
         Create a new project template.
 
@@ -1013,12 +1017,12 @@ class AsyncV1Resource(AsyncAPIResource):
                     "body": body,
                     "subject": subject,
                 },
-                v1_templates_create_params.V1TemplatesCreateParams,
+                project_templates_create_params.ProjectTemplatesCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1TemplatesCreateResponse,
+            cast_to=ProjectTemplatesCreateResponse,
         )
 
     async def templates_delete(
@@ -1064,14 +1068,14 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1TemplatesListResponse:
+    ) -> ProjectTemplatesListResponse:
         """Get all project templates."""
         return await self._get(
             "/project/v1/templates",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1TemplatesListResponse,
+            cast_to=ProjectTemplatesListResponse,
         )
 
     async def templates_retrieve(
@@ -1084,7 +1088,7 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1TemplatesRetrieveResponse:
+    ) -> ProjectTemplatesRetrieveResponse:
         """
         Get project template by ID.
 
@@ -1104,7 +1108,7 @@ class AsyncV1Resource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1TemplatesRetrieveResponse,
+            cast_to=ProjectTemplatesRetrieveResponse,
         )
 
     async def templates_update(
@@ -1120,7 +1124,7 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> V1TemplatesUpdateResponse:
+    ) -> ProjectTemplatesUpdateResponse:
         """
         Update project template.
 
@@ -1149,226 +1153,226 @@ class AsyncV1Resource(AsyncAPIResource):
                     "name": name,
                     "subject": subject,
                 },
-                v1_templates_update_params.V1TemplatesUpdateParams,
+                project_templates_update_params.ProjectTemplatesUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=V1TemplatesUpdateResponse,
+            cast_to=ProjectTemplatesUpdateResponse,
         )
 
 
-class V1ResourceWithRawResponse:
-    def __init__(self, v1: V1Resource) -> None:
-        self._v1 = v1
+class ProjectResourceWithRawResponse:
+    def __init__(self, project: ProjectResource) -> None:
+        self._project = project
 
         self.api_keys_create = to_raw_response_wrapper(
-            v1.api_keys_create,
+            project.api_keys_create,
         )
         self.api_keys_delete = to_raw_response_wrapper(
-            v1.api_keys_delete,
+            project.api_keys_delete,
         )
         self.api_keys_list = to_raw_response_wrapper(
-            v1.api_keys_list,
+            project.api_keys_list,
         )
         self.api_keys_retrieve = to_raw_response_wrapper(
-            v1.api_keys_retrieve,
+            project.api_keys_retrieve,
         )
         self.api_keys_update = to_raw_response_wrapper(
-            v1.api_keys_update,
+            project.api_keys_update,
         )
         self.current_list = to_raw_response_wrapper(
-            v1.current_list,
+            project.current_list,
         )
         self.domains_create = to_raw_response_wrapper(
-            v1.domains_create,
+            project.domains_create,
         )
         self.domains_delete = to_raw_response_wrapper(
-            v1.domains_delete,
+            project.domains_delete,
         )
         self.domains_list = to_raw_response_wrapper(
-            v1.domains_list,
+            project.domains_list,
         )
         self.domains_retrieve = to_raw_response_wrapper(
-            v1.domains_retrieve,
+            project.domains_retrieve,
         )
         self.domains_update = to_raw_response_wrapper(
-            v1.domains_update,
+            project.domains_update,
         )
         self.templates_create = to_raw_response_wrapper(
-            v1.templates_create,
+            project.templates_create,
         )
         self.templates_delete = to_raw_response_wrapper(
-            v1.templates_delete,
+            project.templates_delete,
         )
         self.templates_list = to_raw_response_wrapper(
-            v1.templates_list,
+            project.templates_list,
         )
         self.templates_retrieve = to_raw_response_wrapper(
-            v1.templates_retrieve,
+            project.templates_retrieve,
         )
         self.templates_update = to_raw_response_wrapper(
-            v1.templates_update,
+            project.templates_update,
         )
 
 
-class AsyncV1ResourceWithRawResponse:
-    def __init__(self, v1: AsyncV1Resource) -> None:
-        self._v1 = v1
+class AsyncProjectResourceWithRawResponse:
+    def __init__(self, project: AsyncProjectResource) -> None:
+        self._project = project
 
         self.api_keys_create = async_to_raw_response_wrapper(
-            v1.api_keys_create,
+            project.api_keys_create,
         )
         self.api_keys_delete = async_to_raw_response_wrapper(
-            v1.api_keys_delete,
+            project.api_keys_delete,
         )
         self.api_keys_list = async_to_raw_response_wrapper(
-            v1.api_keys_list,
+            project.api_keys_list,
         )
         self.api_keys_retrieve = async_to_raw_response_wrapper(
-            v1.api_keys_retrieve,
+            project.api_keys_retrieve,
         )
         self.api_keys_update = async_to_raw_response_wrapper(
-            v1.api_keys_update,
+            project.api_keys_update,
         )
         self.current_list = async_to_raw_response_wrapper(
-            v1.current_list,
+            project.current_list,
         )
         self.domains_create = async_to_raw_response_wrapper(
-            v1.domains_create,
+            project.domains_create,
         )
         self.domains_delete = async_to_raw_response_wrapper(
-            v1.domains_delete,
+            project.domains_delete,
         )
         self.domains_list = async_to_raw_response_wrapper(
-            v1.domains_list,
+            project.domains_list,
         )
         self.domains_retrieve = async_to_raw_response_wrapper(
-            v1.domains_retrieve,
+            project.domains_retrieve,
         )
         self.domains_update = async_to_raw_response_wrapper(
-            v1.domains_update,
+            project.domains_update,
         )
         self.templates_create = async_to_raw_response_wrapper(
-            v1.templates_create,
+            project.templates_create,
         )
         self.templates_delete = async_to_raw_response_wrapper(
-            v1.templates_delete,
+            project.templates_delete,
         )
         self.templates_list = async_to_raw_response_wrapper(
-            v1.templates_list,
+            project.templates_list,
         )
         self.templates_retrieve = async_to_raw_response_wrapper(
-            v1.templates_retrieve,
+            project.templates_retrieve,
         )
         self.templates_update = async_to_raw_response_wrapper(
-            v1.templates_update,
+            project.templates_update,
         )
 
 
-class V1ResourceWithStreamingResponse:
-    def __init__(self, v1: V1Resource) -> None:
-        self._v1 = v1
+class ProjectResourceWithStreamingResponse:
+    def __init__(self, project: ProjectResource) -> None:
+        self._project = project
 
         self.api_keys_create = to_streamed_response_wrapper(
-            v1.api_keys_create,
+            project.api_keys_create,
         )
         self.api_keys_delete = to_streamed_response_wrapper(
-            v1.api_keys_delete,
+            project.api_keys_delete,
         )
         self.api_keys_list = to_streamed_response_wrapper(
-            v1.api_keys_list,
+            project.api_keys_list,
         )
         self.api_keys_retrieve = to_streamed_response_wrapper(
-            v1.api_keys_retrieve,
+            project.api_keys_retrieve,
         )
         self.api_keys_update = to_streamed_response_wrapper(
-            v1.api_keys_update,
+            project.api_keys_update,
         )
         self.current_list = to_streamed_response_wrapper(
-            v1.current_list,
+            project.current_list,
         )
         self.domains_create = to_streamed_response_wrapper(
-            v1.domains_create,
+            project.domains_create,
         )
         self.domains_delete = to_streamed_response_wrapper(
-            v1.domains_delete,
+            project.domains_delete,
         )
         self.domains_list = to_streamed_response_wrapper(
-            v1.domains_list,
+            project.domains_list,
         )
         self.domains_retrieve = to_streamed_response_wrapper(
-            v1.domains_retrieve,
+            project.domains_retrieve,
         )
         self.domains_update = to_streamed_response_wrapper(
-            v1.domains_update,
+            project.domains_update,
         )
         self.templates_create = to_streamed_response_wrapper(
-            v1.templates_create,
+            project.templates_create,
         )
         self.templates_delete = to_streamed_response_wrapper(
-            v1.templates_delete,
+            project.templates_delete,
         )
         self.templates_list = to_streamed_response_wrapper(
-            v1.templates_list,
+            project.templates_list,
         )
         self.templates_retrieve = to_streamed_response_wrapper(
-            v1.templates_retrieve,
+            project.templates_retrieve,
         )
         self.templates_update = to_streamed_response_wrapper(
-            v1.templates_update,
+            project.templates_update,
         )
 
 
-class AsyncV1ResourceWithStreamingResponse:
-    def __init__(self, v1: AsyncV1Resource) -> None:
-        self._v1 = v1
+class AsyncProjectResourceWithStreamingResponse:
+    def __init__(self, project: AsyncProjectResource) -> None:
+        self._project = project
 
         self.api_keys_create = async_to_streamed_response_wrapper(
-            v1.api_keys_create,
+            project.api_keys_create,
         )
         self.api_keys_delete = async_to_streamed_response_wrapper(
-            v1.api_keys_delete,
+            project.api_keys_delete,
         )
         self.api_keys_list = async_to_streamed_response_wrapper(
-            v1.api_keys_list,
+            project.api_keys_list,
         )
         self.api_keys_retrieve = async_to_streamed_response_wrapper(
-            v1.api_keys_retrieve,
+            project.api_keys_retrieve,
         )
         self.api_keys_update = async_to_streamed_response_wrapper(
-            v1.api_keys_update,
+            project.api_keys_update,
         )
         self.current_list = async_to_streamed_response_wrapper(
-            v1.current_list,
+            project.current_list,
         )
         self.domains_create = async_to_streamed_response_wrapper(
-            v1.domains_create,
+            project.domains_create,
         )
         self.domains_delete = async_to_streamed_response_wrapper(
-            v1.domains_delete,
+            project.domains_delete,
         )
         self.domains_list = async_to_streamed_response_wrapper(
-            v1.domains_list,
+            project.domains_list,
         )
         self.domains_retrieve = async_to_streamed_response_wrapper(
-            v1.domains_retrieve,
+            project.domains_retrieve,
         )
         self.domains_update = async_to_streamed_response_wrapper(
-            v1.domains_update,
+            project.domains_update,
         )
         self.templates_create = async_to_streamed_response_wrapper(
-            v1.templates_create,
+            project.templates_create,
         )
         self.templates_delete = async_to_streamed_response_wrapper(
-            v1.templates_delete,
+            project.templates_delete,
         )
         self.templates_list = async_to_streamed_response_wrapper(
-            v1.templates_list,
+            project.templates_list,
         )
         self.templates_retrieve = async_to_streamed_response_wrapper(
-            v1.templates_retrieve,
+            project.templates_retrieve,
         )
         self.templates_update = async_to_streamed_response_wrapper(
-            v1.templates_update,
+            project.templates_update,
         )

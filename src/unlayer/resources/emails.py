@@ -6,39 +6,27 @@ from typing import Dict
 
 import httpx
 
-from .v1 import (
-    V1Resource,
-    AsyncV1Resource,
-    V1ResourceWithRawResponse,
-    AsyncV1ResourceWithRawResponse,
-    V1ResourceWithStreamingResponse,
-    AsyncV1ResourceWithStreamingResponse,
-)
-from ...types import email_send_create_params, email_render_create_params, email_send_template_template_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from ..types import email_send_create_params, email_render_create_params, email_send_template_template_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
-from ...types.email_retrieve_response import EmailRetrieveResponse
-from ...types.email_send_create_response import EmailSendCreateResponse
-from ...types.email_render_create_response import EmailRenderCreateResponse
-from ...types.email_send_template_template_response import EmailSendTemplateTemplateResponse
+from .._base_client import make_request_options
+from ..types.email_retrieve_response import EmailRetrieveResponse
+from ..types.email_send_create_response import EmailSendCreateResponse
+from ..types.email_render_create_response import EmailRenderCreateResponse
+from ..types.email_send_template_template_response import EmailSendTemplateTemplateResponse
 
 __all__ = ["EmailsResource", "AsyncEmailsResource"]
 
 
 class EmailsResource(SyncAPIResource):
-    @cached_property
-    def v1(self) -> V1Resource:
-        return V1Resource(self._client)
-
     @cached_property
     def with_raw_response(self) -> EmailsResourceWithRawResponse:
         """
@@ -242,10 +230,6 @@ class EmailsResource(SyncAPIResource):
 
 
 class AsyncEmailsResource(AsyncAPIResource):
-    @cached_property
-    def v1(self) -> AsyncV1Resource:
-        return AsyncV1Resource(self._client)
-
     @cached_property
     def with_raw_response(self) -> AsyncEmailsResourceWithRawResponse:
         """
@@ -465,10 +449,6 @@ class EmailsResourceWithRawResponse:
             emails.send_template_template,
         )
 
-    @cached_property
-    def v1(self) -> V1ResourceWithRawResponse:
-        return V1ResourceWithRawResponse(self._emails.v1)
-
 
 class AsyncEmailsResourceWithRawResponse:
     def __init__(self, emails: AsyncEmailsResource) -> None:
@@ -486,10 +466,6 @@ class AsyncEmailsResourceWithRawResponse:
         self.send_template_template = async_to_raw_response_wrapper(
             emails.send_template_template,
         )
-
-    @cached_property
-    def v1(self) -> AsyncV1ResourceWithRawResponse:
-        return AsyncV1ResourceWithRawResponse(self._emails.v1)
 
 
 class EmailsResourceWithStreamingResponse:
@@ -509,10 +485,6 @@ class EmailsResourceWithStreamingResponse:
             emails.send_template_template,
         )
 
-    @cached_property
-    def v1(self) -> V1ResourceWithStreamingResponse:
-        return V1ResourceWithStreamingResponse(self._emails.v1)
-
 
 class AsyncEmailsResourceWithStreamingResponse:
     def __init__(self, emails: AsyncEmailsResource) -> None:
@@ -530,7 +502,3 @@ class AsyncEmailsResourceWithStreamingResponse:
         self.send_template_template = async_to_streamed_response_wrapper(
             emails.send_template_template,
         )
-
-    @cached_property
-    def v1(self) -> AsyncV1ResourceWithStreamingResponse:
-        return AsyncV1ResourceWithStreamingResponse(self._emails.v1)

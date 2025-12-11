@@ -6,38 +6,26 @@ from typing import Dict
 
 import httpx
 
-from .v1 import (
-    V1Resource,
-    AsyncV1Resource,
-    V1ResourceWithRawResponse,
-    AsyncV1ResourceWithRawResponse,
-    V1ResourceWithStreamingResponse,
-    AsyncV1ResourceWithStreamingResponse,
-)
-from ...types import document_generate_create_params, document_generate_template_template_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from ..types import document_generate_create_params, document_generate_template_template_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
-from ...types.document_generate_create_response import DocumentGenerateCreateResponse
-from ...types.document_documents_retrieve_response import DocumentDocumentsRetrieveResponse
-from ...types.document_generate_template_template_response import DocumentGenerateTemplateTemplateResponse
+from .._base_client import make_request_options
+from ..types.document_generate_create_response import DocumentGenerateCreateResponse
+from ..types.document_documents_retrieve_response import DocumentDocumentsRetrieveResponse
+from ..types.document_generate_template_template_response import DocumentGenerateTemplateTemplateResponse
 
 __all__ = ["DocumentsResource", "AsyncDocumentsResource"]
 
 
 class DocumentsResource(SyncAPIResource):
-    @cached_property
-    def v1(self) -> V1Resource:
-        return V1Resource(self._client)
-
     @cached_property
     def with_raw_response(self) -> DocumentsResourceWithRawResponse:
         """
@@ -194,10 +182,6 @@ class DocumentsResource(SyncAPIResource):
 
 
 class AsyncDocumentsResource(AsyncAPIResource):
-    @cached_property
-    def v1(self) -> AsyncV1Resource:
-        return AsyncV1Resource(self._client)
-
     @cached_property
     def with_raw_response(self) -> AsyncDocumentsResourceWithRawResponse:
         """
@@ -367,10 +351,6 @@ class DocumentsResourceWithRawResponse:
             documents.generate_template_template,
         )
 
-    @cached_property
-    def v1(self) -> V1ResourceWithRawResponse:
-        return V1ResourceWithRawResponse(self._documents.v1)
-
 
 class AsyncDocumentsResourceWithRawResponse:
     def __init__(self, documents: AsyncDocumentsResource) -> None:
@@ -385,10 +365,6 @@ class AsyncDocumentsResourceWithRawResponse:
         self.generate_template_template = async_to_raw_response_wrapper(
             documents.generate_template_template,
         )
-
-    @cached_property
-    def v1(self) -> AsyncV1ResourceWithRawResponse:
-        return AsyncV1ResourceWithRawResponse(self._documents.v1)
 
 
 class DocumentsResourceWithStreamingResponse:
@@ -405,10 +381,6 @@ class DocumentsResourceWithStreamingResponse:
             documents.generate_template_template,
         )
 
-    @cached_property
-    def v1(self) -> V1ResourceWithStreamingResponse:
-        return V1ResourceWithStreamingResponse(self._documents.v1)
-
 
 class AsyncDocumentsResourceWithStreamingResponse:
     def __init__(self, documents: AsyncDocumentsResource) -> None:
@@ -423,7 +395,3 @@ class AsyncDocumentsResourceWithStreamingResponse:
         self.generate_template_template = async_to_streamed_response_wrapper(
             documents.generate_template_template,
         )
-
-    @cached_property
-    def v1(self) -> AsyncV1ResourceWithStreamingResponse:
-        return AsyncV1ResourceWithStreamingResponse(self._documents.v1)
