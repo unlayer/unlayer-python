@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
-from typing_extensions import Self, override
+from typing import Any, Dict, Mapping, cast
+from typing_extensions import Self, Literal, override
 
 import httpx
 
@@ -30,25 +30,44 @@ from ._base_client import (
     AsyncAPIClient,
 )
 
-__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Unlayer", "AsyncUnlayer", "Client", "AsyncClient"]
+__all__ = [
+    "ENVIRONMENTS",
+    "Timeout",
+    "Transport",
+    "ProxiesTypes",
+    "RequestOptions",
+    "Unlayer",
+    "AsyncUnlayer",
+    "Client",
+    "AsyncClient",
+]
+
+ENVIRONMENTS: Dict[str, str] = {
+    "production": "https://api.unlayer.com",
+    "qa": "https://api.qa.unlayer.com",
+    "dev": "https://api.dev.unlayer.com",
+}
 
 
 class Unlayer(SyncAPIClient):
     project: project.ProjectResource
-    documents: documents.DocumentsResource
-    pages: pages.PagesResource
     emails: emails.EmailsResource
+    pages: pages.PagesResource
+    documents: documents.DocumentsResource
     with_raw_response: UnlayerWithRawResponse
     with_streaming_response: UnlayerWithStreamedResponse
 
     # client options
     api_key: str
 
+    _environment: Literal["production", "qa", "dev"] | NotGiven
+
     def __init__(
         self,
         *,
         api_key: str | None = None,
-        base_url: str | httpx.URL | None = None,
+        environment: Literal["production", "qa", "dev"] | NotGiven = not_given,
+        base_url: str | httpx.URL | None | NotGiven = not_given,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
@@ -79,10 +98,31 @@ class Unlayer(SyncAPIClient):
             )
         self.api_key = api_key
 
-        if base_url is None:
-            base_url = os.environ.get("UNLAYER_BASE_URL")
-        if base_url is None:
-            base_url = f"https://api.unlayer.com"
+        self._environment = environment
+
+        base_url_env = os.environ.get("UNLAYER_BASE_URL")
+        if is_given(base_url) and base_url is not None:
+            # cast required because mypy doesn't understand the type narrowing
+            base_url = cast("str | httpx.URL", base_url)  # pyright: ignore[reportUnnecessaryCast]
+        elif is_given(environment):
+            if base_url_env and base_url is not None:
+                raise ValueError(
+                    "Ambiguous URL; The `UNLAYER_BASE_URL` env var and the `environment` argument are given. If you want to use the environment, you must pass base_url=None",
+                )
+
+            try:
+                base_url = ENVIRONMENTS[environment]
+            except KeyError as exc:
+                raise ValueError(f"Unknown environment: {environment}") from exc
+        elif base_url_env is not None:
+            base_url = base_url_env
+        else:
+            self._environment = environment = "production"
+
+            try:
+                base_url = ENVIRONMENTS[environment]
+            except KeyError as exc:
+                raise ValueError(f"Unknown environment: {environment}") from exc
 
         super().__init__(
             version=__version__,
@@ -96,9 +136,9 @@ class Unlayer(SyncAPIClient):
         )
 
         self.project = project.ProjectResource(self)
-        self.documents = documents.DocumentsResource(self)
-        self.pages = pages.PagesResource(self)
         self.emails = emails.EmailsResource(self)
+        self.pages = pages.PagesResource(self)
+        self.documents = documents.DocumentsResource(self)
         self.with_raw_response = UnlayerWithRawResponse(self)
         self.with_streaming_response = UnlayerWithStreamedResponse(self)
 
@@ -126,6 +166,7 @@ class Unlayer(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        environment: Literal["production", "qa", "dev"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
@@ -161,6 +202,7 @@ class Unlayer(SyncAPIClient):
         return self.__class__(
             api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
+            environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
             max_retries=max_retries if is_given(max_retries) else self.max_retries,
@@ -209,20 +251,23 @@ class Unlayer(SyncAPIClient):
 
 class AsyncUnlayer(AsyncAPIClient):
     project: project.AsyncProjectResource
-    documents: documents.AsyncDocumentsResource
-    pages: pages.AsyncPagesResource
     emails: emails.AsyncEmailsResource
+    pages: pages.AsyncPagesResource
+    documents: documents.AsyncDocumentsResource
     with_raw_response: AsyncUnlayerWithRawResponse
     with_streaming_response: AsyncUnlayerWithStreamedResponse
 
     # client options
     api_key: str
 
+    _environment: Literal["production", "qa", "dev"] | NotGiven
+
     def __init__(
         self,
         *,
         api_key: str | None = None,
-        base_url: str | httpx.URL | None = None,
+        environment: Literal["production", "qa", "dev"] | NotGiven = not_given,
+        base_url: str | httpx.URL | None | NotGiven = not_given,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
@@ -253,10 +298,31 @@ class AsyncUnlayer(AsyncAPIClient):
             )
         self.api_key = api_key
 
-        if base_url is None:
-            base_url = os.environ.get("UNLAYER_BASE_URL")
-        if base_url is None:
-            base_url = f"https://api.unlayer.com"
+        self._environment = environment
+
+        base_url_env = os.environ.get("UNLAYER_BASE_URL")
+        if is_given(base_url) and base_url is not None:
+            # cast required because mypy doesn't understand the type narrowing
+            base_url = cast("str | httpx.URL", base_url)  # pyright: ignore[reportUnnecessaryCast]
+        elif is_given(environment):
+            if base_url_env and base_url is not None:
+                raise ValueError(
+                    "Ambiguous URL; The `UNLAYER_BASE_URL` env var and the `environment` argument are given. If you want to use the environment, you must pass base_url=None",
+                )
+
+            try:
+                base_url = ENVIRONMENTS[environment]
+            except KeyError as exc:
+                raise ValueError(f"Unknown environment: {environment}") from exc
+        elif base_url_env is not None:
+            base_url = base_url_env
+        else:
+            self._environment = environment = "production"
+
+            try:
+                base_url = ENVIRONMENTS[environment]
+            except KeyError as exc:
+                raise ValueError(f"Unknown environment: {environment}") from exc
 
         super().__init__(
             version=__version__,
@@ -270,9 +336,9 @@ class AsyncUnlayer(AsyncAPIClient):
         )
 
         self.project = project.AsyncProjectResource(self)
-        self.documents = documents.AsyncDocumentsResource(self)
-        self.pages = pages.AsyncPagesResource(self)
         self.emails = emails.AsyncEmailsResource(self)
+        self.pages = pages.AsyncPagesResource(self)
+        self.documents = documents.AsyncDocumentsResource(self)
         self.with_raw_response = AsyncUnlayerWithRawResponse(self)
         self.with_streaming_response = AsyncUnlayerWithStreamedResponse(self)
 
@@ -300,6 +366,7 @@ class AsyncUnlayer(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        environment: Literal["production", "qa", "dev"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
@@ -335,6 +402,7 @@ class AsyncUnlayer(AsyncAPIClient):
         return self.__class__(
             api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
+            environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
             max_retries=max_retries if is_given(max_retries) else self.max_retries,
@@ -384,33 +452,33 @@ class AsyncUnlayer(AsyncAPIClient):
 class UnlayerWithRawResponse:
     def __init__(self, client: Unlayer) -> None:
         self.project = project.ProjectResourceWithRawResponse(client.project)
-        self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
-        self.pages = pages.PagesResourceWithRawResponse(client.pages)
         self.emails = emails.EmailsResourceWithRawResponse(client.emails)
+        self.pages = pages.PagesResourceWithRawResponse(client.pages)
+        self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
 
 
 class AsyncUnlayerWithRawResponse:
     def __init__(self, client: AsyncUnlayer) -> None:
         self.project = project.AsyncProjectResourceWithRawResponse(client.project)
-        self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
-        self.pages = pages.AsyncPagesResourceWithRawResponse(client.pages)
         self.emails = emails.AsyncEmailsResourceWithRawResponse(client.emails)
+        self.pages = pages.AsyncPagesResourceWithRawResponse(client.pages)
+        self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
 
 
 class UnlayerWithStreamedResponse:
     def __init__(self, client: Unlayer) -> None:
         self.project = project.ProjectResourceWithStreamingResponse(client.project)
-        self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
-        self.pages = pages.PagesResourceWithStreamingResponse(client.pages)
         self.emails = emails.EmailsResourceWithStreamingResponse(client.emails)
+        self.pages = pages.PagesResourceWithStreamingResponse(client.pages)
+        self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
 
 
 class AsyncUnlayerWithStreamedResponse:
     def __init__(self, client: AsyncUnlayer) -> None:
         self.project = project.AsyncProjectResourceWithStreamingResponse(client.project)
-        self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
-        self.pages = pages.AsyncPagesResourceWithStreamingResponse(client.pages)
         self.emails = emails.AsyncEmailsResourceWithStreamingResponse(client.emails)
+        self.pages = pages.AsyncPagesResourceWithStreamingResponse(client.pages)
+        self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
 
 
 Client = Unlayer

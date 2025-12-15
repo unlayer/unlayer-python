@@ -33,6 +33,8 @@ from unlayer import Unlayer
 
 client = Unlayer(
     api_key=os.environ.get("UNLAYER_API_KEY"),  # This is the default and can be omitted
+    # or 'production' | 'dev'; defaults to "production".
+    environment="qa",
 )
 
 response = client.project.current_list()
@@ -55,6 +57,8 @@ from unlayer import AsyncUnlayer
 
 client = AsyncUnlayer(
     api_key=os.environ.get("UNLAYER_API_KEY"),  # This is the default and can be omitted
+    # or 'production' | 'dev'; defaults to "production".
+    environment="qa",
 )
 
 

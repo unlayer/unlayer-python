@@ -572,6 +572,16 @@ class TestUnlayer:
             client = Unlayer(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
+        # explicit environment arg requires explicitness
+        with update_env(UNLAYER_BASE_URL="http://localhost:5000/from/env"):
+            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
+                Unlayer(api_key=api_key, _strict_response_validation=True, environment="production")
+
+            client = Unlayer(base_url=None, api_key=api_key, _strict_response_validation=True, environment="production")
+            assert str(client.base_url).startswith("https://api.unlayer.com")
+
+            client.close()
+
     @pytest.mark.parametrize(
         "client",
         [
@@ -1394,6 +1404,18 @@ class TestAsyncUnlayer:
         with update_env(UNLAYER_BASE_URL="http://localhost:5000/from/env"):
             client = AsyncUnlayer(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
+
+        # explicit environment arg requires explicitness
+        with update_env(UNLAYER_BASE_URL="http://localhost:5000/from/env"):
+            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
+                AsyncUnlayer(api_key=api_key, _strict_response_validation=True, environment="production")
+
+            client = AsyncUnlayer(
+                base_url=None, api_key=api_key, _strict_response_validation=True, environment="production"
+            )
+            assert str(client.base_url).startswith("https://api.unlayer.com")
+
+            await client.close()
 
     @pytest.mark.parametrize(
         "client",
