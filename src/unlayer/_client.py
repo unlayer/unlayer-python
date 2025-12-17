@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, Mapping, cast
+from typing import TYPE_CHECKING, Any, Dict, Mapping, cast
 from typing_extensions import Self, Literal, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import pages, emails, project, documents
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import UnlayerError, APIStatusError
 from ._base_client import (
@@ -29,6 +29,13 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+
+if TYPE_CHECKING:
+    from .resources import pages, emails, project, documents
+    from .resources.pages import PagesResource, AsyncPagesResource
+    from .resources.emails import EmailsResource, AsyncEmailsResource
+    from .resources.project import ProjectResource, AsyncProjectResource
+    from .resources.documents import DocumentsResource, AsyncDocumentsResource
 
 __all__ = [
     "ENVIRONMENTS",
@@ -50,13 +57,6 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Unlayer(SyncAPIClient):
-    project: project.ProjectResource
-    emails: emails.EmailsResource
-    pages: pages.PagesResource
-    documents: documents.DocumentsResource
-    with_raw_response: UnlayerWithRawResponse
-    with_streaming_response: UnlayerWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -135,12 +135,37 @@ class Unlayer(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.project = project.ProjectResource(self)
-        self.emails = emails.EmailsResource(self)
-        self.pages = pages.PagesResource(self)
-        self.documents = documents.DocumentsResource(self)
-        self.with_raw_response = UnlayerWithRawResponse(self)
-        self.with_streaming_response = UnlayerWithStreamedResponse(self)
+    @cached_property
+    def project(self) -> ProjectResource:
+        from .resources.project import ProjectResource
+
+        return ProjectResource(self)
+
+    @cached_property
+    def emails(self) -> EmailsResource:
+        from .resources.emails import EmailsResource
+
+        return EmailsResource(self)
+
+    @cached_property
+    def pages(self) -> PagesResource:
+        from .resources.pages import PagesResource
+
+        return PagesResource(self)
+
+    @cached_property
+    def documents(self) -> DocumentsResource:
+        from .resources.documents import DocumentsResource
+
+        return DocumentsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> UnlayerWithRawResponse:
+        return UnlayerWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> UnlayerWithStreamedResponse:
+        return UnlayerWithStreamedResponse(self)
 
     @property
     @override
@@ -250,13 +275,6 @@ class Unlayer(SyncAPIClient):
 
 
 class AsyncUnlayer(AsyncAPIClient):
-    project: project.AsyncProjectResource
-    emails: emails.AsyncEmailsResource
-    pages: pages.AsyncPagesResource
-    documents: documents.AsyncDocumentsResource
-    with_raw_response: AsyncUnlayerWithRawResponse
-    with_streaming_response: AsyncUnlayerWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -335,12 +353,37 @@ class AsyncUnlayer(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.project = project.AsyncProjectResource(self)
-        self.emails = emails.AsyncEmailsResource(self)
-        self.pages = pages.AsyncPagesResource(self)
-        self.documents = documents.AsyncDocumentsResource(self)
-        self.with_raw_response = AsyncUnlayerWithRawResponse(self)
-        self.with_streaming_response = AsyncUnlayerWithStreamedResponse(self)
+    @cached_property
+    def project(self) -> AsyncProjectResource:
+        from .resources.project import AsyncProjectResource
+
+        return AsyncProjectResource(self)
+
+    @cached_property
+    def emails(self) -> AsyncEmailsResource:
+        from .resources.emails import AsyncEmailsResource
+
+        return AsyncEmailsResource(self)
+
+    @cached_property
+    def pages(self) -> AsyncPagesResource:
+        from .resources.pages import AsyncPagesResource
+
+        return AsyncPagesResource(self)
+
+    @cached_property
+    def documents(self) -> AsyncDocumentsResource:
+        from .resources.documents import AsyncDocumentsResource
+
+        return AsyncDocumentsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncUnlayerWithRawResponse:
+        return AsyncUnlayerWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncUnlayerWithStreamedResponse:
+        return AsyncUnlayerWithStreamedResponse(self)
 
     @property
     @override
@@ -450,35 +493,127 @@ class AsyncUnlayer(AsyncAPIClient):
 
 
 class UnlayerWithRawResponse:
+    _client: Unlayer
+
     def __init__(self, client: Unlayer) -> None:
-        self.project = project.ProjectResourceWithRawResponse(client.project)
-        self.emails = emails.EmailsResourceWithRawResponse(client.emails)
-        self.pages = pages.PagesResourceWithRawResponse(client.pages)
-        self.documents = documents.DocumentsResourceWithRawResponse(client.documents)
+        self._client = client
+
+    @cached_property
+    def project(self) -> project.ProjectResourceWithRawResponse:
+        from .resources.project import ProjectResourceWithRawResponse
+
+        return ProjectResourceWithRawResponse(self._client.project)
+
+    @cached_property
+    def emails(self) -> emails.EmailsResourceWithRawResponse:
+        from .resources.emails import EmailsResourceWithRawResponse
+
+        return EmailsResourceWithRawResponse(self._client.emails)
+
+    @cached_property
+    def pages(self) -> pages.PagesResourceWithRawResponse:
+        from .resources.pages import PagesResourceWithRawResponse
+
+        return PagesResourceWithRawResponse(self._client.pages)
+
+    @cached_property
+    def documents(self) -> documents.DocumentsResourceWithRawResponse:
+        from .resources.documents import DocumentsResourceWithRawResponse
+
+        return DocumentsResourceWithRawResponse(self._client.documents)
 
 
 class AsyncUnlayerWithRawResponse:
+    _client: AsyncUnlayer
+
     def __init__(self, client: AsyncUnlayer) -> None:
-        self.project = project.AsyncProjectResourceWithRawResponse(client.project)
-        self.emails = emails.AsyncEmailsResourceWithRawResponse(client.emails)
-        self.pages = pages.AsyncPagesResourceWithRawResponse(client.pages)
-        self.documents = documents.AsyncDocumentsResourceWithRawResponse(client.documents)
+        self._client = client
+
+    @cached_property
+    def project(self) -> project.AsyncProjectResourceWithRawResponse:
+        from .resources.project import AsyncProjectResourceWithRawResponse
+
+        return AsyncProjectResourceWithRawResponse(self._client.project)
+
+    @cached_property
+    def emails(self) -> emails.AsyncEmailsResourceWithRawResponse:
+        from .resources.emails import AsyncEmailsResourceWithRawResponse
+
+        return AsyncEmailsResourceWithRawResponse(self._client.emails)
+
+    @cached_property
+    def pages(self) -> pages.AsyncPagesResourceWithRawResponse:
+        from .resources.pages import AsyncPagesResourceWithRawResponse
+
+        return AsyncPagesResourceWithRawResponse(self._client.pages)
+
+    @cached_property
+    def documents(self) -> documents.AsyncDocumentsResourceWithRawResponse:
+        from .resources.documents import AsyncDocumentsResourceWithRawResponse
+
+        return AsyncDocumentsResourceWithRawResponse(self._client.documents)
 
 
 class UnlayerWithStreamedResponse:
+    _client: Unlayer
+
     def __init__(self, client: Unlayer) -> None:
-        self.project = project.ProjectResourceWithStreamingResponse(client.project)
-        self.emails = emails.EmailsResourceWithStreamingResponse(client.emails)
-        self.pages = pages.PagesResourceWithStreamingResponse(client.pages)
-        self.documents = documents.DocumentsResourceWithStreamingResponse(client.documents)
+        self._client = client
+
+    @cached_property
+    def project(self) -> project.ProjectResourceWithStreamingResponse:
+        from .resources.project import ProjectResourceWithStreamingResponse
+
+        return ProjectResourceWithStreamingResponse(self._client.project)
+
+    @cached_property
+    def emails(self) -> emails.EmailsResourceWithStreamingResponse:
+        from .resources.emails import EmailsResourceWithStreamingResponse
+
+        return EmailsResourceWithStreamingResponse(self._client.emails)
+
+    @cached_property
+    def pages(self) -> pages.PagesResourceWithStreamingResponse:
+        from .resources.pages import PagesResourceWithStreamingResponse
+
+        return PagesResourceWithStreamingResponse(self._client.pages)
+
+    @cached_property
+    def documents(self) -> documents.DocumentsResourceWithStreamingResponse:
+        from .resources.documents import DocumentsResourceWithStreamingResponse
+
+        return DocumentsResourceWithStreamingResponse(self._client.documents)
 
 
 class AsyncUnlayerWithStreamedResponse:
+    _client: AsyncUnlayer
+
     def __init__(self, client: AsyncUnlayer) -> None:
-        self.project = project.AsyncProjectResourceWithStreamingResponse(client.project)
-        self.emails = emails.AsyncEmailsResourceWithStreamingResponse(client.emails)
-        self.pages = pages.AsyncPagesResourceWithStreamingResponse(client.pages)
-        self.documents = documents.AsyncDocumentsResourceWithStreamingResponse(client.documents)
+        self._client = client
+
+    @cached_property
+    def project(self) -> project.AsyncProjectResourceWithStreamingResponse:
+        from .resources.project import AsyncProjectResourceWithStreamingResponse
+
+        return AsyncProjectResourceWithStreamingResponse(self._client.project)
+
+    @cached_property
+    def emails(self) -> emails.AsyncEmailsResourceWithStreamingResponse:
+        from .resources.emails import AsyncEmailsResourceWithStreamingResponse
+
+        return AsyncEmailsResourceWithStreamingResponse(self._client.emails)
+
+    @cached_property
+    def pages(self) -> pages.AsyncPagesResourceWithStreamingResponse:
+        from .resources.pages import AsyncPagesResourceWithStreamingResponse
+
+        return AsyncPagesResourceWithStreamingResponse(self._client.pages)
+
+    @cached_property
+    def documents(self) -> documents.AsyncDocumentsResourceWithStreamingResponse:
+        from .resources.documents import AsyncDocumentsResourceWithStreamingResponse
+
+        return AsyncDocumentsResourceWithStreamingResponse(self._client.documents)
 
 
 Client = Unlayer
