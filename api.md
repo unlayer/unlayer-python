@@ -1,3 +1,33 @@
+# Pages
+
+Types:
+
+```python
+from unlayer.types import PageRenderCreateResponse
+```
+
+Methods:
+
+- <code title="post /pages/v1/render">client.pages.<a href="./src/unlayer/resources/pages.py">render_create</a>(\*\*<a href="src/unlayer/types/page_render_create_params.py">params</a>) -> <a href="./src/unlayer/types/page_render_create_response.py">PageRenderCreateResponse</a></code>
+
+# Documents
+
+Types:
+
+```python
+from unlayer.types import (
+    DocumentDocumentsRetrieveResponse,
+    DocumentGenerateCreateResponse,
+    DocumentGenerateTemplateTemplateResponse,
+)
+```
+
+Methods:
+
+- <code title="get /documents/v1/documents/{id}">client.documents.<a href="./src/unlayer/resources/documents.py">documents_retrieve</a>(id) -> <a href="./src/unlayer/types/document_documents_retrieve_response.py">DocumentDocumentsRetrieveResponse</a></code>
+- <code title="post /documents/v1/generate">client.documents.<a href="./src/unlayer/resources/documents.py">generate_create</a>(\*\*<a href="src/unlayer/types/document_generate_create_params.py">params</a>) -> <a href="./src/unlayer/types/document_generate_create_response.py">DocumentGenerateCreateResponse</a></code>
+- <code title="post /documents/v1/generate/template">client.documents.<a href="./src/unlayer/resources/documents.py">generate_template_template</a>(\*\*<a href="src/unlayer/types/document_generate_template_template_params.py">params</a>) -> <a href="./src/unlayer/types/document_generate_template_template_response.py">DocumentGenerateTemplateTemplateResponse</a></code>
+
 # Emails
 
 Types:
@@ -58,33 +88,3 @@ Methods:
 - <code title="get /project/v1/templates">client.project.<a href="./src/unlayer/resources/project.py">templates_list</a>() -> <a href="./src/unlayer/types/project_templates_list_response.py">ProjectTemplatesListResponse</a></code>
 - <code title="get /project/v1/templates/{id}">client.project.<a href="./src/unlayer/resources/project.py">templates_retrieve</a>(id) -> <a href="./src/unlayer/types/project_templates_retrieve_response.py">ProjectTemplatesRetrieveResponse</a></code>
 - <code title="put /project/v1/templates/{id}">client.project.<a href="./src/unlayer/resources/project.py">templates_update</a>(id, \*\*<a href="src/unlayer/types/project_templates_update_params.py">params</a>) -> <a href="./src/unlayer/types/project_templates_update_response.py">ProjectTemplatesUpdateResponse</a></code>
-
-# Documents
-
-Types:
-
-```python
-from unlayer.types import (
-    DocumentDocumentsRetrieveResponse,
-    DocumentGenerateCreateResponse,
-    DocumentGenerateTemplateTemplateResponse,
-)
-```
-
-Methods:
-
-- <code title="get /documents/v1/documents/{id}">client.documents.<a href="./src/unlayer/resources/documents.py">documents_retrieve</a>(id) -> <a href="./src/unlayer/types/document_documents_retrieve_response.py">DocumentDocumentsRetrieveResponse</a></code>
-- <code title="post /documents/v1/generate">client.documents.<a href="./src/unlayer/resources/documents.py">generate_create</a>(\*\*<a href="src/unlayer/types/document_generate_create_params.py">params</a>) -> <a href="./src/unlayer/types/document_generate_create_response.py">DocumentGenerateCreateResponse</a></code>
-- <code title="post /documents/v1/generate/template">client.documents.<a href="./src/unlayer/resources/documents.py">generate_template_template</a>(\*\*<a href="src/unlayer/types/document_generate_template_template_params.py">params</a>) -> <a href="./src/unlayer/types/document_generate_template_template_response.py">DocumentGenerateTemplateTemplateResponse</a></code>
-
-# Pages
-
-Types:
-
-```python
-from unlayer.types import PageRenderCreateResponse
-```
-
-Methods:
-
-- <code title="post /pages/v1/render">client.pages.<a href="./src/unlayer/resources/pages.py">render_create</a>(\*\*<a href="src/unlayer/types/page_render_create_params.py">params</a>) -> <a href="./src/unlayer/types/page_render_create_response.py">PageRenderCreateResponse</a></code>
