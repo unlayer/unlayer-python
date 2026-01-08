@@ -136,10 +136,10 @@ class Unlayer(SyncAPIClient):
         )
 
     @cached_property
-    def project(self) -> ProjectResource:
-        from .resources.project import ProjectResource
+    def pages(self) -> PagesResource:
+        from .resources.pages import PagesResource
 
-        return ProjectResource(self)
+        return PagesResource(self)
 
     @cached_property
     def emails(self) -> EmailsResource:
@@ -148,10 +148,10 @@ class Unlayer(SyncAPIClient):
         return EmailsResource(self)
 
     @cached_property
-    def pages(self) -> PagesResource:
-        from .resources.pages import PagesResource
+    def project(self) -> ProjectResource:
+        from .resources.project import ProjectResource
 
-        return PagesResource(self)
+        return ProjectResource(self)
 
     @cached_property
     def documents(self) -> DocumentsResource:
@@ -354,10 +354,10 @@ class AsyncUnlayer(AsyncAPIClient):
         )
 
     @cached_property
-    def project(self) -> AsyncProjectResource:
-        from .resources.project import AsyncProjectResource
+    def pages(self) -> AsyncPagesResource:
+        from .resources.pages import AsyncPagesResource
 
-        return AsyncProjectResource(self)
+        return AsyncPagesResource(self)
 
     @cached_property
     def emails(self) -> AsyncEmailsResource:
@@ -366,10 +366,10 @@ class AsyncUnlayer(AsyncAPIClient):
         return AsyncEmailsResource(self)
 
     @cached_property
-    def pages(self) -> AsyncPagesResource:
-        from .resources.pages import AsyncPagesResource
+    def project(self) -> AsyncProjectResource:
+        from .resources.project import AsyncProjectResource
 
-        return AsyncPagesResource(self)
+        return AsyncProjectResource(self)
 
     @cached_property
     def documents(self) -> AsyncDocumentsResource:
@@ -499,10 +499,10 @@ class UnlayerWithRawResponse:
         self._client = client
 
     @cached_property
-    def project(self) -> project.ProjectResourceWithRawResponse:
-        from .resources.project import ProjectResourceWithRawResponse
+    def pages(self) -> pages.PagesResourceWithRawResponse:
+        from .resources.pages import PagesResourceWithRawResponse
 
-        return ProjectResourceWithRawResponse(self._client.project)
+        return PagesResourceWithRawResponse(self._client.pages)
 
     @cached_property
     def emails(self) -> emails.EmailsResourceWithRawResponse:
@@ -511,10 +511,10 @@ class UnlayerWithRawResponse:
         return EmailsResourceWithRawResponse(self._client.emails)
 
     @cached_property
-    def pages(self) -> pages.PagesResourceWithRawResponse:
-        from .resources.pages import PagesResourceWithRawResponse
+    def project(self) -> project.ProjectResourceWithRawResponse:
+        from .resources.project import ProjectResourceWithRawResponse
 
-        return PagesResourceWithRawResponse(self._client.pages)
+        return ProjectResourceWithRawResponse(self._client.project)
 
     @cached_property
     def documents(self) -> documents.DocumentsResourceWithRawResponse:
@@ -530,10 +530,10 @@ class AsyncUnlayerWithRawResponse:
         self._client = client
 
     @cached_property
-    def project(self) -> project.AsyncProjectResourceWithRawResponse:
-        from .resources.project import AsyncProjectResourceWithRawResponse
+    def pages(self) -> pages.AsyncPagesResourceWithRawResponse:
+        from .resources.pages import AsyncPagesResourceWithRawResponse
 
-        return AsyncProjectResourceWithRawResponse(self._client.project)
+        return AsyncPagesResourceWithRawResponse(self._client.pages)
 
     @cached_property
     def emails(self) -> emails.AsyncEmailsResourceWithRawResponse:
@@ -542,10 +542,10 @@ class AsyncUnlayerWithRawResponse:
         return AsyncEmailsResourceWithRawResponse(self._client.emails)
 
     @cached_property
-    def pages(self) -> pages.AsyncPagesResourceWithRawResponse:
-        from .resources.pages import AsyncPagesResourceWithRawResponse
+    def project(self) -> project.AsyncProjectResourceWithRawResponse:
+        from .resources.project import AsyncProjectResourceWithRawResponse
 
-        return AsyncPagesResourceWithRawResponse(self._client.pages)
+        return AsyncProjectResourceWithRawResponse(self._client.project)
 
     @cached_property
     def documents(self) -> documents.AsyncDocumentsResourceWithRawResponse:
@@ -561,10 +561,10 @@ class UnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
-    def project(self) -> project.ProjectResourceWithStreamingResponse:
-        from .resources.project import ProjectResourceWithStreamingResponse
+    def pages(self) -> pages.PagesResourceWithStreamingResponse:
+        from .resources.pages import PagesResourceWithStreamingResponse
 
-        return ProjectResourceWithStreamingResponse(self._client.project)
+        return PagesResourceWithStreamingResponse(self._client.pages)
 
     @cached_property
     def emails(self) -> emails.EmailsResourceWithStreamingResponse:
@@ -573,10 +573,10 @@ class UnlayerWithStreamedResponse:
         return EmailsResourceWithStreamingResponse(self._client.emails)
 
     @cached_property
-    def pages(self) -> pages.PagesResourceWithStreamingResponse:
-        from .resources.pages import PagesResourceWithStreamingResponse
+    def project(self) -> project.ProjectResourceWithStreamingResponse:
+        from .resources.project import ProjectResourceWithStreamingResponse
 
-        return PagesResourceWithStreamingResponse(self._client.pages)
+        return ProjectResourceWithStreamingResponse(self._client.project)
 
     @cached_property
     def documents(self) -> documents.DocumentsResourceWithStreamingResponse:
@@ -592,10 +592,10 @@ class AsyncUnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
-    def project(self) -> project.AsyncProjectResourceWithStreamingResponse:
-        from .resources.project import AsyncProjectResourceWithStreamingResponse
+    def pages(self) -> pages.AsyncPagesResourceWithStreamingResponse:
+        from .resources.pages import AsyncPagesResourceWithStreamingResponse
 
-        return AsyncProjectResourceWithStreamingResponse(self._client.project)
+        return AsyncPagesResourceWithStreamingResponse(self._client.pages)
 
     @cached_property
     def emails(self) -> emails.AsyncEmailsResourceWithStreamingResponse:
@@ -604,10 +604,10 @@ class AsyncUnlayerWithStreamedResponse:
         return AsyncEmailsResourceWithStreamingResponse(self._client.emails)
 
     @cached_property
-    def pages(self) -> pages.AsyncPagesResourceWithStreamingResponse:
-        from .resources.pages import AsyncPagesResourceWithStreamingResponse
+    def project(self) -> project.AsyncProjectResourceWithStreamingResponse:
+        from .resources.project import AsyncProjectResourceWithStreamingResponse
 
-        return AsyncPagesResourceWithStreamingResponse(self._client.pages)
+        return AsyncProjectResourceWithStreamingResponse(self._client.project)
 
     @cached_property
     def documents(self) -> documents.AsyncDocumentsResourceWithStreamingResponse:
