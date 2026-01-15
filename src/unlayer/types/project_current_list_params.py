@@ -6,18 +6,9 @@ from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["ProjectTemplatesCreateParams"]
+__all__ = ["ProjectCurrentListParams"]
 
 
-class ProjectTemplatesCreateParams(TypedDict, total=False):
+class ProjectCurrentListParams(TypedDict, total=False):
     project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
-    """The project ID to create template for"""
-
-    name: Required[str]
-    """Template name"""
-
-    body: str
-    """Email body content"""
-
-    subject: str
-    """Email subject line"""
+    """The project ID"""

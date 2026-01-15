@@ -6,7 +6,11 @@ from typing import Dict
 
 import httpx
 
-from ..types import document_generate_create_params, document_generate_template_template_params
+from ..types import (
+    document_generate_create_params,
+    document_documents_retrieve_params,
+    document_generate_template_template_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -49,6 +53,7 @@ class DocumentsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        project_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -60,6 +65,8 @@ class DocumentsResource(SyncAPIResource):
         Retrieve details of a previously generated document.
 
         Args:
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -73,7 +80,13 @@ class DocumentsResource(SyncAPIResource):
         return self._get(
             f"/documents/v1/documents/{id}",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"project_id": project_id}, document_documents_retrieve_params.DocumentDocumentsRetrieveParams
+                ),
             ),
             cast_to=DocumentDocumentsRetrieveResponse,
         )
@@ -82,6 +95,7 @@ class DocumentsResource(SyncAPIResource):
         self,
         *,
         design: Dict[str, object],
+        project_id: str | Omit = omit,
         filename: str | Omit = omit,
         html: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
@@ -98,6 +112,8 @@ class DocumentsResource(SyncAPIResource):
 
         Args:
           design: Proprietary design format JSON
+
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
 
           filename: Optional filename for the generated PDF
 
@@ -128,7 +144,13 @@ class DocumentsResource(SyncAPIResource):
                 document_generate_create_params.DocumentGenerateCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"project_id": project_id}, document_generate_create_params.DocumentGenerateCreateParams
+                ),
             ),
             cast_to=DocumentGenerateCreateResponse,
         )
@@ -137,6 +159,7 @@ class DocumentsResource(SyncAPIResource):
         self,
         *,
         template_id: str,
+        project_id: str | Omit = omit,
         filename: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -151,6 +174,8 @@ class DocumentsResource(SyncAPIResource):
 
         Args:
           template_id: ID of the template to use for generation
+
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
 
           filename: Optional filename for the generated PDF
 
@@ -175,7 +200,14 @@ class DocumentsResource(SyncAPIResource):
                 document_generate_template_template_params.DocumentGenerateTemplateTemplateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"project_id": project_id},
+                    document_generate_template_template_params.DocumentGenerateTemplateTemplateParams,
+                ),
             ),
             cast_to=DocumentGenerateTemplateTemplateResponse,
         )
@@ -205,6 +237,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        project_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -216,6 +249,8 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Retrieve details of a previously generated document.
 
         Args:
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -229,7 +264,13 @@ class AsyncDocumentsResource(AsyncAPIResource):
         return await self._get(
             f"/documents/v1/documents/{id}",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, document_documents_retrieve_params.DocumentDocumentsRetrieveParams
+                ),
             ),
             cast_to=DocumentDocumentsRetrieveResponse,
         )
@@ -238,6 +279,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         self,
         *,
         design: Dict[str, object],
+        project_id: str | Omit = omit,
         filename: str | Omit = omit,
         html: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
@@ -254,6 +296,8 @@ class AsyncDocumentsResource(AsyncAPIResource):
 
         Args:
           design: Proprietary design format JSON
+
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
 
           filename: Optional filename for the generated PDF
 
@@ -284,7 +328,13 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 document_generate_create_params.DocumentGenerateCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, document_generate_create_params.DocumentGenerateCreateParams
+                ),
             ),
             cast_to=DocumentGenerateCreateResponse,
         )
@@ -293,6 +343,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         self,
         *,
         template_id: str,
+        project_id: str | Omit = omit,
         filename: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -307,6 +358,8 @@ class AsyncDocumentsResource(AsyncAPIResource):
 
         Args:
           template_id: ID of the template to use for generation
+
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
 
           filename: Optional filename for the generated PDF
 
@@ -331,7 +384,14 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 document_generate_template_template_params.DocumentGenerateTemplateTemplateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id},
+                    document_generate_template_template_params.DocumentGenerateTemplateTemplateParams,
+                ),
             ),
             cast_to=DocumentGenerateTemplateTemplateResponse,
         )

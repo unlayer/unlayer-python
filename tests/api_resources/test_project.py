@@ -10,19 +10,23 @@ import pytest
 from unlayer import Unlayer, AsyncUnlayer
 from tests.utils import assert_matches_type
 from unlayer.types import (
+    ProjectTokensListResponse,
     ProjectAPIKeysListResponse,
     ProjectCurrentListResponse,
     ProjectDomainsListResponse,
+    ProjectTokensDeleteResponse,
     ProjectAPIKeysCreateResponse,
     ProjectAPIKeysUpdateResponse,
     ProjectDomainsCreateResponse,
     ProjectDomainsUpdateResponse,
     ProjectTemplatesListResponse,
+    ProjectWorkspacesListResponse,
     ProjectAPIKeysRetrieveResponse,
     ProjectDomainsRetrieveResponse,
     ProjectTemplatesCreateResponse,
     ProjectTemplatesUpdateResponse,
     ProjectTemplatesRetrieveResponse,
+    ProjectWorkspacesRetrieveResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -34,6 +38,7 @@ class TestProject:
     @parametrize
     def test_method_api_keys_create(self, client: Unlayer) -> None:
         project = client.project.api_keys_create(
+            project_id="projectId",
             name="name",
         )
         assert_matches_type(ProjectAPIKeysCreateResponse, project, path=["response"])
@@ -41,6 +46,7 @@ class TestProject:
     @parametrize
     def test_method_api_keys_create_with_all_params(self, client: Unlayer) -> None:
         project = client.project.api_keys_create(
+            project_id="projectId",
             name="name",
             domains=["string"],
         )
@@ -49,6 +55,7 @@ class TestProject:
     @parametrize
     def test_raw_response_api_keys_create(self, client: Unlayer) -> None:
         response = client.project.with_raw_response.api_keys_create(
+            project_id="projectId",
             name="name",
         )
 
@@ -60,6 +67,7 @@ class TestProject:
     @parametrize
     def test_streaming_response_api_keys_create(self, client: Unlayer) -> None:
         with client.project.with_streaming_response.api_keys_create(
+            project_id="projectId",
             name="name",
         ) as response:
             assert not response.is_closed
@@ -110,12 +118,16 @@ class TestProject:
 
     @parametrize
     def test_method_api_keys_list(self, client: Unlayer) -> None:
-        project = client.project.api_keys_list()
+        project = client.project.api_keys_list(
+            project_id="projectId",
+        )
         assert_matches_type(ProjectAPIKeysListResponse, project, path=["response"])
 
     @parametrize
     def test_raw_response_api_keys_list(self, client: Unlayer) -> None:
-        response = client.project.with_raw_response.api_keys_list()
+        response = client.project.with_raw_response.api_keys_list(
+            project_id="projectId",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -124,7 +136,9 @@ class TestProject:
 
     @parametrize
     def test_streaming_response_api_keys_list(self, client: Unlayer) -> None:
-        with client.project.with_streaming_response.api_keys_list() as response:
+        with client.project.with_streaming_response.api_keys_list(
+            project_id="projectId",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -221,12 +235,16 @@ class TestProject:
 
     @parametrize
     def test_method_current_list(self, client: Unlayer) -> None:
-        project = client.project.current_list()
+        project = client.project.current_list(
+            project_id="projectId",
+        )
         assert_matches_type(ProjectCurrentListResponse, project, path=["response"])
 
     @parametrize
     def test_raw_response_current_list(self, client: Unlayer) -> None:
-        response = client.project.with_raw_response.current_list()
+        response = client.project.with_raw_response.current_list(
+            project_id="projectId",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -235,7 +253,9 @@ class TestProject:
 
     @parametrize
     def test_streaming_response_current_list(self, client: Unlayer) -> None:
-        with client.project.with_streaming_response.current_list() as response:
+        with client.project.with_streaming_response.current_list(
+            project_id="projectId",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -247,6 +267,7 @@ class TestProject:
     @parametrize
     def test_method_domains_create(self, client: Unlayer) -> None:
         project = client.project.domains_create(
+            project_id="projectId",
             domain="domain",
         )
         assert_matches_type(ProjectDomainsCreateResponse, project, path=["response"])
@@ -254,6 +275,7 @@ class TestProject:
     @parametrize
     def test_raw_response_domains_create(self, client: Unlayer) -> None:
         response = client.project.with_raw_response.domains_create(
+            project_id="projectId",
             domain="domain",
         )
 
@@ -265,6 +287,7 @@ class TestProject:
     @parametrize
     def test_streaming_response_domains_create(self, client: Unlayer) -> None:
         with client.project.with_streaming_response.domains_create(
+            project_id="projectId",
             domain="domain",
         ) as response:
             assert not response.is_closed
@@ -315,12 +338,16 @@ class TestProject:
 
     @parametrize
     def test_method_domains_list(self, client: Unlayer) -> None:
-        project = client.project.domains_list()
+        project = client.project.domains_list(
+            project_id="projectId",
+        )
         assert_matches_type(ProjectDomainsListResponse, project, path=["response"])
 
     @parametrize
     def test_raw_response_domains_list(self, client: Unlayer) -> None:
-        response = client.project.with_raw_response.domains_list()
+        response = client.project.with_raw_response.domains_list(
+            project_id="projectId",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -329,7 +356,9 @@ class TestProject:
 
     @parametrize
     def test_streaming_response_domains_list(self, client: Unlayer) -> None:
-        with client.project.with_streaming_response.domains_list() as response:
+        with client.project.with_streaming_response.domains_list(
+            project_id="projectId",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -425,6 +454,7 @@ class TestProject:
     @parametrize
     def test_method_templates_create(self, client: Unlayer) -> None:
         project = client.project.templates_create(
+            project_id="projectId",
             name="name",
         )
         assert_matches_type(ProjectTemplatesCreateResponse, project, path=["response"])
@@ -432,6 +462,7 @@ class TestProject:
     @parametrize
     def test_method_templates_create_with_all_params(self, client: Unlayer) -> None:
         project = client.project.templates_create(
+            project_id="projectId",
             name="name",
             body="body",
             subject="subject",
@@ -441,6 +472,7 @@ class TestProject:
     @parametrize
     def test_raw_response_templates_create(self, client: Unlayer) -> None:
         response = client.project.with_raw_response.templates_create(
+            project_id="projectId",
             name="name",
         )
 
@@ -452,6 +484,7 @@ class TestProject:
     @parametrize
     def test_streaming_response_templates_create(self, client: Unlayer) -> None:
         with client.project.with_streaming_response.templates_create(
+            project_id="projectId",
             name="name",
         ) as response:
             assert not response.is_closed
@@ -502,12 +535,16 @@ class TestProject:
 
     @parametrize
     def test_method_templates_list(self, client: Unlayer) -> None:
-        project = client.project.templates_list()
+        project = client.project.templates_list(
+            project_id="projectId",
+        )
         assert_matches_type(ProjectTemplatesListResponse, project, path=["response"])
 
     @parametrize
     def test_raw_response_templates_list(self, client: Unlayer) -> None:
-        response = client.project.with_raw_response.templates_list()
+        response = client.project.with_raw_response.templates_list(
+            project_id="projectId",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -516,7 +553,9 @@ class TestProject:
 
     @parametrize
     def test_streaming_response_templates_list(self, client: Unlayer) -> None:
-        with client.project.with_streaming_response.templates_list() as response:
+        with client.project.with_streaming_response.templates_list(
+            project_id="projectId",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -611,6 +650,132 @@ class TestProject:
                 id="",
             )
 
+    @parametrize
+    def test_method_tokens_delete(self, client: Unlayer) -> None:
+        project = client.project.tokens_delete(
+            "tokenId",
+        )
+        assert_matches_type(ProjectTokensDeleteResponse, project, path=["response"])
+
+    @parametrize
+    def test_raw_response_tokens_delete(self, client: Unlayer) -> None:
+        response = client.project.with_raw_response.tokens_delete(
+            "tokenId",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        project = response.parse()
+        assert_matches_type(ProjectTokensDeleteResponse, project, path=["response"])
+
+    @parametrize
+    def test_streaming_response_tokens_delete(self, client: Unlayer) -> None:
+        with client.project.with_streaming_response.tokens_delete(
+            "tokenId",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            project = response.parse()
+            assert_matches_type(ProjectTokensDeleteResponse, project, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_tokens_delete(self, client: Unlayer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `token_id` but received ''"):
+            client.project.with_raw_response.tokens_delete(
+                "",
+            )
+
+    @parametrize
+    def test_method_tokens_list(self, client: Unlayer) -> None:
+        project = client.project.tokens_list()
+        assert_matches_type(ProjectTokensListResponse, project, path=["response"])
+
+    @parametrize
+    def test_raw_response_tokens_list(self, client: Unlayer) -> None:
+        response = client.project.with_raw_response.tokens_list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        project = response.parse()
+        assert_matches_type(ProjectTokensListResponse, project, path=["response"])
+
+    @parametrize
+    def test_streaming_response_tokens_list(self, client: Unlayer) -> None:
+        with client.project.with_streaming_response.tokens_list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            project = response.parse()
+            assert_matches_type(ProjectTokensListResponse, project, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_workspaces_list(self, client: Unlayer) -> None:
+        project = client.project.workspaces_list()
+        assert_matches_type(ProjectWorkspacesListResponse, project, path=["response"])
+
+    @parametrize
+    def test_raw_response_workspaces_list(self, client: Unlayer) -> None:
+        response = client.project.with_raw_response.workspaces_list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        project = response.parse()
+        assert_matches_type(ProjectWorkspacesListResponse, project, path=["response"])
+
+    @parametrize
+    def test_streaming_response_workspaces_list(self, client: Unlayer) -> None:
+        with client.project.with_streaming_response.workspaces_list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            project = response.parse()
+            assert_matches_type(ProjectWorkspacesListResponse, project, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_workspaces_retrieve(self, client: Unlayer) -> None:
+        project = client.project.workspaces_retrieve(
+            "workspaceId",
+        )
+        assert_matches_type(ProjectWorkspacesRetrieveResponse, project, path=["response"])
+
+    @parametrize
+    def test_raw_response_workspaces_retrieve(self, client: Unlayer) -> None:
+        response = client.project.with_raw_response.workspaces_retrieve(
+            "workspaceId",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        project = response.parse()
+        assert_matches_type(ProjectWorkspacesRetrieveResponse, project, path=["response"])
+
+    @parametrize
+    def test_streaming_response_workspaces_retrieve(self, client: Unlayer) -> None:
+        with client.project.with_streaming_response.workspaces_retrieve(
+            "workspaceId",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            project = response.parse()
+            assert_matches_type(ProjectWorkspacesRetrieveResponse, project, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_workspaces_retrieve(self, client: Unlayer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `workspace_id` but received ''"):
+            client.project.with_raw_response.workspaces_retrieve(
+                "",
+            )
+
 
 class TestAsyncProject:
     parametrize = pytest.mark.parametrize(
@@ -620,6 +785,7 @@ class TestAsyncProject:
     @parametrize
     async def test_method_api_keys_create(self, async_client: AsyncUnlayer) -> None:
         project = await async_client.project.api_keys_create(
+            project_id="projectId",
             name="name",
         )
         assert_matches_type(ProjectAPIKeysCreateResponse, project, path=["response"])
@@ -627,6 +793,7 @@ class TestAsyncProject:
     @parametrize
     async def test_method_api_keys_create_with_all_params(self, async_client: AsyncUnlayer) -> None:
         project = await async_client.project.api_keys_create(
+            project_id="projectId",
             name="name",
             domains=["string"],
         )
@@ -635,6 +802,7 @@ class TestAsyncProject:
     @parametrize
     async def test_raw_response_api_keys_create(self, async_client: AsyncUnlayer) -> None:
         response = await async_client.project.with_raw_response.api_keys_create(
+            project_id="projectId",
             name="name",
         )
 
@@ -646,6 +814,7 @@ class TestAsyncProject:
     @parametrize
     async def test_streaming_response_api_keys_create(self, async_client: AsyncUnlayer) -> None:
         async with async_client.project.with_streaming_response.api_keys_create(
+            project_id="projectId",
             name="name",
         ) as response:
             assert not response.is_closed
@@ -696,12 +865,16 @@ class TestAsyncProject:
 
     @parametrize
     async def test_method_api_keys_list(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.api_keys_list()
+        project = await async_client.project.api_keys_list(
+            project_id="projectId",
+        )
         assert_matches_type(ProjectAPIKeysListResponse, project, path=["response"])
 
     @parametrize
     async def test_raw_response_api_keys_list(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.with_raw_response.api_keys_list()
+        response = await async_client.project.with_raw_response.api_keys_list(
+            project_id="projectId",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -710,7 +883,9 @@ class TestAsyncProject:
 
     @parametrize
     async def test_streaming_response_api_keys_list(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.with_streaming_response.api_keys_list() as response:
+        async with async_client.project.with_streaming_response.api_keys_list(
+            project_id="projectId",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -807,12 +982,16 @@ class TestAsyncProject:
 
     @parametrize
     async def test_method_current_list(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.current_list()
+        project = await async_client.project.current_list(
+            project_id="projectId",
+        )
         assert_matches_type(ProjectCurrentListResponse, project, path=["response"])
 
     @parametrize
     async def test_raw_response_current_list(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.with_raw_response.current_list()
+        response = await async_client.project.with_raw_response.current_list(
+            project_id="projectId",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -821,7 +1000,9 @@ class TestAsyncProject:
 
     @parametrize
     async def test_streaming_response_current_list(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.with_streaming_response.current_list() as response:
+        async with async_client.project.with_streaming_response.current_list(
+            project_id="projectId",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -833,6 +1014,7 @@ class TestAsyncProject:
     @parametrize
     async def test_method_domains_create(self, async_client: AsyncUnlayer) -> None:
         project = await async_client.project.domains_create(
+            project_id="projectId",
             domain="domain",
         )
         assert_matches_type(ProjectDomainsCreateResponse, project, path=["response"])
@@ -840,6 +1022,7 @@ class TestAsyncProject:
     @parametrize
     async def test_raw_response_domains_create(self, async_client: AsyncUnlayer) -> None:
         response = await async_client.project.with_raw_response.domains_create(
+            project_id="projectId",
             domain="domain",
         )
 
@@ -851,6 +1034,7 @@ class TestAsyncProject:
     @parametrize
     async def test_streaming_response_domains_create(self, async_client: AsyncUnlayer) -> None:
         async with async_client.project.with_streaming_response.domains_create(
+            project_id="projectId",
             domain="domain",
         ) as response:
             assert not response.is_closed
@@ -901,12 +1085,16 @@ class TestAsyncProject:
 
     @parametrize
     async def test_method_domains_list(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.domains_list()
+        project = await async_client.project.domains_list(
+            project_id="projectId",
+        )
         assert_matches_type(ProjectDomainsListResponse, project, path=["response"])
 
     @parametrize
     async def test_raw_response_domains_list(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.with_raw_response.domains_list()
+        response = await async_client.project.with_raw_response.domains_list(
+            project_id="projectId",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -915,7 +1103,9 @@ class TestAsyncProject:
 
     @parametrize
     async def test_streaming_response_domains_list(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.with_streaming_response.domains_list() as response:
+        async with async_client.project.with_streaming_response.domains_list(
+            project_id="projectId",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -1011,6 +1201,7 @@ class TestAsyncProject:
     @parametrize
     async def test_method_templates_create(self, async_client: AsyncUnlayer) -> None:
         project = await async_client.project.templates_create(
+            project_id="projectId",
             name="name",
         )
         assert_matches_type(ProjectTemplatesCreateResponse, project, path=["response"])
@@ -1018,6 +1209,7 @@ class TestAsyncProject:
     @parametrize
     async def test_method_templates_create_with_all_params(self, async_client: AsyncUnlayer) -> None:
         project = await async_client.project.templates_create(
+            project_id="projectId",
             name="name",
             body="body",
             subject="subject",
@@ -1027,6 +1219,7 @@ class TestAsyncProject:
     @parametrize
     async def test_raw_response_templates_create(self, async_client: AsyncUnlayer) -> None:
         response = await async_client.project.with_raw_response.templates_create(
+            project_id="projectId",
             name="name",
         )
 
@@ -1038,6 +1231,7 @@ class TestAsyncProject:
     @parametrize
     async def test_streaming_response_templates_create(self, async_client: AsyncUnlayer) -> None:
         async with async_client.project.with_streaming_response.templates_create(
+            project_id="projectId",
             name="name",
         ) as response:
             assert not response.is_closed
@@ -1088,12 +1282,16 @@ class TestAsyncProject:
 
     @parametrize
     async def test_method_templates_list(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.templates_list()
+        project = await async_client.project.templates_list(
+            project_id="projectId",
+        )
         assert_matches_type(ProjectTemplatesListResponse, project, path=["response"])
 
     @parametrize
     async def test_raw_response_templates_list(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.with_raw_response.templates_list()
+        response = await async_client.project.with_raw_response.templates_list(
+            project_id="projectId",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1102,7 +1300,9 @@ class TestAsyncProject:
 
     @parametrize
     async def test_streaming_response_templates_list(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.with_streaming_response.templates_list() as response:
+        async with async_client.project.with_streaming_response.templates_list(
+            project_id="projectId",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -1195,4 +1395,130 @@ class TestAsyncProject:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.project.with_raw_response.templates_update(
                 id="",
+            )
+
+    @parametrize
+    async def test_method_tokens_delete(self, async_client: AsyncUnlayer) -> None:
+        project = await async_client.project.tokens_delete(
+            "tokenId",
+        )
+        assert_matches_type(ProjectTokensDeleteResponse, project, path=["response"])
+
+    @parametrize
+    async def test_raw_response_tokens_delete(self, async_client: AsyncUnlayer) -> None:
+        response = await async_client.project.with_raw_response.tokens_delete(
+            "tokenId",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        project = await response.parse()
+        assert_matches_type(ProjectTokensDeleteResponse, project, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_tokens_delete(self, async_client: AsyncUnlayer) -> None:
+        async with async_client.project.with_streaming_response.tokens_delete(
+            "tokenId",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            project = await response.parse()
+            assert_matches_type(ProjectTokensDeleteResponse, project, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_tokens_delete(self, async_client: AsyncUnlayer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `token_id` but received ''"):
+            await async_client.project.with_raw_response.tokens_delete(
+                "",
+            )
+
+    @parametrize
+    async def test_method_tokens_list(self, async_client: AsyncUnlayer) -> None:
+        project = await async_client.project.tokens_list()
+        assert_matches_type(ProjectTokensListResponse, project, path=["response"])
+
+    @parametrize
+    async def test_raw_response_tokens_list(self, async_client: AsyncUnlayer) -> None:
+        response = await async_client.project.with_raw_response.tokens_list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        project = await response.parse()
+        assert_matches_type(ProjectTokensListResponse, project, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_tokens_list(self, async_client: AsyncUnlayer) -> None:
+        async with async_client.project.with_streaming_response.tokens_list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            project = await response.parse()
+            assert_matches_type(ProjectTokensListResponse, project, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_workspaces_list(self, async_client: AsyncUnlayer) -> None:
+        project = await async_client.project.workspaces_list()
+        assert_matches_type(ProjectWorkspacesListResponse, project, path=["response"])
+
+    @parametrize
+    async def test_raw_response_workspaces_list(self, async_client: AsyncUnlayer) -> None:
+        response = await async_client.project.with_raw_response.workspaces_list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        project = await response.parse()
+        assert_matches_type(ProjectWorkspacesListResponse, project, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_workspaces_list(self, async_client: AsyncUnlayer) -> None:
+        async with async_client.project.with_streaming_response.workspaces_list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            project = await response.parse()
+            assert_matches_type(ProjectWorkspacesListResponse, project, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_workspaces_retrieve(self, async_client: AsyncUnlayer) -> None:
+        project = await async_client.project.workspaces_retrieve(
+            "workspaceId",
+        )
+        assert_matches_type(ProjectWorkspacesRetrieveResponse, project, path=["response"])
+
+    @parametrize
+    async def test_raw_response_workspaces_retrieve(self, async_client: AsyncUnlayer) -> None:
+        response = await async_client.project.with_raw_response.workspaces_retrieve(
+            "workspaceId",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        project = await response.parse()
+        assert_matches_type(ProjectWorkspacesRetrieveResponse, project, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_workspaces_retrieve(self, async_client: AsyncUnlayer) -> None:
+        async with async_client.project.with_streaming_response.workspaces_retrieve(
+            "workspaceId",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            project = await response.parse()
+            assert_matches_type(ProjectWorkspacesRetrieveResponse, project, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_workspaces_retrieve(self, async_client: AsyncUnlayer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `workspace_id` but received ''"):
+            await async_client.project.with_raw_response.workspaces_retrieve(
+                "",
             )

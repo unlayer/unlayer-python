@@ -6,7 +6,12 @@ from typing import Dict
 
 import httpx
 
-from ..types import email_send_create_params, email_render_create_params, email_send_template_template_params
+from ..types import (
+    email_retrieve_params,
+    email_send_create_params,
+    email_render_create_params,
+    email_send_template_template_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -50,6 +55,7 @@ class EmailsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        project_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -61,6 +67,8 @@ class EmailsResource(SyncAPIResource):
         Retrieve details of a previously sent email.
 
         Args:
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -74,7 +82,11 @@ class EmailsResource(SyncAPIResource):
         return self._get(
             f"/emails/v1/emails/{id}",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, email_retrieve_params.EmailRetrieveParams),
             ),
             cast_to=EmailRetrieveResponse,
         )
@@ -83,6 +95,7 @@ class EmailsResource(SyncAPIResource):
         self,
         *,
         design: Dict[str, object],
+        project_id: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -96,6 +109,8 @@ class EmailsResource(SyncAPIResource):
 
         Args:
           design: Proprietary design format JSON
+
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
 
           merge_tags: Optional merge tags for personalization
 
@@ -117,7 +132,11 @@ class EmailsResource(SyncAPIResource):
                 email_render_create_params.EmailRenderCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, email_render_create_params.EmailRenderCreateParams),
             ),
             cast_to=EmailRenderCreateResponse,
         )
@@ -127,6 +146,7 @@ class EmailsResource(SyncAPIResource):
         *,
         design: Dict[str, object],
         to: str,
+        project_id: str | Omit = omit,
         html: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         subject: str | Omit = omit,
@@ -144,6 +164,8 @@ class EmailsResource(SyncAPIResource):
           design: Proprietary design format JSON
 
           to: Recipient email address
+
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
 
           html: HTML content to send
 
@@ -172,7 +194,11 @@ class EmailsResource(SyncAPIResource):
                 email_send_create_params.EmailSendCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, email_send_create_params.EmailSendCreateParams),
             ),
             cast_to=EmailSendCreateResponse,
         )
@@ -182,6 +208,7 @@ class EmailsResource(SyncAPIResource):
         *,
         template_id: str,
         to: str,
+        project_id: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         subject: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -198,6 +225,8 @@ class EmailsResource(SyncAPIResource):
           template_id: ID of the template to use
 
           to: Recipient email address
+
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
 
           merge_tags: Optional merge tags for personalization
 
@@ -223,7 +252,13 @@ class EmailsResource(SyncAPIResource):
                 email_send_template_template_params.EmailSendTemplateTemplateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"project_id": project_id}, email_send_template_template_params.EmailSendTemplateTemplateParams
+                ),
             ),
             cast_to=EmailSendTemplateTemplateResponse,
         )
@@ -253,6 +288,7 @@ class AsyncEmailsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        project_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -264,6 +300,8 @@ class AsyncEmailsResource(AsyncAPIResource):
         Retrieve details of a previously sent email.
 
         Args:
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -277,7 +315,13 @@ class AsyncEmailsResource(AsyncAPIResource):
         return await self._get(
             f"/emails/v1/emails/{id}",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, email_retrieve_params.EmailRetrieveParams
+                ),
             ),
             cast_to=EmailRetrieveResponse,
         )
@@ -286,6 +330,7 @@ class AsyncEmailsResource(AsyncAPIResource):
         self,
         *,
         design: Dict[str, object],
+        project_id: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -299,6 +344,8 @@ class AsyncEmailsResource(AsyncAPIResource):
 
         Args:
           design: Proprietary design format JSON
+
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
 
           merge_tags: Optional merge tags for personalization
 
@@ -320,7 +367,13 @@ class AsyncEmailsResource(AsyncAPIResource):
                 email_render_create_params.EmailRenderCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, email_render_create_params.EmailRenderCreateParams
+                ),
             ),
             cast_to=EmailRenderCreateResponse,
         )
@@ -330,6 +383,7 @@ class AsyncEmailsResource(AsyncAPIResource):
         *,
         design: Dict[str, object],
         to: str,
+        project_id: str | Omit = omit,
         html: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         subject: str | Omit = omit,
@@ -347,6 +401,8 @@ class AsyncEmailsResource(AsyncAPIResource):
           design: Proprietary design format JSON
 
           to: Recipient email address
+
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
 
           html: HTML content to send
 
@@ -375,7 +431,13 @@ class AsyncEmailsResource(AsyncAPIResource):
                 email_send_create_params.EmailSendCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, email_send_create_params.EmailSendCreateParams
+                ),
             ),
             cast_to=EmailSendCreateResponse,
         )
@@ -385,6 +447,7 @@ class AsyncEmailsResource(AsyncAPIResource):
         *,
         template_id: str,
         to: str,
+        project_id: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         subject: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -401,6 +464,8 @@ class AsyncEmailsResource(AsyncAPIResource):
           template_id: ID of the template to use
 
           to: Recipient email address
+
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
 
           merge_tags: Optional merge tags for personalization
 
@@ -426,7 +491,13 @@ class AsyncEmailsResource(AsyncAPIResource):
                 email_send_template_template_params.EmailSendTemplateTemplateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, email_send_template_template_params.EmailSendTemplateTemplateParams
+                ),
             ),
             cast_to=EmailSendTemplateTemplateResponse,
         )

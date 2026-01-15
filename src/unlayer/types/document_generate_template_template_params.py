@@ -14,6 +14,9 @@ class DocumentGenerateTemplateTemplateParams(TypedDict, total=False):
     template_id: Required[Annotated[str, PropertyInfo(alias="templateId")]]
     """ID of the template to use for generation"""
 
+    project_id: Annotated[str, PropertyInfo(alias="projectId")]
+    """The project ID (required for PAT auth, not needed for API Key auth)"""
+
     filename: str
     """Optional filename for the generated PDF"""
 

@@ -17,6 +17,9 @@ class EmailSendCreateParams(TypedDict, total=False):
     to: Required[str]
     """Recipient email address"""
 
+    project_id: Annotated[str, PropertyInfo(alias="projectId")]
+    """The project ID (required for PAT auth, not needed for API Key auth)"""
+
     html: str
     """HTML content to send"""
 
