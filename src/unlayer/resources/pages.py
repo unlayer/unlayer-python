@@ -47,6 +47,7 @@ class PagesResource(SyncAPIResource):
         self,
         *,
         design: Dict[str, object],
+        project_id: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -60,6 +61,8 @@ class PagesResource(SyncAPIResource):
 
         Args:
           design: Proprietary design format JSON
+
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
 
           merge_tags: Optional merge tags for personalization
 
@@ -81,7 +84,11 @@ class PagesResource(SyncAPIResource):
                 page_render_create_params.PageRenderCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, page_render_create_params.PageRenderCreateParams),
             ),
             cast_to=PageRenderCreateResponse,
         )
@@ -111,6 +118,7 @@ class AsyncPagesResource(AsyncAPIResource):
         self,
         *,
         design: Dict[str, object],
+        project_id: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -124,6 +132,8 @@ class AsyncPagesResource(AsyncAPIResource):
 
         Args:
           design: Proprietary design format JSON
+
+          project_id: The project ID (required for PAT auth, not needed for API Key auth)
 
           merge_tags: Optional merge tags for personalization
 
@@ -145,7 +155,13 @@ class AsyncPagesResource(AsyncAPIResource):
                 page_render_create_params.PageRenderCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, page_render_create_params.PageRenderCreateParams
+                ),
             ),
             cast_to=PageRenderCreateResponse,
         )

@@ -2,11 +2,16 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["ProjectDomainsCreateParams"]
 
 
 class ProjectDomainsCreateParams(TypedDict, total=False):
+    project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
+    """The project ID to add domain to"""
+
     domain: Required[str]
     """Domain name to add"""

@@ -25,14 +25,22 @@ class TestEmails:
     @parametrize
     def test_method_retrieve(self, client: Unlayer) -> None:
         email = client.emails.retrieve(
-            "id",
+            id="id",
+        )
+        assert_matches_type(EmailRetrieveResponse, email, path=["response"])
+
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Unlayer) -> None:
+        email = client.emails.retrieve(
+            id="id",
+            project_id="projectId",
         )
         assert_matches_type(EmailRetrieveResponse, email, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Unlayer) -> None:
         response = client.emails.with_raw_response.retrieve(
-            "id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -43,7 +51,7 @@ class TestEmails:
     @parametrize
     def test_streaming_response_retrieve(self, client: Unlayer) -> None:
         with client.emails.with_streaming_response.retrieve(
-            "id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -57,7 +65,7 @@ class TestEmails:
     def test_path_params_retrieve(self, client: Unlayer) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.emails.with_raw_response.retrieve(
-                "",
+                id="",
             )
 
     @parametrize
@@ -77,6 +85,7 @@ class TestEmails:
                 "counters": "bar",
                 "body": "bar",
             },
+            project_id="projectId",
             merge_tags={"foo": "string"},
         )
         assert_matches_type(EmailRenderCreateResponse, email, path=["response"])
@@ -130,6 +139,7 @@ class TestEmails:
                 "body": "bar",
             },
             to="test@example.com",
+            project_id="projectId",
             html="html",
             merge_tags={"foo": "string"},
             subject="Test",
@@ -181,6 +191,7 @@ class TestEmails:
         email = client.emails.send_template_template(
             template_id="templateId",
             to="dev@stainless.com",
+            project_id="projectId",
             merge_tags={"foo": "string"},
             subject="subject",
         )
@@ -221,14 +232,22 @@ class TestAsyncEmails:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncUnlayer) -> None:
         email = await async_client.emails.retrieve(
-            "id",
+            id="id",
+        )
+        assert_matches_type(EmailRetrieveResponse, email, path=["response"])
+
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncUnlayer) -> None:
+        email = await async_client.emails.retrieve(
+            id="id",
+            project_id="projectId",
         )
         assert_matches_type(EmailRetrieveResponse, email, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncUnlayer) -> None:
         response = await async_client.emails.with_raw_response.retrieve(
-            "id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -239,7 +258,7 @@ class TestAsyncEmails:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncUnlayer) -> None:
         async with async_client.emails.with_streaming_response.retrieve(
-            "id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -253,7 +272,7 @@ class TestAsyncEmails:
     async def test_path_params_retrieve(self, async_client: AsyncUnlayer) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.emails.with_raw_response.retrieve(
-                "",
+                id="",
             )
 
     @parametrize
@@ -273,6 +292,7 @@ class TestAsyncEmails:
                 "counters": "bar",
                 "body": "bar",
             },
+            project_id="projectId",
             merge_tags={"foo": "string"},
         )
         assert_matches_type(EmailRenderCreateResponse, email, path=["response"])
@@ -326,6 +346,7 @@ class TestAsyncEmails:
                 "body": "bar",
             },
             to="test@example.com",
+            project_id="projectId",
             html="html",
             merge_tags={"foo": "string"},
             subject="Test",
@@ -377,6 +398,7 @@ class TestAsyncEmails:
         email = await async_client.emails.send_template_template(
             template_id="templateId",
             to="dev@stainless.com",
+            project_id="projectId",
             merge_tags={"foo": "string"},
             subject="subject",
         )

@@ -34,6 +34,7 @@ class TestPages:
                 "counters": "bar",
                 "body": "bar",
             },
+            project_id="projectId",
             merge_tags={"foo": "string"},
         )
         assert_matches_type(PageRenderCreateResponse, page, path=["response"])
@@ -91,6 +92,7 @@ class TestAsyncPages:
                 "counters": "bar",
                 "body": "bar",
             },
+            project_id="projectId",
             merge_tags={"foo": "string"},
         )
         assert_matches_type(PageRenderCreateResponse, page, path=["response"])

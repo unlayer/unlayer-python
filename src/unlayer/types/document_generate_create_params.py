@@ -14,6 +14,9 @@ class DocumentGenerateCreateParams(TypedDict, total=False):
     design: Required[Dict[str, object]]
     """Proprietary design format JSON"""
 
+    project_id: Annotated[str, PropertyInfo(alias="projectId")]
+    """The project ID (required for PAT auth, not needed for API Key auth)"""
+
     filename: str
     """Optional filename for the generated PDF"""
 
