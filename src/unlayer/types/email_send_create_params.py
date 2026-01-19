@@ -11,14 +11,14 @@ __all__ = ["EmailSendCreateParams"]
 
 
 class EmailSendCreateParams(TypedDict, total=False):
-    design: Required[Dict[str, object]]
-    """Proprietary design format JSON"""
+    project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
+    """The project ID"""
 
     to: Required[str]
     """Recipient email address"""
 
-    project_id: Annotated[str, PropertyInfo(alias="projectId")]
-    """The project ID (required for PAT auth, not needed for API Key auth)"""
+    design: Dict[str, object]
+    """Proprietary design format JSON"""
 
     html: str
     """HTML content to send"""

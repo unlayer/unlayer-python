@@ -7,10 +7,10 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["DocumentGenerateTemplateTemplateResponse"]
+__all__ = ["DocumentGenerateTemplateTemplateResponse", "Data"]
 
 
-class DocumentGenerateTemplateTemplateResponse(BaseModel):
+class Data(BaseModel):
     document_id: Optional[str] = FieldInfo(alias="documentId", default=None)
     """Unique document identifier"""
 
@@ -21,3 +21,7 @@ class DocumentGenerateTemplateTemplateResponse(BaseModel):
     """URL to download the generated PDF"""
 
     status: Optional[Literal["generating", "completed", "failed"]] = None
+
+
+class DocumentGenerateTemplateTemplateResponse(BaseModel):
+    data: Optional[Data] = None

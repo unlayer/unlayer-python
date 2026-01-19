@@ -6,9 +6,9 @@ from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["ProjectAPIKeysListParams"]
+__all__ = ["ExportImageListParams"]
 
 
-class ProjectAPIKeysListParams(TypedDict, total=False):
+class ExportImageListParams(TypedDict, total=False):
     project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
-    """The project ID to get API keys for"""
+    """The project ID"""

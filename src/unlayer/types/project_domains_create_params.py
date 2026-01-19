@@ -11,7 +11,7 @@ __all__ = ["ProjectDomainsCreateParams"]
 
 class ProjectDomainsCreateParams(TypedDict, total=False):
     project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
-    """The project ID to add domain to"""
+    """The project ID"""
 
     domain: Required[str]
     """Domain name to add"""

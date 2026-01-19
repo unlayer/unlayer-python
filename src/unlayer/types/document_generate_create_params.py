@@ -11,11 +11,11 @@ __all__ = ["DocumentGenerateCreateParams"]
 
 
 class DocumentGenerateCreateParams(TypedDict, total=False):
-    design: Required[Dict[str, object]]
-    """Proprietary design format JSON"""
+    project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
+    """The project ID"""
 
-    project_id: Annotated[str, PropertyInfo(alias="projectId")]
-    """The project ID (required for PAT auth, not needed for API Key auth)"""
+    design: Dict[str, object]
+    """Proprietary design format JSON"""
 
     filename: str
     """Optional filename for the generated PDF"""

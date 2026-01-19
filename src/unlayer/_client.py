@@ -31,9 +31,10 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import pages, emails, project, documents
+    from .resources import pages, emails, export, project, documents
     from .resources.pages import PagesResource, AsyncPagesResource
     from .resources.emails import EmailsResource, AsyncEmailsResource
+    from .resources.export import ExportResource, AsyncExportResource
     from .resources.project import ProjectResource, AsyncProjectResource
     from .resources.documents import DocumentsResource, AsyncDocumentsResource
 
@@ -51,6 +52,7 @@ __all__ = [
 
 ENVIRONMENTS: Dict[str, str] = {
     "production": "https://api.unlayer.com",
+    "stage": "https://api.stage.unlayer.com",
     "qa": "https://api.qa.unlayer.com",
     "dev": "https://api.dev.unlayer.com",
 }
@@ -58,15 +60,15 @@ ENVIRONMENTS: Dict[str, str] = {
 
 class Unlayer(SyncAPIClient):
     # client options
-    api_key: str
+    access_token: str
 
-    _environment: Literal["production", "qa", "dev"] | NotGiven
+    _environment: Literal["production", "stage", "qa", "dev"] | NotGiven
 
     def __init__(
         self,
         *,
-        api_key: str | None = None,
-        environment: Literal["production", "qa", "dev"] | NotGiven = not_given,
+        access_token: str | None = None,
+        environment: Literal["production", "stage", "qa", "dev"] | NotGiven = not_given,
         base_url: str | httpx.URL | None | NotGiven = not_given,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -88,15 +90,15 @@ class Unlayer(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous Unlayer client instance.
 
-        This automatically infers the `api_key` argument from the `UNLAYER_API_KEY` environment variable if it is not provided.
+        This automatically infers the `access_token` argument from the `UNLAYER_ACCESS_TOKEN` environment variable if it is not provided.
         """
-        if api_key is None:
-            api_key = os.environ.get("UNLAYER_API_KEY")
-        if api_key is None:
+        if access_token is None:
+            access_token = os.environ.get("UNLAYER_ACCESS_TOKEN")
+        if access_token is None:
             raise UnlayerError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the UNLAYER_API_KEY environment variable"
+                "The access_token client option must be set either by passing access_token to the client or by setting the UNLAYER_ACCESS_TOKEN environment variable"
             )
-        self.api_key = api_key
+        self.access_token = access_token
 
         self._environment = environment
 
@@ -136,22 +138,28 @@ class Unlayer(SyncAPIClient):
         )
 
     @cached_property
+    def documents(self) -> DocumentsResource:
+        from .resources.documents import DocumentsResource
+
+        return DocumentsResource(self)
+
+    @cached_property
     def emails(self) -> EmailsResource:
         from .resources.emails import EmailsResource
 
         return EmailsResource(self)
 
     @cached_property
+    def export(self) -> ExportResource:
+        from .resources.export import ExportResource
+
+        return ExportResource(self)
+
+    @cached_property
     def pages(self) -> PagesResource:
         from .resources.pages import PagesResource
 
         return PagesResource(self)
-
-    @cached_property
-    def documents(self) -> DocumentsResource:
-        from .resources.documents import DocumentsResource
-
-        return DocumentsResource(self)
 
     @cached_property
     def project(self) -> ProjectResource:
@@ -175,8 +183,8 @@ class Unlayer(SyncAPIClient):
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        return {"Authorization": f"Bearer {api_key}"}
+        access_token = self.access_token
+        return {"Authorization": f"Bearer {access_token}"}
 
     @property
     @override
@@ -190,8 +198,8 @@ class Unlayer(SyncAPIClient):
     def copy(
         self,
         *,
-        api_key: str | None = None,
-        environment: Literal["production", "qa", "dev"] | None = None,
+        access_token: str | None = None,
+        environment: Literal["production", "stage", "qa", "dev"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
@@ -225,7 +233,7 @@ class Unlayer(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            api_key=api_key or self.api_key,
+            access_token=access_token or self.access_token,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -276,15 +284,15 @@ class Unlayer(SyncAPIClient):
 
 class AsyncUnlayer(AsyncAPIClient):
     # client options
-    api_key: str
+    access_token: str
 
-    _environment: Literal["production", "qa", "dev"] | NotGiven
+    _environment: Literal["production", "stage", "qa", "dev"] | NotGiven
 
     def __init__(
         self,
         *,
-        api_key: str | None = None,
-        environment: Literal["production", "qa", "dev"] | NotGiven = not_given,
+        access_token: str | None = None,
+        environment: Literal["production", "stage", "qa", "dev"] | NotGiven = not_given,
         base_url: str | httpx.URL | None | NotGiven = not_given,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -306,15 +314,15 @@ class AsyncUnlayer(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncUnlayer client instance.
 
-        This automatically infers the `api_key` argument from the `UNLAYER_API_KEY` environment variable if it is not provided.
+        This automatically infers the `access_token` argument from the `UNLAYER_ACCESS_TOKEN` environment variable if it is not provided.
         """
-        if api_key is None:
-            api_key = os.environ.get("UNLAYER_API_KEY")
-        if api_key is None:
+        if access_token is None:
+            access_token = os.environ.get("UNLAYER_ACCESS_TOKEN")
+        if access_token is None:
             raise UnlayerError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the UNLAYER_API_KEY environment variable"
+                "The access_token client option must be set either by passing access_token to the client or by setting the UNLAYER_ACCESS_TOKEN environment variable"
             )
-        self.api_key = api_key
+        self.access_token = access_token
 
         self._environment = environment
 
@@ -354,22 +362,28 @@ class AsyncUnlayer(AsyncAPIClient):
         )
 
     @cached_property
+    def documents(self) -> AsyncDocumentsResource:
+        from .resources.documents import AsyncDocumentsResource
+
+        return AsyncDocumentsResource(self)
+
+    @cached_property
     def emails(self) -> AsyncEmailsResource:
         from .resources.emails import AsyncEmailsResource
 
         return AsyncEmailsResource(self)
 
     @cached_property
+    def export(self) -> AsyncExportResource:
+        from .resources.export import AsyncExportResource
+
+        return AsyncExportResource(self)
+
+    @cached_property
     def pages(self) -> AsyncPagesResource:
         from .resources.pages import AsyncPagesResource
 
         return AsyncPagesResource(self)
-
-    @cached_property
-    def documents(self) -> AsyncDocumentsResource:
-        from .resources.documents import AsyncDocumentsResource
-
-        return AsyncDocumentsResource(self)
 
     @cached_property
     def project(self) -> AsyncProjectResource:
@@ -393,8 +407,8 @@ class AsyncUnlayer(AsyncAPIClient):
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        return {"Authorization": f"Bearer {api_key}"}
+        access_token = self.access_token
+        return {"Authorization": f"Bearer {access_token}"}
 
     @property
     @override
@@ -408,8 +422,8 @@ class AsyncUnlayer(AsyncAPIClient):
     def copy(
         self,
         *,
-        api_key: str | None = None,
-        environment: Literal["production", "qa", "dev"] | None = None,
+        access_token: str | None = None,
+        environment: Literal["production", "stage", "qa", "dev"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
@@ -443,7 +457,7 @@ class AsyncUnlayer(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            api_key=api_key or self.api_key,
+            access_token=access_token or self.access_token,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -499,22 +513,28 @@ class UnlayerWithRawResponse:
         self._client = client
 
     @cached_property
+    def documents(self) -> documents.DocumentsResourceWithRawResponse:
+        from .resources.documents import DocumentsResourceWithRawResponse
+
+        return DocumentsResourceWithRawResponse(self._client.documents)
+
+    @cached_property
     def emails(self) -> emails.EmailsResourceWithRawResponse:
         from .resources.emails import EmailsResourceWithRawResponse
 
         return EmailsResourceWithRawResponse(self._client.emails)
 
     @cached_property
+    def export(self) -> export.ExportResourceWithRawResponse:
+        from .resources.export import ExportResourceWithRawResponse
+
+        return ExportResourceWithRawResponse(self._client.export)
+
+    @cached_property
     def pages(self) -> pages.PagesResourceWithRawResponse:
         from .resources.pages import PagesResourceWithRawResponse
 
         return PagesResourceWithRawResponse(self._client.pages)
-
-    @cached_property
-    def documents(self) -> documents.DocumentsResourceWithRawResponse:
-        from .resources.documents import DocumentsResourceWithRawResponse
-
-        return DocumentsResourceWithRawResponse(self._client.documents)
 
     @cached_property
     def project(self) -> project.ProjectResourceWithRawResponse:
@@ -530,22 +550,28 @@ class AsyncUnlayerWithRawResponse:
         self._client = client
 
     @cached_property
+    def documents(self) -> documents.AsyncDocumentsResourceWithRawResponse:
+        from .resources.documents import AsyncDocumentsResourceWithRawResponse
+
+        return AsyncDocumentsResourceWithRawResponse(self._client.documents)
+
+    @cached_property
     def emails(self) -> emails.AsyncEmailsResourceWithRawResponse:
         from .resources.emails import AsyncEmailsResourceWithRawResponse
 
         return AsyncEmailsResourceWithRawResponse(self._client.emails)
 
     @cached_property
+    def export(self) -> export.AsyncExportResourceWithRawResponse:
+        from .resources.export import AsyncExportResourceWithRawResponse
+
+        return AsyncExportResourceWithRawResponse(self._client.export)
+
+    @cached_property
     def pages(self) -> pages.AsyncPagesResourceWithRawResponse:
         from .resources.pages import AsyncPagesResourceWithRawResponse
 
         return AsyncPagesResourceWithRawResponse(self._client.pages)
-
-    @cached_property
-    def documents(self) -> documents.AsyncDocumentsResourceWithRawResponse:
-        from .resources.documents import AsyncDocumentsResourceWithRawResponse
-
-        return AsyncDocumentsResourceWithRawResponse(self._client.documents)
 
     @cached_property
     def project(self) -> project.AsyncProjectResourceWithRawResponse:
@@ -561,22 +587,28 @@ class UnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def documents(self) -> documents.DocumentsResourceWithStreamingResponse:
+        from .resources.documents import DocumentsResourceWithStreamingResponse
+
+        return DocumentsResourceWithStreamingResponse(self._client.documents)
+
+    @cached_property
     def emails(self) -> emails.EmailsResourceWithStreamingResponse:
         from .resources.emails import EmailsResourceWithStreamingResponse
 
         return EmailsResourceWithStreamingResponse(self._client.emails)
 
     @cached_property
+    def export(self) -> export.ExportResourceWithStreamingResponse:
+        from .resources.export import ExportResourceWithStreamingResponse
+
+        return ExportResourceWithStreamingResponse(self._client.export)
+
+    @cached_property
     def pages(self) -> pages.PagesResourceWithStreamingResponse:
         from .resources.pages import PagesResourceWithStreamingResponse
 
         return PagesResourceWithStreamingResponse(self._client.pages)
-
-    @cached_property
-    def documents(self) -> documents.DocumentsResourceWithStreamingResponse:
-        from .resources.documents import DocumentsResourceWithStreamingResponse
-
-        return DocumentsResourceWithStreamingResponse(self._client.documents)
 
     @cached_property
     def project(self) -> project.ProjectResourceWithStreamingResponse:
@@ -592,22 +624,28 @@ class AsyncUnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def documents(self) -> documents.AsyncDocumentsResourceWithStreamingResponse:
+        from .resources.documents import AsyncDocumentsResourceWithStreamingResponse
+
+        return AsyncDocumentsResourceWithStreamingResponse(self._client.documents)
+
+    @cached_property
     def emails(self) -> emails.AsyncEmailsResourceWithStreamingResponse:
         from .resources.emails import AsyncEmailsResourceWithStreamingResponse
 
         return AsyncEmailsResourceWithStreamingResponse(self._client.emails)
 
     @cached_property
+    def export(self) -> export.AsyncExportResourceWithStreamingResponse:
+        from .resources.export import AsyncExportResourceWithStreamingResponse
+
+        return AsyncExportResourceWithStreamingResponse(self._client.export)
+
+    @cached_property
     def pages(self) -> pages.AsyncPagesResourceWithStreamingResponse:
         from .resources.pages import AsyncPagesResourceWithStreamingResponse
 
         return AsyncPagesResourceWithStreamingResponse(self._client.pages)
-
-    @cached_property
-    def documents(self) -> documents.AsyncDocumentsResourceWithStreamingResponse:
-        from .resources.documents import AsyncDocumentsResourceWithStreamingResponse
-
-        return AsyncDocumentsResourceWithStreamingResponse(self._client.documents)
 
     @cached_property
     def project(self) -> project.AsyncProjectResourceWithStreamingResponse:

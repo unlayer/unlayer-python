@@ -2,21 +2,20 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
 from ..types import (
     project_current_list_params,
     project_domains_list_params,
-    project_api_keys_list_params,
     project_domains_create_params,
     project_domains_update_params,
     project_templates_list_params,
-    project_api_keys_create_params,
-    project_api_keys_update_params,
     project_templates_create_params,
     project_templates_update_params,
 )
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -26,22 +25,17 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
-from ..types.project_tokens_list_response import ProjectTokensListResponse
+from ..pagination import SyncCursorPage, AsyncCursorPage
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.project_current_list_response import ProjectCurrentListResponse
 from ..types.project_domains_list_response import ProjectDomainsListResponse
-from ..types.project_api_keys_list_response import ProjectAPIKeysListResponse
-from ..types.project_tokens_delete_response import ProjectTokensDeleteResponse
 from ..types.project_domains_create_response import ProjectDomainsCreateResponse
 from ..types.project_domains_update_response import ProjectDomainsUpdateResponse
 from ..types.project_templates_list_response import ProjectTemplatesListResponse
-from ..types.project_api_keys_create_response import ProjectAPIKeysCreateResponse
-from ..types.project_api_keys_update_response import ProjectAPIKeysUpdateResponse
 from ..types.project_workspaces_list_response import ProjectWorkspacesListResponse
 from ..types.project_domains_retrieve_response import ProjectDomainsRetrieveResponse
 from ..types.project_templates_create_response import ProjectTemplatesCreateResponse
 from ..types.project_templates_update_response import ProjectTemplatesUpdateResponse
-from ..types.project_api_keys_retrieve_response import ProjectAPIKeysRetrieveResponse
 from ..types.project_templates_retrieve_response import ProjectTemplatesRetrieveResponse
 from ..types.project_workspaces_retrieve_response import ProjectWorkspacesRetrieveResponse
 
@@ -67,214 +61,6 @@ class ProjectResource(SyncAPIResource):
         For more information, see https://www.github.com/stainless-sdks/unlayer-python#with_streaming_response
         """
         return ProjectResourceWithStreamingResponse(self)
-
-    def api_keys_create(
-        self,
-        *,
-        project_id: str,
-        name: str,
-        domains: SequenceNotStr[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectAPIKeysCreateResponse:
-        """
-        Create a new API key for the project.
-
-        Args:
-          project_id: The project ID to create API key for
-
-          name: Name for the API key
-
-          domains: Allowed domains for this API key
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/project/v1/api-keys",
-            body=maybe_transform(
-                {
-                    "name": name,
-                    "domains": domains,
-                },
-                project_api_keys_create_params.ProjectAPIKeysCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"project_id": project_id}, project_api_keys_create_params.ProjectAPIKeysCreateParams
-                ),
-            ),
-            cast_to=ProjectAPIKeysCreateResponse,
-        )
-
-    def api_keys_delete(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        Revoke API key.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return self._delete(
-            f"/project/v1/api-keys/{id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
-    def api_keys_list(
-        self,
-        *,
-        project_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectAPIKeysListResponse:
-        """
-        List all API keys for the project.
-
-        Args:
-          project_id: The project ID to get API keys for
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get(
-            "/project/v1/api-keys",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"project_id": project_id}, project_api_keys_list_params.ProjectAPIKeysListParams
-                ),
-            ),
-            cast_to=ProjectAPIKeysListResponse,
-        )
-
-    def api_keys_retrieve(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectAPIKeysRetrieveResponse:
-        """
-        Get API key details by ID.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._get(
-            f"/project/v1/api-keys/{id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ProjectAPIKeysRetrieveResponse,
-        )
-
-    def api_keys_update(
-        self,
-        id: str,
-        *,
-        active: bool | Omit = omit,
-        domains: SequenceNotStr[str] | Omit = omit,
-        name: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectAPIKeysUpdateResponse:
-        """
-        Update API key settings.
-
-        Args:
-          active: Whether the API key is active
-
-          domains: Updated allowed domains
-
-          name: Updated name for the API key
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._put(
-            f"/project/v1/api-keys/{id}",
-            body=maybe_transform(
-                {
-                    "active": active,
-                    "domains": domains,
-                    "name": name,
-                },
-                project_api_keys_update_params.ProjectAPIKeysUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ProjectAPIKeysUpdateResponse,
-        )
 
     def current_list(
         self,
@@ -329,7 +115,7 @@ class ProjectResource(SyncAPIResource):
         Add a new domain to the project.
 
         Args:
-          project_id: The project ID to add domain to
+          project_id: The project ID
 
           domain: Domain name to add
 
@@ -405,7 +191,7 @@ class ProjectResource(SyncAPIResource):
         List all domains for the project.
 
         Args:
-          project_id: The project ID to get domains for
+          project_id: The project ID
 
           extra_headers: Send extra headers
 
@@ -502,8 +288,7 @@ class ProjectResource(SyncAPIResource):
         *,
         project_id: str,
         name: str,
-        body: str | Omit = omit,
-        subject: str | Omit = omit,
+        display_mode: Literal["email", "web", "document"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -515,13 +300,11 @@ class ProjectResource(SyncAPIResource):
         Create a new project template.
 
         Args:
-          project_id: The project ID to create template for
+          project_id: The project ID to create the template in
 
           name: Template name
 
-          body: Email body content
-
-          subject: Email subject line
+          display_mode: Template type/display mode
 
           extra_headers: Send extra headers
 
@@ -536,8 +319,7 @@ class ProjectResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "name": name,
-                    "body": body,
-                    "subject": subject,
+                    "display_mode": display_mode,
                 },
                 project_templates_create_params.ProjectTemplatesCreateParams,
             ),
@@ -591,18 +373,32 @@ class ProjectResource(SyncAPIResource):
         self,
         *,
         project_id: str,
+        cursor: str | Omit = omit,
+        display_mode: Literal["email", "web", "document"] | Omit = omit,
+        limit: int | Omit = omit,
+        name: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectTemplatesListResponse:
-        """
-        Get all project templates.
+    ) -> SyncCursorPage[ProjectTemplatesListResponse]:
+        """List project templates with cursor-based pagination.
+
+        Returns templates in
+        descending order by update time.
 
         Args:
-          project_id: The project ID to get templates for
+          project_id: The project ID to list templates for
+
+          cursor: Pagination cursor from previous response
+
+          display_mode: Filter by template type
+
+          limit: Number of templates to return (1-100)
+
+          name: Filter by name (case-insensitive search)
 
           extra_headers: Send extra headers
 
@@ -612,18 +408,26 @@ class ProjectResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/project/v1/templates",
+            page=SyncCursorPage[ProjectTemplatesListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"project_id": project_id}, project_templates_list_params.ProjectTemplatesListParams
+                    {
+                        "project_id": project_id,
+                        "cursor": cursor,
+                        "display_mode": display_mode,
+                        "limit": limit,
+                        "name": name,
+                    },
+                    project_templates_list_params.ProjectTemplatesListParams,
                 ),
             ),
-            cast_to=ProjectTemplatesListResponse,
+            model=ProjectTemplatesListResponse,
         )
 
     def templates_retrieve(
@@ -709,59 +513,6 @@ class ProjectResource(SyncAPIResource):
             cast_to=ProjectTemplatesUpdateResponse,
         )
 
-    def tokens_delete(
-        self,
-        token_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectTokensDeleteResponse:
-        """Delete a personal access token.
-
-        You can only delete your own tokens.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not token_id:
-            raise ValueError(f"Expected a non-empty value for `token_id` but received {token_id!r}")
-        return self._delete(
-            f"/project/v1/tokens/{token_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ProjectTokensDeleteResponse,
-        )
-
-    def tokens_list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectTokensListResponse:
-        """List all personal access tokens for the authenticated user."""
-        return self._get(
-            "/project/v1/tokens",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ProjectTokensListResponse,
-        )
-
     def workspaces_list(
         self,
         *,
@@ -835,214 +586,6 @@ class AsyncProjectResource(AsyncAPIResource):
         """
         return AsyncProjectResourceWithStreamingResponse(self)
 
-    async def api_keys_create(
-        self,
-        *,
-        project_id: str,
-        name: str,
-        domains: SequenceNotStr[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectAPIKeysCreateResponse:
-        """
-        Create a new API key for the project.
-
-        Args:
-          project_id: The project ID to create API key for
-
-          name: Name for the API key
-
-          domains: Allowed domains for this API key
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/project/v1/api-keys",
-            body=await async_maybe_transform(
-                {
-                    "name": name,
-                    "domains": domains,
-                },
-                project_api_keys_create_params.ProjectAPIKeysCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, project_api_keys_create_params.ProjectAPIKeysCreateParams
-                ),
-            ),
-            cast_to=ProjectAPIKeysCreateResponse,
-        )
-
-    async def api_keys_delete(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        Revoke API key.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return await self._delete(
-            f"/project/v1/api-keys/{id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
-    async def api_keys_list(
-        self,
-        *,
-        project_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectAPIKeysListResponse:
-        """
-        List all API keys for the project.
-
-        Args:
-          project_id: The project ID to get API keys for
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._get(
-            "/project/v1/api-keys",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, project_api_keys_list_params.ProjectAPIKeysListParams
-                ),
-            ),
-            cast_to=ProjectAPIKeysListResponse,
-        )
-
-    async def api_keys_retrieve(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectAPIKeysRetrieveResponse:
-        """
-        Get API key details by ID.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._get(
-            f"/project/v1/api-keys/{id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ProjectAPIKeysRetrieveResponse,
-        )
-
-    async def api_keys_update(
-        self,
-        id: str,
-        *,
-        active: bool | Omit = omit,
-        domains: SequenceNotStr[str] | Omit = omit,
-        name: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectAPIKeysUpdateResponse:
-        """
-        Update API key settings.
-
-        Args:
-          active: Whether the API key is active
-
-          domains: Updated allowed domains
-
-          name: Updated name for the API key
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._put(
-            f"/project/v1/api-keys/{id}",
-            body=await async_maybe_transform(
-                {
-                    "active": active,
-                    "domains": domains,
-                    "name": name,
-                },
-                project_api_keys_update_params.ProjectAPIKeysUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ProjectAPIKeysUpdateResponse,
-        )
-
     async def current_list(
         self,
         *,
@@ -1098,7 +641,7 @@ class AsyncProjectResource(AsyncAPIResource):
         Add a new domain to the project.
 
         Args:
-          project_id: The project ID to add domain to
+          project_id: The project ID
 
           domain: Domain name to add
 
@@ -1176,7 +719,7 @@ class AsyncProjectResource(AsyncAPIResource):
         List all domains for the project.
 
         Args:
-          project_id: The project ID to get domains for
+          project_id: The project ID
 
           extra_headers: Send extra headers
 
@@ -1277,8 +820,7 @@ class AsyncProjectResource(AsyncAPIResource):
         *,
         project_id: str,
         name: str,
-        body: str | Omit = omit,
-        subject: str | Omit = omit,
+        display_mode: Literal["email", "web", "document"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1290,13 +832,11 @@ class AsyncProjectResource(AsyncAPIResource):
         Create a new project template.
 
         Args:
-          project_id: The project ID to create template for
+          project_id: The project ID to create the template in
 
           name: Template name
 
-          body: Email body content
-
-          subject: Email subject line
+          display_mode: Template type/display mode
 
           extra_headers: Send extra headers
 
@@ -1311,8 +851,7 @@ class AsyncProjectResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "name": name,
-                    "body": body,
-                    "subject": subject,
+                    "display_mode": display_mode,
                 },
                 project_templates_create_params.ProjectTemplatesCreateParams,
             ),
@@ -1362,22 +901,36 @@ class AsyncProjectResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def templates_list(
+    def templates_list(
         self,
         *,
         project_id: str,
+        cursor: str | Omit = omit,
+        display_mode: Literal["email", "web", "document"] | Omit = omit,
+        limit: int | Omit = omit,
+        name: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectTemplatesListResponse:
-        """
-        Get all project templates.
+    ) -> AsyncPaginator[ProjectTemplatesListResponse, AsyncCursorPage[ProjectTemplatesListResponse]]:
+        """List project templates with cursor-based pagination.
+
+        Returns templates in
+        descending order by update time.
 
         Args:
-          project_id: The project ID to get templates for
+          project_id: The project ID to list templates for
+
+          cursor: Pagination cursor from previous response
+
+          display_mode: Filter by template type
+
+          limit: Number of templates to return (1-100)
+
+          name: Filter by name (case-insensitive search)
 
           extra_headers: Send extra headers
 
@@ -1387,18 +940,26 @@ class AsyncProjectResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/project/v1/templates",
+            page=AsyncCursorPage[ProjectTemplatesListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, project_templates_list_params.ProjectTemplatesListParams
+                query=maybe_transform(
+                    {
+                        "project_id": project_id,
+                        "cursor": cursor,
+                        "display_mode": display_mode,
+                        "limit": limit,
+                        "name": name,
+                    },
+                    project_templates_list_params.ProjectTemplatesListParams,
                 ),
             ),
-            cast_to=ProjectTemplatesListResponse,
+            model=ProjectTemplatesListResponse,
         )
 
     async def templates_retrieve(
@@ -1484,59 +1045,6 @@ class AsyncProjectResource(AsyncAPIResource):
             cast_to=ProjectTemplatesUpdateResponse,
         )
 
-    async def tokens_delete(
-        self,
-        token_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectTokensDeleteResponse:
-        """Delete a personal access token.
-
-        You can only delete your own tokens.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not token_id:
-            raise ValueError(f"Expected a non-empty value for `token_id` but received {token_id!r}")
-        return await self._delete(
-            f"/project/v1/tokens/{token_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ProjectTokensDeleteResponse,
-        )
-
-    async def tokens_list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProjectTokensListResponse:
-        """List all personal access tokens for the authenticated user."""
-        return await self._get(
-            "/project/v1/tokens",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ProjectTokensListResponse,
-        )
-
     async def workspaces_list(
         self,
         *,
@@ -1594,21 +1102,6 @@ class ProjectResourceWithRawResponse:
     def __init__(self, project: ProjectResource) -> None:
         self._project = project
 
-        self.api_keys_create = to_raw_response_wrapper(
-            project.api_keys_create,
-        )
-        self.api_keys_delete = to_raw_response_wrapper(
-            project.api_keys_delete,
-        )
-        self.api_keys_list = to_raw_response_wrapper(
-            project.api_keys_list,
-        )
-        self.api_keys_retrieve = to_raw_response_wrapper(
-            project.api_keys_retrieve,
-        )
-        self.api_keys_update = to_raw_response_wrapper(
-            project.api_keys_update,
-        )
         self.current_list = to_raw_response_wrapper(
             project.current_list,
         )
@@ -1642,12 +1135,6 @@ class ProjectResourceWithRawResponse:
         self.templates_update = to_raw_response_wrapper(
             project.templates_update,
         )
-        self.tokens_delete = to_raw_response_wrapper(
-            project.tokens_delete,
-        )
-        self.tokens_list = to_raw_response_wrapper(
-            project.tokens_list,
-        )
         self.workspaces_list = to_raw_response_wrapper(
             project.workspaces_list,
         )
@@ -1660,21 +1147,6 @@ class AsyncProjectResourceWithRawResponse:
     def __init__(self, project: AsyncProjectResource) -> None:
         self._project = project
 
-        self.api_keys_create = async_to_raw_response_wrapper(
-            project.api_keys_create,
-        )
-        self.api_keys_delete = async_to_raw_response_wrapper(
-            project.api_keys_delete,
-        )
-        self.api_keys_list = async_to_raw_response_wrapper(
-            project.api_keys_list,
-        )
-        self.api_keys_retrieve = async_to_raw_response_wrapper(
-            project.api_keys_retrieve,
-        )
-        self.api_keys_update = async_to_raw_response_wrapper(
-            project.api_keys_update,
-        )
         self.current_list = async_to_raw_response_wrapper(
             project.current_list,
         )
@@ -1708,12 +1180,6 @@ class AsyncProjectResourceWithRawResponse:
         self.templates_update = async_to_raw_response_wrapper(
             project.templates_update,
         )
-        self.tokens_delete = async_to_raw_response_wrapper(
-            project.tokens_delete,
-        )
-        self.tokens_list = async_to_raw_response_wrapper(
-            project.tokens_list,
-        )
         self.workspaces_list = async_to_raw_response_wrapper(
             project.workspaces_list,
         )
@@ -1726,21 +1192,6 @@ class ProjectResourceWithStreamingResponse:
     def __init__(self, project: ProjectResource) -> None:
         self._project = project
 
-        self.api_keys_create = to_streamed_response_wrapper(
-            project.api_keys_create,
-        )
-        self.api_keys_delete = to_streamed_response_wrapper(
-            project.api_keys_delete,
-        )
-        self.api_keys_list = to_streamed_response_wrapper(
-            project.api_keys_list,
-        )
-        self.api_keys_retrieve = to_streamed_response_wrapper(
-            project.api_keys_retrieve,
-        )
-        self.api_keys_update = to_streamed_response_wrapper(
-            project.api_keys_update,
-        )
         self.current_list = to_streamed_response_wrapper(
             project.current_list,
         )
@@ -1774,12 +1225,6 @@ class ProjectResourceWithStreamingResponse:
         self.templates_update = to_streamed_response_wrapper(
             project.templates_update,
         )
-        self.tokens_delete = to_streamed_response_wrapper(
-            project.tokens_delete,
-        )
-        self.tokens_list = to_streamed_response_wrapper(
-            project.tokens_list,
-        )
         self.workspaces_list = to_streamed_response_wrapper(
             project.workspaces_list,
         )
@@ -1792,21 +1237,6 @@ class AsyncProjectResourceWithStreamingResponse:
     def __init__(self, project: AsyncProjectResource) -> None:
         self._project = project
 
-        self.api_keys_create = async_to_streamed_response_wrapper(
-            project.api_keys_create,
-        )
-        self.api_keys_delete = async_to_streamed_response_wrapper(
-            project.api_keys_delete,
-        )
-        self.api_keys_list = async_to_streamed_response_wrapper(
-            project.api_keys_list,
-        )
-        self.api_keys_retrieve = async_to_streamed_response_wrapper(
-            project.api_keys_retrieve,
-        )
-        self.api_keys_update = async_to_streamed_response_wrapper(
-            project.api_keys_update,
-        )
         self.current_list = async_to_streamed_response_wrapper(
             project.current_list,
         )
@@ -1839,12 +1269,6 @@ class AsyncProjectResourceWithStreamingResponse:
         )
         self.templates_update = async_to_streamed_response_wrapper(
             project.templates_update,
-        )
-        self.tokens_delete = async_to_streamed_response_wrapper(
-            project.tokens_delete,
-        )
-        self.tokens_list = async_to_streamed_response_wrapper(
-            project.tokens_list,
         )
         self.workspaces_list = async_to_streamed_response_wrapper(
             project.workspaces_list,

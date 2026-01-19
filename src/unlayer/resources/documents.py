@@ -53,7 +53,7 @@ class DocumentsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        project_id: str | Omit = omit,
+        project_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -65,7 +65,7 @@ class DocumentsResource(SyncAPIResource):
         Retrieve details of a previously generated document.
 
         Args:
-          project_id: The project ID (required for PAT auth, not needed for API Key auth)
+          project_id: The project ID
 
           extra_headers: Send extra headers
 
@@ -94,8 +94,8 @@ class DocumentsResource(SyncAPIResource):
     def generate_create(
         self,
         *,
-        design: Dict[str, object],
-        project_id: str | Omit = omit,
+        project_id: str,
+        design: Dict[str, object] | Omit = omit,
         filename: str | Omit = omit,
         html: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
@@ -111,9 +111,9 @@ class DocumentsResource(SyncAPIResource):
         Generate PDF document from JSON design, HTML content, or URL.
 
         Args:
-          design: Proprietary design format JSON
+          project_id: The project ID
 
-          project_id: The project ID (required for PAT auth, not needed for API Key auth)
+          design: Proprietary design format JSON
 
           filename: Optional filename for the generated PDF
 
@@ -158,8 +158,8 @@ class DocumentsResource(SyncAPIResource):
     def generate_template_template(
         self,
         *,
+        project_id: str,
         template_id: str,
-        project_id: str | Omit = omit,
         filename: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -173,9 +173,9 @@ class DocumentsResource(SyncAPIResource):
         Generate PDF document from an existing template with merge tags.
 
         Args:
-          template_id: ID of the template to use for generation
+          project_id: The project ID
 
-          project_id: The project ID (required for PAT auth, not needed for API Key auth)
+          template_id: ID of the template to use for generation
 
           filename: Optional filename for the generated PDF
 
@@ -237,7 +237,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        project_id: str | Omit = omit,
+        project_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -249,7 +249,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Retrieve details of a previously generated document.
 
         Args:
-          project_id: The project ID (required for PAT auth, not needed for API Key auth)
+          project_id: The project ID
 
           extra_headers: Send extra headers
 
@@ -278,8 +278,8 @@ class AsyncDocumentsResource(AsyncAPIResource):
     async def generate_create(
         self,
         *,
-        design: Dict[str, object],
-        project_id: str | Omit = omit,
+        project_id: str,
+        design: Dict[str, object] | Omit = omit,
         filename: str | Omit = omit,
         html: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
@@ -295,9 +295,9 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Generate PDF document from JSON design, HTML content, or URL.
 
         Args:
-          design: Proprietary design format JSON
+          project_id: The project ID
 
-          project_id: The project ID (required for PAT auth, not needed for API Key auth)
+          design: Proprietary design format JSON
 
           filename: Optional filename for the generated PDF
 
@@ -342,8 +342,8 @@ class AsyncDocumentsResource(AsyncAPIResource):
     async def generate_template_template(
         self,
         *,
+        project_id: str,
         template_id: str,
-        project_id: str | Omit = omit,
         filename: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -357,9 +357,9 @@ class AsyncDocumentsResource(AsyncAPIResource):
         Generate PDF document from an existing template with merge tags.
 
         Args:
-          template_id: ID of the template to use for generation
+          project_id: The project ID
 
-          project_id: The project ID (required for PAT auth, not needed for API Key auth)
+          template_id: ID of the template to use for generation
 
           filename: Optional filename for the generated PDF
 
