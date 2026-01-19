@@ -10,228 +10,25 @@ import pytest
 from unlayer import Unlayer, AsyncUnlayer
 from tests.utils import assert_matches_type
 from unlayer.types import (
-    ProjectTokensListResponse,
-    ProjectAPIKeysListResponse,
     ProjectCurrentListResponse,
     ProjectDomainsListResponse,
-    ProjectTokensDeleteResponse,
-    ProjectAPIKeysCreateResponse,
-    ProjectAPIKeysUpdateResponse,
     ProjectDomainsCreateResponse,
     ProjectDomainsUpdateResponse,
     ProjectTemplatesListResponse,
     ProjectWorkspacesListResponse,
-    ProjectAPIKeysRetrieveResponse,
     ProjectDomainsRetrieveResponse,
     ProjectTemplatesCreateResponse,
     ProjectTemplatesUpdateResponse,
     ProjectTemplatesRetrieveResponse,
     ProjectWorkspacesRetrieveResponse,
 )
+from unlayer.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
 class TestProject:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
-
-    @parametrize
-    def test_method_api_keys_create(self, client: Unlayer) -> None:
-        project = client.project.api_keys_create(
-            project_id="projectId",
-            name="name",
-        )
-        assert_matches_type(ProjectAPIKeysCreateResponse, project, path=["response"])
-
-    @parametrize
-    def test_method_api_keys_create_with_all_params(self, client: Unlayer) -> None:
-        project = client.project.api_keys_create(
-            project_id="projectId",
-            name="name",
-            domains=["string"],
-        )
-        assert_matches_type(ProjectAPIKeysCreateResponse, project, path=["response"])
-
-    @parametrize
-    def test_raw_response_api_keys_create(self, client: Unlayer) -> None:
-        response = client.project.with_raw_response.api_keys_create(
-            project_id="projectId",
-            name="name",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = response.parse()
-        assert_matches_type(ProjectAPIKeysCreateResponse, project, path=["response"])
-
-    @parametrize
-    def test_streaming_response_api_keys_create(self, client: Unlayer) -> None:
-        with client.project.with_streaming_response.api_keys_create(
-            project_id="projectId",
-            name="name",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = response.parse()
-            assert_matches_type(ProjectAPIKeysCreateResponse, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_api_keys_delete(self, client: Unlayer) -> None:
-        project = client.project.api_keys_delete(
-            "id",
-        )
-        assert project is None
-
-    @parametrize
-    def test_raw_response_api_keys_delete(self, client: Unlayer) -> None:
-        response = client.project.with_raw_response.api_keys_delete(
-            "id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = response.parse()
-        assert project is None
-
-    @parametrize
-    def test_streaming_response_api_keys_delete(self, client: Unlayer) -> None:
-        with client.project.with_streaming_response.api_keys_delete(
-            "id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = response.parse()
-            assert project is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_api_keys_delete(self, client: Unlayer) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.project.with_raw_response.api_keys_delete(
-                "",
-            )
-
-    @parametrize
-    def test_method_api_keys_list(self, client: Unlayer) -> None:
-        project = client.project.api_keys_list(
-            project_id="projectId",
-        )
-        assert_matches_type(ProjectAPIKeysListResponse, project, path=["response"])
-
-    @parametrize
-    def test_raw_response_api_keys_list(self, client: Unlayer) -> None:
-        response = client.project.with_raw_response.api_keys_list(
-            project_id="projectId",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = response.parse()
-        assert_matches_type(ProjectAPIKeysListResponse, project, path=["response"])
-
-    @parametrize
-    def test_streaming_response_api_keys_list(self, client: Unlayer) -> None:
-        with client.project.with_streaming_response.api_keys_list(
-            project_id="projectId",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = response.parse()
-            assert_matches_type(ProjectAPIKeysListResponse, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_api_keys_retrieve(self, client: Unlayer) -> None:
-        project = client.project.api_keys_retrieve(
-            "id",
-        )
-        assert_matches_type(ProjectAPIKeysRetrieveResponse, project, path=["response"])
-
-    @parametrize
-    def test_raw_response_api_keys_retrieve(self, client: Unlayer) -> None:
-        response = client.project.with_raw_response.api_keys_retrieve(
-            "id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = response.parse()
-        assert_matches_type(ProjectAPIKeysRetrieveResponse, project, path=["response"])
-
-    @parametrize
-    def test_streaming_response_api_keys_retrieve(self, client: Unlayer) -> None:
-        with client.project.with_streaming_response.api_keys_retrieve(
-            "id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = response.parse()
-            assert_matches_type(ProjectAPIKeysRetrieveResponse, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_api_keys_retrieve(self, client: Unlayer) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.project.with_raw_response.api_keys_retrieve(
-                "",
-            )
-
-    @parametrize
-    def test_method_api_keys_update(self, client: Unlayer) -> None:
-        project = client.project.api_keys_update(
-            id="id",
-        )
-        assert_matches_type(ProjectAPIKeysUpdateResponse, project, path=["response"])
-
-    @parametrize
-    def test_method_api_keys_update_with_all_params(self, client: Unlayer) -> None:
-        project = client.project.api_keys_update(
-            id="id",
-            active=True,
-            domains=["string"],
-            name="name",
-        )
-        assert_matches_type(ProjectAPIKeysUpdateResponse, project, path=["response"])
-
-    @parametrize
-    def test_raw_response_api_keys_update(self, client: Unlayer) -> None:
-        response = client.project.with_raw_response.api_keys_update(
-            id="id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = response.parse()
-        assert_matches_type(ProjectAPIKeysUpdateResponse, project, path=["response"])
-
-    @parametrize
-    def test_streaming_response_api_keys_update(self, client: Unlayer) -> None:
-        with client.project.with_streaming_response.api_keys_update(
-            id="id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = response.parse()
-            assert_matches_type(ProjectAPIKeysUpdateResponse, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_api_keys_update(self, client: Unlayer) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.project.with_raw_response.api_keys_update(
-                id="",
-            )
 
     @parametrize
     def test_method_current_list(self, client: Unlayer) -> None:
@@ -464,8 +261,7 @@ class TestProject:
         project = client.project.templates_create(
             project_id="projectId",
             name="name",
-            body="body",
-            subject="subject",
+            display_mode="email",
         )
         assert_matches_type(ProjectTemplatesCreateResponse, project, path=["response"])
 
@@ -538,7 +334,18 @@ class TestProject:
         project = client.project.templates_list(
             project_id="projectId",
         )
-        assert_matches_type(ProjectTemplatesListResponse, project, path=["response"])
+        assert_matches_type(SyncCursorPage[ProjectTemplatesListResponse], project, path=["response"])
+
+    @parametrize
+    def test_method_templates_list_with_all_params(self, client: Unlayer) -> None:
+        project = client.project.templates_list(
+            project_id="projectId",
+            cursor="cursor",
+            display_mode="email",
+            limit=1,
+            name="name",
+        )
+        assert_matches_type(SyncCursorPage[ProjectTemplatesListResponse], project, path=["response"])
 
     @parametrize
     def test_raw_response_templates_list(self, client: Unlayer) -> None:
@@ -549,7 +356,7 @@ class TestProject:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         project = response.parse()
-        assert_matches_type(ProjectTemplatesListResponse, project, path=["response"])
+        assert_matches_type(SyncCursorPage[ProjectTemplatesListResponse], project, path=["response"])
 
     @parametrize
     def test_streaming_response_templates_list(self, client: Unlayer) -> None:
@@ -560,7 +367,7 @@ class TestProject:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             project = response.parse()
-            assert_matches_type(ProjectTemplatesListResponse, project, path=["response"])
+            assert_matches_type(SyncCursorPage[ProjectTemplatesListResponse], project, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -651,69 +458,6 @@ class TestProject:
             )
 
     @parametrize
-    def test_method_tokens_delete(self, client: Unlayer) -> None:
-        project = client.project.tokens_delete(
-            "tokenId",
-        )
-        assert_matches_type(ProjectTokensDeleteResponse, project, path=["response"])
-
-    @parametrize
-    def test_raw_response_tokens_delete(self, client: Unlayer) -> None:
-        response = client.project.with_raw_response.tokens_delete(
-            "tokenId",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = response.parse()
-        assert_matches_type(ProjectTokensDeleteResponse, project, path=["response"])
-
-    @parametrize
-    def test_streaming_response_tokens_delete(self, client: Unlayer) -> None:
-        with client.project.with_streaming_response.tokens_delete(
-            "tokenId",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = response.parse()
-            assert_matches_type(ProjectTokensDeleteResponse, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_tokens_delete(self, client: Unlayer) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `token_id` but received ''"):
-            client.project.with_raw_response.tokens_delete(
-                "",
-            )
-
-    @parametrize
-    def test_method_tokens_list(self, client: Unlayer) -> None:
-        project = client.project.tokens_list()
-        assert_matches_type(ProjectTokensListResponse, project, path=["response"])
-
-    @parametrize
-    def test_raw_response_tokens_list(self, client: Unlayer) -> None:
-        response = client.project.with_raw_response.tokens_list()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = response.parse()
-        assert_matches_type(ProjectTokensListResponse, project, path=["response"])
-
-    @parametrize
-    def test_streaming_response_tokens_list(self, client: Unlayer) -> None:
-        with client.project.with_streaming_response.tokens_list() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = response.parse()
-            assert_matches_type(ProjectTokensListResponse, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     def test_method_workspaces_list(self, client: Unlayer) -> None:
         project = client.project.workspaces_list()
         assert_matches_type(ProjectWorkspacesListResponse, project, path=["response"])
@@ -781,204 +525,6 @@ class TestAsyncProject:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
-
-    @parametrize
-    async def test_method_api_keys_create(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.api_keys_create(
-            project_id="projectId",
-            name="name",
-        )
-        assert_matches_type(ProjectAPIKeysCreateResponse, project, path=["response"])
-
-    @parametrize
-    async def test_method_api_keys_create_with_all_params(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.api_keys_create(
-            project_id="projectId",
-            name="name",
-            domains=["string"],
-        )
-        assert_matches_type(ProjectAPIKeysCreateResponse, project, path=["response"])
-
-    @parametrize
-    async def test_raw_response_api_keys_create(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.with_raw_response.api_keys_create(
-            project_id="projectId",
-            name="name",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = await response.parse()
-        assert_matches_type(ProjectAPIKeysCreateResponse, project, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_api_keys_create(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.with_streaming_response.api_keys_create(
-            project_id="projectId",
-            name="name",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = await response.parse()
-            assert_matches_type(ProjectAPIKeysCreateResponse, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_api_keys_delete(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.api_keys_delete(
-            "id",
-        )
-        assert project is None
-
-    @parametrize
-    async def test_raw_response_api_keys_delete(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.with_raw_response.api_keys_delete(
-            "id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = await response.parse()
-        assert project is None
-
-    @parametrize
-    async def test_streaming_response_api_keys_delete(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.with_streaming_response.api_keys_delete(
-            "id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = await response.parse()
-            assert project is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_api_keys_delete(self, async_client: AsyncUnlayer) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.project.with_raw_response.api_keys_delete(
-                "",
-            )
-
-    @parametrize
-    async def test_method_api_keys_list(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.api_keys_list(
-            project_id="projectId",
-        )
-        assert_matches_type(ProjectAPIKeysListResponse, project, path=["response"])
-
-    @parametrize
-    async def test_raw_response_api_keys_list(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.with_raw_response.api_keys_list(
-            project_id="projectId",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = await response.parse()
-        assert_matches_type(ProjectAPIKeysListResponse, project, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_api_keys_list(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.with_streaming_response.api_keys_list(
-            project_id="projectId",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = await response.parse()
-            assert_matches_type(ProjectAPIKeysListResponse, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_api_keys_retrieve(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.api_keys_retrieve(
-            "id",
-        )
-        assert_matches_type(ProjectAPIKeysRetrieveResponse, project, path=["response"])
-
-    @parametrize
-    async def test_raw_response_api_keys_retrieve(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.with_raw_response.api_keys_retrieve(
-            "id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = await response.parse()
-        assert_matches_type(ProjectAPIKeysRetrieveResponse, project, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_api_keys_retrieve(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.with_streaming_response.api_keys_retrieve(
-            "id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = await response.parse()
-            assert_matches_type(ProjectAPIKeysRetrieveResponse, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_api_keys_retrieve(self, async_client: AsyncUnlayer) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.project.with_raw_response.api_keys_retrieve(
-                "",
-            )
-
-    @parametrize
-    async def test_method_api_keys_update(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.api_keys_update(
-            id="id",
-        )
-        assert_matches_type(ProjectAPIKeysUpdateResponse, project, path=["response"])
-
-    @parametrize
-    async def test_method_api_keys_update_with_all_params(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.api_keys_update(
-            id="id",
-            active=True,
-            domains=["string"],
-            name="name",
-        )
-        assert_matches_type(ProjectAPIKeysUpdateResponse, project, path=["response"])
-
-    @parametrize
-    async def test_raw_response_api_keys_update(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.with_raw_response.api_keys_update(
-            id="id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = await response.parse()
-        assert_matches_type(ProjectAPIKeysUpdateResponse, project, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_api_keys_update(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.with_streaming_response.api_keys_update(
-            id="id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = await response.parse()
-            assert_matches_type(ProjectAPIKeysUpdateResponse, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_api_keys_update(self, async_client: AsyncUnlayer) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.project.with_raw_response.api_keys_update(
-                id="",
-            )
 
     @parametrize
     async def test_method_current_list(self, async_client: AsyncUnlayer) -> None:
@@ -1211,8 +757,7 @@ class TestAsyncProject:
         project = await async_client.project.templates_create(
             project_id="projectId",
             name="name",
-            body="body",
-            subject="subject",
+            display_mode="email",
         )
         assert_matches_type(ProjectTemplatesCreateResponse, project, path=["response"])
 
@@ -1285,7 +830,18 @@ class TestAsyncProject:
         project = await async_client.project.templates_list(
             project_id="projectId",
         )
-        assert_matches_type(ProjectTemplatesListResponse, project, path=["response"])
+        assert_matches_type(AsyncCursorPage[ProjectTemplatesListResponse], project, path=["response"])
+
+    @parametrize
+    async def test_method_templates_list_with_all_params(self, async_client: AsyncUnlayer) -> None:
+        project = await async_client.project.templates_list(
+            project_id="projectId",
+            cursor="cursor",
+            display_mode="email",
+            limit=1,
+            name="name",
+        )
+        assert_matches_type(AsyncCursorPage[ProjectTemplatesListResponse], project, path=["response"])
 
     @parametrize
     async def test_raw_response_templates_list(self, async_client: AsyncUnlayer) -> None:
@@ -1296,7 +852,7 @@ class TestAsyncProject:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         project = await response.parse()
-        assert_matches_type(ProjectTemplatesListResponse, project, path=["response"])
+        assert_matches_type(AsyncCursorPage[ProjectTemplatesListResponse], project, path=["response"])
 
     @parametrize
     async def test_streaming_response_templates_list(self, async_client: AsyncUnlayer) -> None:
@@ -1307,7 +863,7 @@ class TestAsyncProject:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             project = await response.parse()
-            assert_matches_type(ProjectTemplatesListResponse, project, path=["response"])
+            assert_matches_type(AsyncCursorPage[ProjectTemplatesListResponse], project, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1396,69 +952,6 @@ class TestAsyncProject:
             await async_client.project.with_raw_response.templates_update(
                 id="",
             )
-
-    @parametrize
-    async def test_method_tokens_delete(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.tokens_delete(
-            "tokenId",
-        )
-        assert_matches_type(ProjectTokensDeleteResponse, project, path=["response"])
-
-    @parametrize
-    async def test_raw_response_tokens_delete(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.with_raw_response.tokens_delete(
-            "tokenId",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = await response.parse()
-        assert_matches_type(ProjectTokensDeleteResponse, project, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_tokens_delete(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.with_streaming_response.tokens_delete(
-            "tokenId",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = await response.parse()
-            assert_matches_type(ProjectTokensDeleteResponse, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_tokens_delete(self, async_client: AsyncUnlayer) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `token_id` but received ''"):
-            await async_client.project.with_raw_response.tokens_delete(
-                "",
-            )
-
-    @parametrize
-    async def test_method_tokens_list(self, async_client: AsyncUnlayer) -> None:
-        project = await async_client.project.tokens_list()
-        assert_matches_type(ProjectTokensListResponse, project, path=["response"])
-
-    @parametrize
-    async def test_raw_response_tokens_list(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.with_raw_response.tokens_list()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = await response.parse()
-        assert_matches_type(ProjectTokensListResponse, project, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_tokens_list(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.with_streaming_response.tokens_list() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = await response.parse()
-            assert_matches_type(ProjectTokensListResponse, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_workspaces_list(self, async_client: AsyncUnlayer) -> None:

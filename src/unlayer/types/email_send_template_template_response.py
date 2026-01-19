@@ -7,11 +7,15 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["EmailSendTemplateTemplateResponse"]
+__all__ = ["EmailSendTemplateTemplateResponse", "Data"]
 
 
-class EmailSendTemplateTemplateResponse(BaseModel):
+class Data(BaseModel):
     message_id: Optional[str] = FieldInfo(alias="messageId", default=None)
     """Unique message identifier"""
 
     status: Optional[Literal["sent", "queued", "failed"]] = None
+
+
+class EmailSendTemplateTemplateResponse(BaseModel):
+    data: Optional[Data] = None

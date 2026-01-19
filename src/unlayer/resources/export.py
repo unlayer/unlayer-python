@@ -2,17 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict
-
 import httpx
 
-from ..types import (
-    email_retrieve_params,
-    email_send_create_params,
-    email_render_create_params,
-    email_send_template_template_params,
-)
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..types import export_pdf_list_params, export_zip_list_params, export_html_list_params, export_image_list_params
+from .._types import Body, Query, Headers, NotGiven, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -23,37 +16,36 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.email_retrieve_response import EmailRetrieveResponse
-from ..types.email_send_create_response import EmailSendCreateResponse
-from ..types.email_render_create_response import EmailRenderCreateResponse
-from ..types.email_send_template_template_response import EmailSendTemplateTemplateResponse
+from ..types.export_pdf_list_response import ExportPdfListResponse
+from ..types.export_zip_list_response import ExportZipListResponse
+from ..types.export_html_list_response import ExportHTMLListResponse
+from ..types.export_image_list_response import ExportImageListResponse
 
-__all__ = ["EmailsResource", "AsyncEmailsResource"]
+__all__ = ["ExportResource", "AsyncExportResource"]
 
 
-class EmailsResource(SyncAPIResource):
+class ExportResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> EmailsResourceWithRawResponse:
+    def with_raw_response(self) -> ExportResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/unlayer-python#accessing-raw-response-data-eg-headers
         """
-        return EmailsResourceWithRawResponse(self)
+        return ExportResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> EmailsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ExportResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/unlayer-python#with_streaming_response
         """
-        return EmailsResourceWithStreamingResponse(self)
+        return ExportResourceWithStreamingResponse(self)
 
-    def retrieve(
+    def html_list(
         self,
-        id: str,
         *,
         project_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -62,9 +54,9 @@ class EmailsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmailRetrieveResponse:
+    ) -> ExportHTMLListResponse:
         """
-        Retrieve details of a previously sent email.
+        Export design to HTML.
 
         Args:
           project_id: The project ID
@@ -77,42 +69,34 @@ class EmailsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/emails/v1/emails/{id}",
+            "/export/v3/html",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, email_retrieve_params.EmailRetrieveParams),
+                query=maybe_transform({"project_id": project_id}, export_html_list_params.ExportHTMLListParams),
             ),
-            cast_to=EmailRetrieveResponse,
+            cast_to=ExportHTMLListResponse,
         )
 
-    def render_create(
+    def image_list(
         self,
         *,
         project_id: str,
-        design: Dict[str, object],
-        merge_tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmailRenderCreateResponse:
+    ) -> ExportImageListResponse:
         """
-        Convert design JSON to HTML with optional merge tags.
+        Export design to image.
 
         Args:
           project_id: The project ID
-
-          design: Proprietary design format JSON
-
-          merge_tags: Optional merge tags for personalization
 
           extra_headers: Send extra headers
 
@@ -122,56 +106,34 @@ class EmailsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
-            "/emails/v1/render",
-            body=maybe_transform(
-                {
-                    "design": design,
-                    "merge_tags": merge_tags,
-                },
-                email_render_create_params.EmailRenderCreateParams,
-            ),
+        return self._get(
+            "/export/v3/image",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, email_render_create_params.EmailRenderCreateParams),
+                query=maybe_transform({"project_id": project_id}, export_image_list_params.ExportImageListParams),
             ),
-            cast_to=EmailRenderCreateResponse,
+            cast_to=ExportImageListResponse,
         )
 
-    def send_create(
+    def pdf_list(
         self,
         *,
         project_id: str,
-        to: str,
-        design: Dict[str, object] | Omit = omit,
-        html: str | Omit = omit,
-        merge_tags: Dict[str, str] | Omit = omit,
-        subject: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmailSendCreateResponse:
+    ) -> ExportPdfListResponse:
         """
-        Send email with design JSON or HTML content.
+        Export design to PDF.
 
         Args:
           project_id: The project ID
-
-          to: Recipient email address
-
-          design: Proprietary design format JSON
-
-          html: HTML content to send
-
-          merge_tags: Optional merge tags for personalization
-
-          subject: Email subject line
 
           extra_headers: Send extra headers
 
@@ -181,56 +143,34 @@ class EmailsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
-            "/emails/v1/send",
-            body=maybe_transform(
-                {
-                    "to": to,
-                    "design": design,
-                    "html": html,
-                    "merge_tags": merge_tags,
-                    "subject": subject,
-                },
-                email_send_create_params.EmailSendCreateParams,
-            ),
+        return self._get(
+            "/export/v3/pdf",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, email_send_create_params.EmailSendCreateParams),
+                query=maybe_transform({"project_id": project_id}, export_pdf_list_params.ExportPdfListParams),
             ),
-            cast_to=EmailSendCreateResponse,
+            cast_to=ExportPdfListResponse,
         )
 
-    def send_template_template(
+    def zip_list(
         self,
         *,
         project_id: str,
-        template_id: str,
-        to: str,
-        merge_tags: Dict[str, str] | Omit = omit,
-        subject: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmailSendTemplateTemplateResponse:
+    ) -> ExportZipListResponse:
         """
-        Send email using an existing template with merge tags.
+        Export design to ZIP archive.
 
         Args:
           project_id: The project ID
-
-          template_id: ID of the template to use
-
-          to: Recipient email address
-
-          merge_tags: Optional merge tags for personalization
-
-          subject: Email subject line (optional, uses template default if not provided)
 
           extra_headers: Send extra headers
 
@@ -240,53 +180,41 @@ class EmailsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
-            "/emails/v1/send/template",
-            body=maybe_transform(
-                {
-                    "template_id": template_id,
-                    "to": to,
-                    "merge_tags": merge_tags,
-                    "subject": subject,
-                },
-                email_send_template_template_params.EmailSendTemplateTemplateParams,
-            ),
+        return self._get(
+            "/export/v3/zip",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
-                    {"project_id": project_id}, email_send_template_template_params.EmailSendTemplateTemplateParams
-                ),
+                query=maybe_transform({"project_id": project_id}, export_zip_list_params.ExportZipListParams),
             ),
-            cast_to=EmailSendTemplateTemplateResponse,
+            cast_to=ExportZipListResponse,
         )
 
 
-class AsyncEmailsResource(AsyncAPIResource):
+class AsyncExportResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncEmailsResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncExportResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/unlayer-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncEmailsResourceWithRawResponse(self)
+        return AsyncExportResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncEmailsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncExportResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/unlayer-python#with_streaming_response
         """
-        return AsyncEmailsResourceWithStreamingResponse(self)
+        return AsyncExportResourceWithStreamingResponse(self)
 
-    async def retrieve(
+    async def html_list(
         self,
-        id: str,
         *,
         project_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -295,9 +223,9 @@ class AsyncEmailsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmailRetrieveResponse:
+    ) -> ExportHTMLListResponse:
         """
-        Retrieve details of a previously sent email.
+        Export design to HTML.
 
         Args:
           project_id: The project ID
@@ -310,44 +238,36 @@ class AsyncEmailsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/emails/v1/emails/{id}",
+            "/export/v3/html",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"project_id": project_id}, email_retrieve_params.EmailRetrieveParams
+                    {"project_id": project_id}, export_html_list_params.ExportHTMLListParams
                 ),
             ),
-            cast_to=EmailRetrieveResponse,
+            cast_to=ExportHTMLListResponse,
         )
 
-    async def render_create(
+    async def image_list(
         self,
         *,
         project_id: str,
-        design: Dict[str, object],
-        merge_tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmailRenderCreateResponse:
+    ) -> ExportImageListResponse:
         """
-        Convert design JSON to HTML with optional merge tags.
+        Export design to image.
 
         Args:
           project_id: The project ID
-
-          design: Proprietary design format JSON
-
-          merge_tags: Optional merge tags for personalization
 
           extra_headers: Send extra headers
 
@@ -357,58 +277,36 @@ class AsyncEmailsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
-            "/emails/v1/render",
-            body=await async_maybe_transform(
-                {
-                    "design": design,
-                    "merge_tags": merge_tags,
-                },
-                email_render_create_params.EmailRenderCreateParams,
-            ),
+        return await self._get(
+            "/export/v3/image",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"project_id": project_id}, email_render_create_params.EmailRenderCreateParams
+                    {"project_id": project_id}, export_image_list_params.ExportImageListParams
                 ),
             ),
-            cast_to=EmailRenderCreateResponse,
+            cast_to=ExportImageListResponse,
         )
 
-    async def send_create(
+    async def pdf_list(
         self,
         *,
         project_id: str,
-        to: str,
-        design: Dict[str, object] | Omit = omit,
-        html: str | Omit = omit,
-        merge_tags: Dict[str, str] | Omit = omit,
-        subject: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmailSendCreateResponse:
+    ) -> ExportPdfListResponse:
         """
-        Send email with design JSON or HTML content.
+        Export design to PDF.
 
         Args:
           project_id: The project ID
-
-          to: Recipient email address
-
-          design: Proprietary design format JSON
-
-          html: HTML content to send
-
-          merge_tags: Optional merge tags for personalization
-
-          subject: Email subject line
 
           extra_headers: Send extra headers
 
@@ -418,58 +316,36 @@ class AsyncEmailsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
-            "/emails/v1/send",
-            body=await async_maybe_transform(
-                {
-                    "to": to,
-                    "design": design,
-                    "html": html,
-                    "merge_tags": merge_tags,
-                    "subject": subject,
-                },
-                email_send_create_params.EmailSendCreateParams,
-            ),
+        return await self._get(
+            "/export/v3/pdf",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"project_id": project_id}, email_send_create_params.EmailSendCreateParams
+                    {"project_id": project_id}, export_pdf_list_params.ExportPdfListParams
                 ),
             ),
-            cast_to=EmailSendCreateResponse,
+            cast_to=ExportPdfListResponse,
         )
 
-    async def send_template_template(
+    async def zip_list(
         self,
         *,
         project_id: str,
-        template_id: str,
-        to: str,
-        merge_tags: Dict[str, str] | Omit = omit,
-        subject: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmailSendTemplateTemplateResponse:
+    ) -> ExportZipListResponse:
         """
-        Send email using an existing template with merge tags.
+        Export design to ZIP archive.
 
         Args:
           project_id: The project ID
-
-          template_id: ID of the template to use
-
-          to: Recipient email address
-
-          merge_tags: Optional merge tags for personalization
-
-          subject: Email subject line (optional, uses template default if not provided)
 
           extra_headers: Send extra headers
 
@@ -479,97 +355,88 @@ class AsyncEmailsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
-            "/emails/v1/send/template",
-            body=await async_maybe_transform(
-                {
-                    "template_id": template_id,
-                    "to": to,
-                    "merge_tags": merge_tags,
-                    "subject": subject,
-                },
-                email_send_template_template_params.EmailSendTemplateTemplateParams,
-            ),
+        return await self._get(
+            "/export/v3/zip",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"project_id": project_id}, email_send_template_template_params.EmailSendTemplateTemplateParams
+                    {"project_id": project_id}, export_zip_list_params.ExportZipListParams
                 ),
             ),
-            cast_to=EmailSendTemplateTemplateResponse,
+            cast_to=ExportZipListResponse,
         )
 
 
-class EmailsResourceWithRawResponse:
-    def __init__(self, emails: EmailsResource) -> None:
-        self._emails = emails
+class ExportResourceWithRawResponse:
+    def __init__(self, export: ExportResource) -> None:
+        self._export = export
 
-        self.retrieve = to_raw_response_wrapper(
-            emails.retrieve,
+        self.html_list = to_raw_response_wrapper(
+            export.html_list,
         )
-        self.render_create = to_raw_response_wrapper(
-            emails.render_create,
+        self.image_list = to_raw_response_wrapper(
+            export.image_list,
         )
-        self.send_create = to_raw_response_wrapper(
-            emails.send_create,
+        self.pdf_list = to_raw_response_wrapper(
+            export.pdf_list,
         )
-        self.send_template_template = to_raw_response_wrapper(
-            emails.send_template_template,
-        )
-
-
-class AsyncEmailsResourceWithRawResponse:
-    def __init__(self, emails: AsyncEmailsResource) -> None:
-        self._emails = emails
-
-        self.retrieve = async_to_raw_response_wrapper(
-            emails.retrieve,
-        )
-        self.render_create = async_to_raw_response_wrapper(
-            emails.render_create,
-        )
-        self.send_create = async_to_raw_response_wrapper(
-            emails.send_create,
-        )
-        self.send_template_template = async_to_raw_response_wrapper(
-            emails.send_template_template,
+        self.zip_list = to_raw_response_wrapper(
+            export.zip_list,
         )
 
 
-class EmailsResourceWithStreamingResponse:
-    def __init__(self, emails: EmailsResource) -> None:
-        self._emails = emails
+class AsyncExportResourceWithRawResponse:
+    def __init__(self, export: AsyncExportResource) -> None:
+        self._export = export
 
-        self.retrieve = to_streamed_response_wrapper(
-            emails.retrieve,
+        self.html_list = async_to_raw_response_wrapper(
+            export.html_list,
         )
-        self.render_create = to_streamed_response_wrapper(
-            emails.render_create,
+        self.image_list = async_to_raw_response_wrapper(
+            export.image_list,
         )
-        self.send_create = to_streamed_response_wrapper(
-            emails.send_create,
+        self.pdf_list = async_to_raw_response_wrapper(
+            export.pdf_list,
         )
-        self.send_template_template = to_streamed_response_wrapper(
-            emails.send_template_template,
+        self.zip_list = async_to_raw_response_wrapper(
+            export.zip_list,
         )
 
 
-class AsyncEmailsResourceWithStreamingResponse:
-    def __init__(self, emails: AsyncEmailsResource) -> None:
-        self._emails = emails
+class ExportResourceWithStreamingResponse:
+    def __init__(self, export: ExportResource) -> None:
+        self._export = export
 
-        self.retrieve = async_to_streamed_response_wrapper(
-            emails.retrieve,
+        self.html_list = to_streamed_response_wrapper(
+            export.html_list,
         )
-        self.render_create = async_to_streamed_response_wrapper(
-            emails.render_create,
+        self.image_list = to_streamed_response_wrapper(
+            export.image_list,
         )
-        self.send_create = async_to_streamed_response_wrapper(
-            emails.send_create,
+        self.pdf_list = to_streamed_response_wrapper(
+            export.pdf_list,
         )
-        self.send_template_template = async_to_streamed_response_wrapper(
-            emails.send_template_template,
+        self.zip_list = to_streamed_response_wrapper(
+            export.zip_list,
+        )
+
+
+class AsyncExportResourceWithStreamingResponse:
+    def __init__(self, export: AsyncExportResource) -> None:
+        self._export = export
+
+        self.html_list = async_to_streamed_response_wrapper(
+            export.html_list,
+        )
+        self.image_list = async_to_streamed_response_wrapper(
+            export.image_list,
+        )
+        self.pdf_list = async_to_streamed_response_wrapper(
+            export.pdf_list,
+        )
+        self.zip_list = async_to_streamed_response_wrapper(
+            export.zip_list,
         )

@@ -2,6 +2,7 @@
 
 from typing import Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
@@ -12,14 +13,15 @@ __all__ = ["ProjectTemplatesCreateResponse", "Data"]
 
 class Data(BaseModel):
     id: Optional[str] = None
-
-    body: Optional[str] = None
+    """Template ID"""
 
     created_at: Optional[datetime] = FieldInfo(alias="createdAt", default=None)
 
-    name: Optional[str] = None
+    display_mode: Optional[Literal["email", "web", "document"]] = FieldInfo(alias="displayMode", default=None)
+    """Template type/display mode"""
 
-    subject: Optional[str] = None
+    name: Optional[str] = None
+    """Template name"""
 
     updated_at: Optional[datetime] = FieldInfo(alias="updatedAt", default=None)
 

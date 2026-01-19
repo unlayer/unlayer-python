@@ -11,11 +11,11 @@ __all__ = ["PageRenderCreateParams"]
 
 
 class PageRenderCreateParams(TypedDict, total=False):
+    project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
+    """The project ID"""
+
     design: Required[Dict[str, object]]
     """Proprietary design format JSON"""
-
-    project_id: Annotated[str, PropertyInfo(alias="projectId")]
-    """The project ID (required for PAT auth, not needed for API Key auth)"""
 
     merge_tags: Annotated[Dict[str, str], PropertyInfo(alias="mergeTags")]
     """Optional merge tags for personalization"""

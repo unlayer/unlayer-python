@@ -8,10 +8,10 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["DocumentDocumentsRetrieveResponse"]
+__all__ = ["DocumentDocumentsRetrieveResponse", "Data"]
 
 
-class DocumentDocumentsRetrieveResponse(BaseModel):
+class Data(BaseModel):
     id: Optional[str] = None
     """Document ID"""
 
@@ -35,3 +35,7 @@ class DocumentDocumentsRetrieveResponse(BaseModel):
 
     status: Optional[Literal["generating", "completed", "failed"]] = None
     """Current document status"""
+
+
+class DocumentDocumentsRetrieveResponse(BaseModel):
+    data: Optional[Data] = None

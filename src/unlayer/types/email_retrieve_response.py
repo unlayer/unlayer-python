@@ -8,10 +8,10 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["EmailRetrieveResponse"]
+__all__ = ["EmailRetrieveResponse", "Data"]
 
 
-class EmailRetrieveResponse(BaseModel):
+class Data(BaseModel):
     id: Optional[str] = None
     """Email message ID"""
 
@@ -29,3 +29,7 @@ class EmailRetrieveResponse(BaseModel):
 
     to: Optional[str] = None
     """Recipient email address"""
+
+
+class EmailRetrieveResponse(BaseModel):
+    data: Optional[Data] = None

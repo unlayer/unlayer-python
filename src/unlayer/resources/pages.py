@@ -46,8 +46,8 @@ class PagesResource(SyncAPIResource):
     def render_create(
         self,
         *,
+        project_id: str,
         design: Dict[str, object],
-        project_id: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -60,9 +60,9 @@ class PagesResource(SyncAPIResource):
         Convert page design JSON to HTML with optional merge tags.
 
         Args:
-          design: Proprietary design format JSON
+          project_id: The project ID
 
-          project_id: The project ID (required for PAT auth, not needed for API Key auth)
+          design: Proprietary design format JSON
 
           merge_tags: Optional merge tags for personalization
 
@@ -117,8 +117,8 @@ class AsyncPagesResource(AsyncAPIResource):
     async def render_create(
         self,
         *,
+        project_id: str,
         design: Dict[str, object],
-        project_id: str | Omit = omit,
         merge_tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -131,9 +131,9 @@ class AsyncPagesResource(AsyncAPIResource):
         Convert page design JSON to HTML with optional merge tags.
 
         Args:
-          design: Proprietary design format JSON
+          project_id: The project ID
 
-          project_id: The project ID (required for PAT auth, not needed for API Key auth)
+          design: Proprietary design format JSON
 
           merge_tags: Optional merge tags for personalization
 

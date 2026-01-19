@@ -6,9 +6,9 @@ from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["ProjectDomainsListParams"]
+__all__ = ["ExportZipListParams"]
 
 
-class ProjectDomainsListParams(TypedDict, total=False):
+class ExportZipListParams(TypedDict, total=False):
     project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
     """The project ID"""

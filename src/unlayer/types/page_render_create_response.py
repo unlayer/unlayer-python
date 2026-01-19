@@ -4,9 +4,13 @@ from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["PageRenderCreateResponse"]
+__all__ = ["PageRenderCreateResponse", "Data"]
+
+
+class Data(BaseModel):
+    html: Optional[str] = None
+    """Rendered HTML content"""
 
 
 class PageRenderCreateResponse(BaseModel):
-    html: Optional[str] = None
-    """Rendered HTML content"""
+    data: Optional[Data] = None

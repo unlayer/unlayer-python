@@ -4,10 +4,12 @@ from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["ProjectTokensDeleteResponse"]
+__all__ = ["ExportPdfListResponse", "Data"]
 
 
-class ProjectTokensDeleteResponse(BaseModel):
-    message: Optional[str] = None
-
+class Data(BaseModel):
     success: Optional[bool] = None
+
+
+class ExportPdfListResponse(BaseModel):
+    data: Optional[Data] = None

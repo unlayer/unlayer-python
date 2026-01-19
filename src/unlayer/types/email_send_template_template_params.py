@@ -11,14 +11,14 @@ __all__ = ["EmailSendTemplateTemplateParams"]
 
 
 class EmailSendTemplateTemplateParams(TypedDict, total=False):
+    project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
+    """The project ID"""
+
     template_id: Required[Annotated[str, PropertyInfo(alias="templateId")]]
     """ID of the template to use"""
 
     to: Required[str]
     """Recipient email address"""
-
-    project_id: Annotated[str, PropertyInfo(alias="projectId")]
-    """The project ID (required for PAT auth, not needed for API Key auth)"""
 
     merge_tags: Annotated[Dict[str, str], PropertyInfo(alias="mergeTags")]
     """Optional merge tags for personalization"""

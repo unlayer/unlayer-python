@@ -32,21 +32,21 @@ import os
 from unlayer import Unlayer
 
 client = Unlayer(
-    api_key=os.environ.get("UNLAYER_API_KEY"),  # This is the default and can be omitted
-    # or 'production' | 'dev'; defaults to "production".
-    environment="qa",
+    access_token=os.environ.get("UNLAYER_ACCESS_TOKEN"),  # This is the default and can be omitted
+    # or 'production' | 'qa' | 'dev'; defaults to "production".
+    environment="stage",
 )
 
 response = client.project.current_list(
-    project_id="projectId",
+    project_id="your-project-id",
 )
 print(response.data)
 ```
 
-While you can provide an `api_key` keyword argument,
+While you can provide a `access_token` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `UNLAYER_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
+to add `UNLAYER_ACCESS_TOKEN="My Access Token"` to your `.env` file
+so that your Access Token is not stored in source control.
 
 ## Async usage
 
@@ -58,15 +58,15 @@ import asyncio
 from unlayer import AsyncUnlayer
 
 client = AsyncUnlayer(
-    api_key=os.environ.get("UNLAYER_API_KEY"),  # This is the default and can be omitted
-    # or 'production' | 'dev'; defaults to "production".
-    environment="qa",
+    access_token=os.environ.get("UNLAYER_ACCESS_TOKEN"),  # This is the default and can be omitted
+    # or 'production' | 'qa' | 'dev'; defaults to "production".
+    environment="stage",
 )
 
 
 async def main() -> None:
     response = await client.project.current_list(
-        project_id="projectId",
+        project_id="your-project-id",
     )
     print(response.data)
 
@@ -98,11 +98,13 @@ from unlayer import AsyncUnlayer
 
 async def main() -> None:
     async with AsyncUnlayer(
-        api_key=os.environ.get("UNLAYER_API_KEY"),  # This is the default and can be omitted
+        access_token=os.environ.get(
+            "UNLAYER_ACCESS_TOKEN"
+        ),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         response = await client.project.current_list(
-            project_id="projectId",
+            project_id="your-project-id",
         )
         print(response.data)
 
@@ -118,6 +120,81 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+
+## Pagination
+
+List methods in the Unlayer API are paginated.
+
+This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
+
+```python
+from unlayer import Unlayer
+
+client = Unlayer()
+
+all_projects = []
+# Automatically fetches more pages as needed.
+for project in client.project.templates_list(
+    project_id="your-project-id",
+    limit=10,
+):
+    # Do something with project here
+    all_projects.append(project)
+print(all_projects)
+```
+
+Or, asynchronously:
+
+```python
+import asyncio
+from unlayer import AsyncUnlayer
+
+client = AsyncUnlayer()
+
+
+async def main() -> None:
+    all_projects = []
+    # Iterate through items across all pages, issuing requests as needed.
+    async for project in client.project.templates_list(
+        project_id="your-project-id",
+        limit=10,
+    ):
+        all_projects.append(project)
+    print(all_projects)
+
+
+asyncio.run(main())
+```
+
+Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
+
+```python
+first_page = await client.project.templates_list(
+    project_id="your-project-id",
+    limit=10,
+)
+if first_page.has_next_page():
+    print(f"will fetch next page using these details: {first_page.next_page_info()}")
+    next_page = await first_page.get_next_page()
+    print(f"number of items we just fetched: {len(next_page.data)}")
+
+# Remove `await` for non-async usage.
+```
+
+Or just work directly with the returned data:
+
+```python
+first_page = await client.project.templates_list(
+    project_id="your-project-id",
+    limit=10,
+)
+
+print(f"next page cursor: {first_page.next_cursor}")  # => "next page cursor: ..."
+for project in first_page.data:
+    print(project.id)
+
+# Remove `await` for non-async usage.
+```
 
 ## Handling errors
 
@@ -136,7 +213,7 @@ client = Unlayer()
 
 try:
     client.project.current_list(
-        project_id="projectId",
+        project_id="your-project-id",
     )
 except unlayer.APIConnectionError as e:
     print("The server could not be reached")
@@ -181,7 +258,7 @@ client = Unlayer(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).project.current_list(
-    project_id="projectId",
+    project_id="your-project-id",
 )
 ```
 
@@ -206,7 +283,7 @@ client = Unlayer(
 
 # Override per-request:
 client.with_options(timeout=5.0).project.current_list(
-    project_id="projectId",
+    project_id="your-project-id",
 )
 ```
 
@@ -249,7 +326,7 @@ from unlayer import Unlayer
 
 client = Unlayer()
 response = client.project.with_raw_response.current_list(
-    project_id="projectId",
+    project_id="your-project-id",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -269,7 +346,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.project.with_streaming_response.current_list(
-    project_id="projectId",
+    project_id="your-project-id",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

@@ -4,13 +4,12 @@ from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["EmailRenderCreateResponse", "Data"]
+__all__ = ["ExportZipListResponse", "Data"]
 
 
 class Data(BaseModel):
-    html: Optional[str] = None
-    """Rendered HTML content"""
+    success: Optional[bool] = None
 
 
-class EmailRenderCreateResponse(BaseModel):
+class ExportZipListResponse(BaseModel):
     data: Optional[Data] = None
