@@ -31,12 +31,13 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import pages, emails, export, project, documents
-    from .resources.pages import PagesResource, AsyncPagesResource
-    from .resources.emails import EmailsResource, AsyncEmailsResource
-    from .resources.export import ExportResource, AsyncExportResource
-    from .resources.project import ProjectResource, AsyncProjectResource
-    from .resources.documents import DocumentsResource, AsyncDocumentsResource
+    from .resources import pages, emails, export, convert, project, documents
+    from .resources.pages.pages import PagesResource, AsyncPagesResource
+    from .resources.emails.emails import EmailsResource, AsyncEmailsResource
+    from .resources.export.export import ExportResource, AsyncExportResource
+    from .resources.convert.convert import ConvertResource, AsyncConvertResource
+    from .resources.project.project import ProjectResource, AsyncProjectResource
+    from .resources.documents.documents import DocumentsResource, AsyncDocumentsResource
 
 __all__ = [
     "ENVIRONMENTS",
@@ -136,6 +137,12 @@ class Unlayer(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+    @cached_property
+    def convert(self) -> ConvertResource:
+        from .resources.convert import ConvertResource
+
+        return ConvertResource(self)
 
     @cached_property
     def documents(self) -> DocumentsResource:
@@ -362,6 +369,12 @@ class AsyncUnlayer(AsyncAPIClient):
         )
 
     @cached_property
+    def convert(self) -> AsyncConvertResource:
+        from .resources.convert import AsyncConvertResource
+
+        return AsyncConvertResource(self)
+
+    @cached_property
     def documents(self) -> AsyncDocumentsResource:
         from .resources.documents import AsyncDocumentsResource
 
@@ -513,6 +526,12 @@ class UnlayerWithRawResponse:
         self._client = client
 
     @cached_property
+    def convert(self) -> convert.ConvertResourceWithRawResponse:
+        from .resources.convert import ConvertResourceWithRawResponse
+
+        return ConvertResourceWithRawResponse(self._client.convert)
+
+    @cached_property
     def documents(self) -> documents.DocumentsResourceWithRawResponse:
         from .resources.documents import DocumentsResourceWithRawResponse
 
@@ -548,6 +567,12 @@ class AsyncUnlayerWithRawResponse:
 
     def __init__(self, client: AsyncUnlayer) -> None:
         self._client = client
+
+    @cached_property
+    def convert(self) -> convert.AsyncConvertResourceWithRawResponse:
+        from .resources.convert import AsyncConvertResourceWithRawResponse
+
+        return AsyncConvertResourceWithRawResponse(self._client.convert)
 
     @cached_property
     def documents(self) -> documents.AsyncDocumentsResourceWithRawResponse:
@@ -587,6 +612,12 @@ class UnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def convert(self) -> convert.ConvertResourceWithStreamingResponse:
+        from .resources.convert import ConvertResourceWithStreamingResponse
+
+        return ConvertResourceWithStreamingResponse(self._client.convert)
+
+    @cached_property
     def documents(self) -> documents.DocumentsResourceWithStreamingResponse:
         from .resources.documents import DocumentsResourceWithStreamingResponse
 
@@ -622,6 +653,12 @@ class AsyncUnlayerWithStreamedResponse:
 
     def __init__(self, client: AsyncUnlayer) -> None:
         self._client = client
+
+    @cached_property
+    def convert(self) -> convert.AsyncConvertResourceWithStreamingResponse:
+        from .resources.convert import AsyncConvertResourceWithStreamingResponse
+
+        return AsyncConvertResourceWithStreamingResponse(self._client.convert)
 
     @cached_property
     def documents(self) -> documents.AsyncDocumentsResourceWithStreamingResponse:
