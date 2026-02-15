@@ -15,13 +15,20 @@ class FullToSimpleCreateParams(TypedDict, total=False):
 
     display_mode: Annotated[Literal["email", "web", "popup", "document"], PropertyInfo(alias="displayMode")]
 
+    include_conversion: Annotated[bool, PropertyInfo(alias="includeConversion")]
+    """When true, includes \\__conversion metadata in the response.
+
+    This metadata can be passed to simple-to-full to restore original values without
+    data loss.
+    """
+
     include_default_values: Annotated[bool, PropertyInfo(alias="includeDefaultValues")]
 
 
 class DesignTyped(TypedDict, total=False):
-    body: Required[object]
+    body: Required[Dict[str, object]]
 
-    counters: object
+    counters: Dict[str, object]
 
     schema_version: Annotated[float, PropertyInfo(alias="schemaVersion")]
 

@@ -69,7 +69,7 @@ class SimpleToFullResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/convert/simple-to-full",
+            "/v3/convert/simple-to-full",
             body=maybe_transform(
                 {
                     "design": design,
@@ -131,7 +131,7 @@ class AsyncSimpleToFullResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/convert/simple-to-full",
+            "/v3/convert/simple-to-full",
             body=await async_maybe_transform(
                 {
                     "design": design,

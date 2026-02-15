@@ -37,10 +37,10 @@ client = Unlayer(
     environment="stage",
 )
 
-full_to_simple = client.convert.full_to_simple.create(
-    design={"body": {}},
+project = client.project.retrieve(
+    project_id="your-project-id",
 )
-print(full_to_simple.data)
+print(project.data)
 ```
 
 While you can provide a `access_token` keyword argument,
@@ -65,10 +65,10 @@ client = AsyncUnlayer(
 
 
 async def main() -> None:
-    full_to_simple = await client.convert.full_to_simple.create(
-        design={"body": {}},
+    project = await client.project.retrieve(
+        project_id="your-project-id",
     )
-    print(full_to_simple.data)
+    print(project.data)
 
 
 asyncio.run(main())
@@ -103,10 +103,10 @@ async def main() -> None:
         ),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        full_to_simple = await client.convert.full_to_simple.create(
-            design={"body": {}},
+        project = await client.project.retrieve(
+            project_id="your-project-id",
         )
-        print(full_to_simple.data)
+        print(project.data)
 
 
 asyncio.run(main())
@@ -121,6 +121,81 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
+## Pagination
+
+List methods in the Unlayer API are paginated.
+
+This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
+
+```python
+from unlayer import Unlayer
+
+client = Unlayer()
+
+all_templates = []
+# Automatically fetches more pages as needed.
+for template in client.project.templates.list(
+    project_id="your-project-id",
+    limit=10,
+):
+    # Do something with template here
+    all_templates.append(template)
+print(all_templates)
+```
+
+Or, asynchronously:
+
+```python
+import asyncio
+from unlayer import AsyncUnlayer
+
+client = AsyncUnlayer()
+
+
+async def main() -> None:
+    all_templates = []
+    # Iterate through items across all pages, issuing requests as needed.
+    async for template in client.project.templates.list(
+        project_id="your-project-id",
+        limit=10,
+    ):
+        all_templates.append(template)
+    print(all_templates)
+
+
+asyncio.run(main())
+```
+
+Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
+
+```python
+first_page = await client.project.templates.list(
+    project_id="your-project-id",
+    limit=10,
+)
+if first_page.has_next_page():
+    print(f"will fetch next page using these details: {first_page.next_page_info()}")
+    next_page = await first_page.get_next_page()
+    print(f"number of items we just fetched: {len(next_page.data)}")
+
+# Remove `await` for non-async usage.
+```
+
+Or just work directly with the returned data:
+
+```python
+first_page = await client.project.templates.list(
+    project_id="your-project-id",
+    limit=10,
+)
+
+print(f"next page cursor: {first_page.next_cursor}")  # => "next page cursor: ..."
+for template in first_page.data:
+    print(template.id)
+
+# Remove `await` for non-async usage.
+```
+
 ## Nested params
 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
@@ -131,7 +206,7 @@ from unlayer import Unlayer
 client = Unlayer()
 
 full_to_simple = client.convert.full_to_simple.create(
-    design={"body": {}},
+    design={"body": {"foo": "bar"}},
 )
 print(full_to_simple.design)
 ```
@@ -152,8 +227,8 @@ from unlayer import Unlayer
 client = Unlayer()
 
 try:
-    client.convert.full_to_simple.create(
-        design={"body": {}},
+    client.project.retrieve(
+        project_id="your-project-id",
     )
 except unlayer.APIConnectionError as e:
     print("The server could not be reached")
@@ -197,8 +272,8 @@ client = Unlayer(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).convert.full_to_simple.create(
-    design={"body": {}},
+client.with_options(max_retries=5).project.retrieve(
+    project_id="your-project-id",
 )
 ```
 
@@ -222,8 +297,8 @@ client = Unlayer(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).convert.full_to_simple.create(
-    design={"body": {}},
+client.with_options(timeout=5.0).project.retrieve(
+    project_id="your-project-id",
 )
 ```
 
@@ -265,15 +340,13 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from unlayer import Unlayer
 
 client = Unlayer()
-response = client.convert.full_to_simple.with_raw_response.create(
-    design={
-        "body": {}
-    },
+response = client.project.with_raw_response.retrieve(
+    project_id="your-project-id",
 )
 print(response.headers.get('X-My-Header'))
 
-full_to_simple = response.parse()  # get the object that `convert.full_to_simple.create()` would have returned
-print(full_to_simple.data)
+project = response.parse()  # get the object that `project.retrieve()` would have returned
+print(project.data)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/unlayer-python/tree/main/src/unlayer/_response.py) object.
@@ -287,8 +360,8 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.convert.full_to_simple.with_streaming_response.create(
-    design={"body": {}},
+with client.project.with_streaming_response.retrieve(
+    project_id="your-project-id",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

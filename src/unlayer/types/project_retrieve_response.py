@@ -5,9 +5,9 @@ from datetime import datetime
 
 from pydantic import Field as FieldInfo
 
-from ..._models import BaseModel
+from .._models import BaseModel
 
-__all__ = ["CurrentRetrieveResponse", "Data", "DataWorkspace"]
+__all__ = ["ProjectRetrieveResponse", "Data", "DataWorkspace"]
 
 
 class DataWorkspace(BaseModel):
@@ -18,15 +18,19 @@ class DataWorkspace(BaseModel):
 
 class Data(BaseModel):
     id: Optional[float] = None
+    """The project ID."""
 
     created_at: Optional[datetime] = FieldInfo(alias="createdAt", default=None)
+    """When the project was created."""
 
     name: Optional[str] = None
+    """The project name."""
 
     status: Optional[str] = None
+    """The project status."""
 
     workspace: Optional[DataWorkspace] = None
 
 
-class CurrentRetrieveResponse(BaseModel):
+class ProjectRetrieveResponse(BaseModel):
     data: Optional[Data] = None

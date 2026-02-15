@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from typing_extensions import Required, Annotated, TypedDict
 
-from ..._utils import PropertyInfo
+from .._utils import PropertyInfo
 
-__all__ = ["DomainListParams"]
+__all__ = ["ProjectRetrieveParams"]
 
 
-class DomainListParams(TypedDict, total=False):
+class ProjectRetrieveParams(TypedDict, total=False):
     project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
     """The project ID"""

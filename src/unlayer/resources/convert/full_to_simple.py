@@ -48,6 +48,7 @@ class FullToSimpleResource(SyncAPIResource):
         *,
         design: full_to_simple_create_params.Design,
         display_mode: Literal["email", "web", "popup", "document"] | Omit = omit,
+        include_conversion: bool | Omit = omit,
         include_default_values: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -60,6 +61,9 @@ class FullToSimpleResource(SyncAPIResource):
         Convert design json from Full to Simple schema.
 
         Args:
+          include_conversion: When true, includes \\__conversion metadata in the response. This metadata can be
+              passed to simple-to-full to restore original values without data loss.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -69,11 +73,12 @@ class FullToSimpleResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/convert/full-to-simple",
+            "/v3/convert/full-to-simple",
             body=maybe_transform(
                 {
                     "design": design,
                     "display_mode": display_mode,
+                    "include_conversion": include_conversion,
                     "include_default_values": include_default_values,
                 },
                 full_to_simple_create_params.FullToSimpleCreateParams,
@@ -110,6 +115,7 @@ class AsyncFullToSimpleResource(AsyncAPIResource):
         *,
         design: full_to_simple_create_params.Design,
         display_mode: Literal["email", "web", "popup", "document"] | Omit = omit,
+        include_conversion: bool | Omit = omit,
         include_default_values: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -122,6 +128,9 @@ class AsyncFullToSimpleResource(AsyncAPIResource):
         Convert design json from Full to Simple schema.
 
         Args:
+          include_conversion: When true, includes \\__conversion metadata in the response. This metadata can be
+              passed to simple-to-full to restore original values without data loss.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -131,11 +140,12 @@ class AsyncFullToSimpleResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/convert/full-to-simple",
+            "/v3/convert/full-to-simple",
             body=await async_maybe_transform(
                 {
                     "design": design,
                     "display_mode": display_mode,
+                    "include_conversion": include_conversion,
                     "include_default_values": include_default_values,
                 },
                 full_to_simple_create_params.FullToSimpleCreateParams,

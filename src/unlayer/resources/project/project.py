@@ -2,22 +2,11 @@
 
 from __future__ import annotations
 
-from .current import (
-    CurrentResource,
-    AsyncCurrentResource,
-    CurrentResourceWithRawResponse,
-    AsyncCurrentResourceWithRawResponse,
-    CurrentResourceWithStreamingResponse,
-    AsyncCurrentResourceWithStreamingResponse,
-)
-from .domains import (
-    DomainsResource,
-    AsyncDomainsResource,
-    DomainsResourceWithRawResponse,
-    AsyncDomainsResourceWithRawResponse,
-    DomainsResourceWithStreamingResponse,
-    AsyncDomainsResourceWithStreamingResponse,
-)
+import httpx
+
+from ...types import project_retrieve_params
+from ..._types import Body, Query, Headers, NotGiven, not_given
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from .templates import (
     TemplatesResource,
@@ -27,35 +16,23 @@ from .templates import (
     TemplatesResourceWithStreamingResponse,
     AsyncTemplatesResourceWithStreamingResponse,
 )
-from .workspaces import (
-    WorkspacesResource,
-    AsyncWorkspacesResource,
-    WorkspacesResourceWithRawResponse,
-    AsyncWorkspacesResourceWithRawResponse,
-    WorkspacesResourceWithStreamingResponse,
-    AsyncWorkspacesResourceWithStreamingResponse,
-)
 from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._base_client import make_request_options
+from ...types.project_retrieve_response import ProjectRetrieveResponse
 
 __all__ = ["ProjectResource", "AsyncProjectResource"]
 
 
 class ProjectResource(SyncAPIResource):
     @cached_property
-    def current(self) -> CurrentResource:
-        return CurrentResource(self._client)
-
-    @cached_property
-    def domains(self) -> DomainsResource:
-        return DomainsResource(self._client)
-
-    @cached_property
     def templates(self) -> TemplatesResource:
         return TemplatesResource(self._client)
-
-    @cached_property
-    def workspaces(self) -> WorkspacesResource:
-        return WorkspacesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> ProjectResourceWithRawResponse:
@@ -76,23 +53,48 @@ class ProjectResource(SyncAPIResource):
         """
         return ProjectResourceWithStreamingResponse(self)
 
+    def retrieve(
+        self,
+        *,
+        project_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ProjectRetrieveResponse:
+        """
+        Get project details for the specified project.
+
+        Args:
+          project_id: The project ID
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/v3/project",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, project_retrieve_params.ProjectRetrieveParams),
+            ),
+            cast_to=ProjectRetrieveResponse,
+        )
+
 
 class AsyncProjectResource(AsyncAPIResource):
     @cached_property
-    def current(self) -> AsyncCurrentResource:
-        return AsyncCurrentResource(self._client)
-
-    @cached_property
-    def domains(self) -> AsyncDomainsResource:
-        return AsyncDomainsResource(self._client)
-
-    @cached_property
     def templates(self) -> AsyncTemplatesResource:
         return AsyncTemplatesResource(self._client)
-
-    @cached_property
-    def workspaces(self) -> AsyncWorkspacesResource:
-        return AsyncWorkspacesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncProjectResourceWithRawResponse:
@@ -113,86 +115,93 @@ class AsyncProjectResource(AsyncAPIResource):
         """
         return AsyncProjectResourceWithStreamingResponse(self)
 
+    async def retrieve(
+        self,
+        *,
+        project_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ProjectRetrieveResponse:
+        """
+        Get project details for the specified project.
+
+        Args:
+          project_id: The project ID
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/v3/project",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, project_retrieve_params.ProjectRetrieveParams
+                ),
+            ),
+            cast_to=ProjectRetrieveResponse,
+        )
+
 
 class ProjectResourceWithRawResponse:
     def __init__(self, project: ProjectResource) -> None:
         self._project = project
 
-    @cached_property
-    def current(self) -> CurrentResourceWithRawResponse:
-        return CurrentResourceWithRawResponse(self._project.current)
-
-    @cached_property
-    def domains(self) -> DomainsResourceWithRawResponse:
-        return DomainsResourceWithRawResponse(self._project.domains)
+        self.retrieve = to_raw_response_wrapper(
+            project.retrieve,
+        )
 
     @cached_property
     def templates(self) -> TemplatesResourceWithRawResponse:
         return TemplatesResourceWithRawResponse(self._project.templates)
-
-    @cached_property
-    def workspaces(self) -> WorkspacesResourceWithRawResponse:
-        return WorkspacesResourceWithRawResponse(self._project.workspaces)
 
 
 class AsyncProjectResourceWithRawResponse:
     def __init__(self, project: AsyncProjectResource) -> None:
         self._project = project
 
-    @cached_property
-    def current(self) -> AsyncCurrentResourceWithRawResponse:
-        return AsyncCurrentResourceWithRawResponse(self._project.current)
-
-    @cached_property
-    def domains(self) -> AsyncDomainsResourceWithRawResponse:
-        return AsyncDomainsResourceWithRawResponse(self._project.domains)
+        self.retrieve = async_to_raw_response_wrapper(
+            project.retrieve,
+        )
 
     @cached_property
     def templates(self) -> AsyncTemplatesResourceWithRawResponse:
         return AsyncTemplatesResourceWithRawResponse(self._project.templates)
-
-    @cached_property
-    def workspaces(self) -> AsyncWorkspacesResourceWithRawResponse:
-        return AsyncWorkspacesResourceWithRawResponse(self._project.workspaces)
 
 
 class ProjectResourceWithStreamingResponse:
     def __init__(self, project: ProjectResource) -> None:
         self._project = project
 
-    @cached_property
-    def current(self) -> CurrentResourceWithStreamingResponse:
-        return CurrentResourceWithStreamingResponse(self._project.current)
-
-    @cached_property
-    def domains(self) -> DomainsResourceWithStreamingResponse:
-        return DomainsResourceWithStreamingResponse(self._project.domains)
+        self.retrieve = to_streamed_response_wrapper(
+            project.retrieve,
+        )
 
     @cached_property
     def templates(self) -> TemplatesResourceWithStreamingResponse:
         return TemplatesResourceWithStreamingResponse(self._project.templates)
-
-    @cached_property
-    def workspaces(self) -> WorkspacesResourceWithStreamingResponse:
-        return WorkspacesResourceWithStreamingResponse(self._project.workspaces)
 
 
 class AsyncProjectResourceWithStreamingResponse:
     def __init__(self, project: AsyncProjectResource) -> None:
         self._project = project
 
-    @cached_property
-    def current(self) -> AsyncCurrentResourceWithStreamingResponse:
-        return AsyncCurrentResourceWithStreamingResponse(self._project.current)
-
-    @cached_property
-    def domains(self) -> AsyncDomainsResourceWithStreamingResponse:
-        return AsyncDomainsResourceWithStreamingResponse(self._project.domains)
+        self.retrieve = async_to_streamed_response_wrapper(
+            project.retrieve,
+        )
 
     @cached_property
     def templates(self) -> AsyncTemplatesResourceWithStreamingResponse:
         return AsyncTemplatesResourceWithStreamingResponse(self._project.templates)
-
-    @cached_property
-    def workspaces(self) -> AsyncWorkspacesResourceWithStreamingResponse:
-        return AsyncWorkspacesResourceWithStreamingResponse(self._project.workspaces)

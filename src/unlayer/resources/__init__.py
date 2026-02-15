@@ -1,29 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .pages import (
-    PagesResource,
-    AsyncPagesResource,
-    PagesResourceWithRawResponse,
-    AsyncPagesResourceWithRawResponse,
-    PagesResourceWithStreamingResponse,
-    AsyncPagesResourceWithStreamingResponse,
-)
-from .emails import (
-    EmailsResource,
-    AsyncEmailsResource,
-    EmailsResourceWithRawResponse,
-    AsyncEmailsResourceWithRawResponse,
-    EmailsResourceWithStreamingResponse,
-    AsyncEmailsResourceWithStreamingResponse,
-)
-from .export import (
-    ExportResource,
-    AsyncExportResource,
-    ExportResourceWithRawResponse,
-    AsyncExportResourceWithRawResponse,
-    ExportResourceWithStreamingResponse,
-    AsyncExportResourceWithStreamingResponse,
-)
 from .convert import (
     ConvertResource,
     AsyncConvertResource,
@@ -40,13 +16,13 @@ from .project import (
     ProjectResourceWithStreamingResponse,
     AsyncProjectResourceWithStreamingResponse,
 )
-from .documents import (
-    DocumentsResource,
-    AsyncDocumentsResource,
-    DocumentsResourceWithRawResponse,
-    AsyncDocumentsResourceWithRawResponse,
-    DocumentsResourceWithStreamingResponse,
-    AsyncDocumentsResourceWithStreamingResponse,
+from .workspaces import (
+    WorkspacesResource,
+    AsyncWorkspacesResource,
+    WorkspacesResourceWithRawResponse,
+    AsyncWorkspacesResourceWithRawResponse,
+    WorkspacesResourceWithStreamingResponse,
+    AsyncWorkspacesResourceWithStreamingResponse,
 )
 
 __all__ = [
@@ -56,34 +32,16 @@ __all__ = [
     "AsyncConvertResourceWithRawResponse",
     "ConvertResourceWithStreamingResponse",
     "AsyncConvertResourceWithStreamingResponse",
-    "DocumentsResource",
-    "AsyncDocumentsResource",
-    "DocumentsResourceWithRawResponse",
-    "AsyncDocumentsResourceWithRawResponse",
-    "DocumentsResourceWithStreamingResponse",
-    "AsyncDocumentsResourceWithStreamingResponse",
-    "EmailsResource",
-    "AsyncEmailsResource",
-    "EmailsResourceWithRawResponse",
-    "AsyncEmailsResourceWithRawResponse",
-    "EmailsResourceWithStreamingResponse",
-    "AsyncEmailsResourceWithStreamingResponse",
-    "ExportResource",
-    "AsyncExportResource",
-    "ExportResourceWithRawResponse",
-    "AsyncExportResourceWithRawResponse",
-    "ExportResourceWithStreamingResponse",
-    "AsyncExportResourceWithStreamingResponse",
-    "PagesResource",
-    "AsyncPagesResource",
-    "PagesResourceWithRawResponse",
-    "AsyncPagesResourceWithRawResponse",
-    "PagesResourceWithStreamingResponse",
-    "AsyncPagesResourceWithStreamingResponse",
     "ProjectResource",
     "AsyncProjectResource",
     "ProjectResourceWithRawResponse",
     "AsyncProjectResourceWithRawResponse",
     "ProjectResourceWithStreamingResponse",
     "AsyncProjectResourceWithStreamingResponse",
+    "WorkspacesResource",
+    "AsyncWorkspacesResource",
+    "WorkspacesResourceWithRawResponse",
+    "AsyncWorkspacesResourceWithRawResponse",
+    "WorkspacesResourceWithStreamingResponse",
+    "AsyncWorkspacesResourceWithStreamingResponse",
 ]
