@@ -25,11 +25,11 @@ class Design_Conversion(TypedDict, total=False):
 
 
 class DesignTyped(TypedDict, total=False):
-    body: Required[object]
+    body: Required[Dict[str, object]]
 
     _conversion: Design_Conversion
 
-    counters: object
+    counters: Dict[str, object]
 
     schema_version: Annotated[float, PropertyInfo(alias="schemaVersion")]
 

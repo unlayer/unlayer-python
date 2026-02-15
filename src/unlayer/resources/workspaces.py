@@ -4,18 +4,18 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import Body, Query, Headers, NotGiven, not_given
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from .._types import Body, Query, Headers, NotGiven, not_given
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
-from ...types.project.workspace_list_response import WorkspaceListResponse
-from ...types.project.workspace_retrieve_response import WorkspaceRetrieveResponse
+from .._base_client import make_request_options
+from ..types.workspace_list_response import WorkspaceListResponse
+from ..types.workspace_retrieve_response import WorkspaceRetrieveResponse
 
 __all__ = ["WorkspacesResource", "AsyncWorkspacesResource"]
 
@@ -66,7 +66,7 @@ class WorkspacesResource(SyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return self._get(
-            f"/project/v1/workspaces/{workspace_id}",
+            f"/v3/workspaces/{workspace_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -85,7 +85,7 @@ class WorkspacesResource(SyncAPIResource):
     ) -> WorkspaceListResponse:
         """Get all workspaces accessible by the current token."""
         return self._get(
-            "/project/v1/workspaces",
+            "/v3/workspaces",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -139,7 +139,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         if not workspace_id:
             raise ValueError(f"Expected a non-empty value for `workspace_id` but received {workspace_id!r}")
         return await self._get(
-            f"/project/v1/workspaces/{workspace_id}",
+            f"/v3/workspaces/{workspace_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -158,7 +158,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
     ) -> WorkspaceListResponse:
         """Get all workspaces accessible by the current token."""
         return await self._get(
-            "/project/v1/workspaces",
+            "/v3/workspaces",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

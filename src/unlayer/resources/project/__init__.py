@@ -1,21 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .current import (
-    CurrentResource,
-    AsyncCurrentResource,
-    CurrentResourceWithRawResponse,
-    AsyncCurrentResourceWithRawResponse,
-    CurrentResourceWithStreamingResponse,
-    AsyncCurrentResourceWithStreamingResponse,
-)
-from .domains import (
-    DomainsResource,
-    AsyncDomainsResource,
-    DomainsResourceWithRawResponse,
-    AsyncDomainsResourceWithRawResponse,
-    DomainsResourceWithStreamingResponse,
-    AsyncDomainsResourceWithStreamingResponse,
-)
 from .project import (
     ProjectResource,
     AsyncProjectResource,
@@ -32,40 +16,14 @@ from .templates import (
     TemplatesResourceWithStreamingResponse,
     AsyncTemplatesResourceWithStreamingResponse,
 )
-from .workspaces import (
-    WorkspacesResource,
-    AsyncWorkspacesResource,
-    WorkspacesResourceWithRawResponse,
-    AsyncWorkspacesResourceWithRawResponse,
-    WorkspacesResourceWithStreamingResponse,
-    AsyncWorkspacesResourceWithStreamingResponse,
-)
 
 __all__ = [
-    "CurrentResource",
-    "AsyncCurrentResource",
-    "CurrentResourceWithRawResponse",
-    "AsyncCurrentResourceWithRawResponse",
-    "CurrentResourceWithStreamingResponse",
-    "AsyncCurrentResourceWithStreamingResponse",
-    "DomainsResource",
-    "AsyncDomainsResource",
-    "DomainsResourceWithRawResponse",
-    "AsyncDomainsResourceWithRawResponse",
-    "DomainsResourceWithStreamingResponse",
-    "AsyncDomainsResourceWithStreamingResponse",
     "TemplatesResource",
     "AsyncTemplatesResource",
     "TemplatesResourceWithRawResponse",
     "AsyncTemplatesResourceWithRawResponse",
     "TemplatesResourceWithStreamingResponse",
     "AsyncTemplatesResourceWithStreamingResponse",
-    "WorkspacesResource",
-    "AsyncWorkspacesResource",
-    "WorkspacesResourceWithRawResponse",
-    "AsyncWorkspacesResourceWithRawResponse",
-    "WorkspacesResourceWithStreamingResponse",
-    "AsyncWorkspacesResourceWithStreamingResponse",
     "ProjectResource",
     "AsyncProjectResource",
     "ProjectResourceWithRawResponse",

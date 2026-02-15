@@ -20,7 +20,7 @@ class TestSimpleToFull:
     @parametrize
     def test_method_create(self, client: Unlayer) -> None:
         simple_to_full = client.convert.simple_to_full.create(
-            design={"body": {}},
+            design={"body": {"foo": "bar"}},
         )
         assert_matches_type(SimpleToFullCreateResponse, simple_to_full, path=["response"])
 
@@ -28,12 +28,12 @@ class TestSimpleToFull:
     def test_method_create_with_all_params(self, client: Unlayer) -> None:
         simple_to_full = client.convert.simple_to_full.create(
             design={
-                "body": {},
+                "body": {"foo": "bar"},
                 "_conversion": {
                     "data": "data",
                     "version": 0,
                 },
-                "counters": {},
+                "counters": {"foo": "bar"},
                 "schema_version": 0,
             },
             display_mode="email",
@@ -44,7 +44,7 @@ class TestSimpleToFull:
     @parametrize
     def test_raw_response_create(self, client: Unlayer) -> None:
         response = client.convert.simple_to_full.with_raw_response.create(
-            design={"body": {}},
+            design={"body": {"foo": "bar"}},
         )
 
         assert response.is_closed is True
@@ -55,7 +55,7 @@ class TestSimpleToFull:
     @parametrize
     def test_streaming_response_create(self, client: Unlayer) -> None:
         with client.convert.simple_to_full.with_streaming_response.create(
-            design={"body": {}},
+            design={"body": {"foo": "bar"}},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -74,7 +74,7 @@ class TestAsyncSimpleToFull:
     @parametrize
     async def test_method_create(self, async_client: AsyncUnlayer) -> None:
         simple_to_full = await async_client.convert.simple_to_full.create(
-            design={"body": {}},
+            design={"body": {"foo": "bar"}},
         )
         assert_matches_type(SimpleToFullCreateResponse, simple_to_full, path=["response"])
 
@@ -82,12 +82,12 @@ class TestAsyncSimpleToFull:
     async def test_method_create_with_all_params(self, async_client: AsyncUnlayer) -> None:
         simple_to_full = await async_client.convert.simple_to_full.create(
             design={
-                "body": {},
+                "body": {"foo": "bar"},
                 "_conversion": {
                     "data": "data",
                     "version": 0,
                 },
-                "counters": {},
+                "counters": {"foo": "bar"},
                 "schema_version": 0,
             },
             display_mode="email",
@@ -98,7 +98,7 @@ class TestAsyncSimpleToFull:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncUnlayer) -> None:
         response = await async_client.convert.simple_to_full.with_raw_response.create(
-            design={"body": {}},
+            design={"body": {"foo": "bar"}},
         )
 
         assert response.is_closed is True
@@ -109,7 +109,7 @@ class TestAsyncSimpleToFull:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncUnlayer) -> None:
         async with async_client.convert.simple_to_full.with_streaming_response.create(
-            design={"body": {}},
+            design={"body": {"foo": "bar"}},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from .email_retrieve_params import EmailRetrieveParams as EmailRetrieveParams
-from .email_retrieve_response import EmailRetrieveResponse as EmailRetrieveResponse
-from .document_retrieve_params import DocumentRetrieveParams as DocumentRetrieveParams
-from .document_retrieve_response import DocumentRetrieveResponse as DocumentRetrieveResponse
+from .project_retrieve_params import ProjectRetrieveParams as ProjectRetrieveParams
+from .workspace_list_response import WorkspaceListResponse as WorkspaceListResponse
+from .project_retrieve_response import ProjectRetrieveResponse as ProjectRetrieveResponse
+from .workspace_retrieve_response import WorkspaceRetrieveResponse as WorkspaceRetrieveResponse

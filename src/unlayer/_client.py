@@ -31,13 +31,10 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import pages, emails, export, convert, project, documents
-    from .resources.pages.pages import PagesResource, AsyncPagesResource
-    from .resources.emails.emails import EmailsResource, AsyncEmailsResource
-    from .resources.export.export import ExportResource, AsyncExportResource
+    from .resources import convert, project, workspaces
+    from .resources.workspaces import WorkspacesResource, AsyncWorkspacesResource
     from .resources.convert.convert import ConvertResource, AsyncConvertResource
     from .resources.project.project import ProjectResource, AsyncProjectResource
-    from .resources.documents.documents import DocumentsResource, AsyncDocumentsResource
 
 __all__ = [
     "ENVIRONMENTS",
@@ -145,34 +142,16 @@ class Unlayer(SyncAPIClient):
         return ConvertResource(self)
 
     @cached_property
-    def documents(self) -> DocumentsResource:
-        from .resources.documents import DocumentsResource
-
-        return DocumentsResource(self)
-
-    @cached_property
-    def emails(self) -> EmailsResource:
-        from .resources.emails import EmailsResource
-
-        return EmailsResource(self)
-
-    @cached_property
-    def export(self) -> ExportResource:
-        from .resources.export import ExportResource
-
-        return ExportResource(self)
-
-    @cached_property
-    def pages(self) -> PagesResource:
-        from .resources.pages import PagesResource
-
-        return PagesResource(self)
-
-    @cached_property
     def project(self) -> ProjectResource:
         from .resources.project import ProjectResource
 
         return ProjectResource(self)
+
+    @cached_property
+    def workspaces(self) -> WorkspacesResource:
+        from .resources.workspaces import WorkspacesResource
+
+        return WorkspacesResource(self)
 
     @cached_property
     def with_raw_response(self) -> UnlayerWithRawResponse:
@@ -375,34 +354,16 @@ class AsyncUnlayer(AsyncAPIClient):
         return AsyncConvertResource(self)
 
     @cached_property
-    def documents(self) -> AsyncDocumentsResource:
-        from .resources.documents import AsyncDocumentsResource
-
-        return AsyncDocumentsResource(self)
-
-    @cached_property
-    def emails(self) -> AsyncEmailsResource:
-        from .resources.emails import AsyncEmailsResource
-
-        return AsyncEmailsResource(self)
-
-    @cached_property
-    def export(self) -> AsyncExportResource:
-        from .resources.export import AsyncExportResource
-
-        return AsyncExportResource(self)
-
-    @cached_property
-    def pages(self) -> AsyncPagesResource:
-        from .resources.pages import AsyncPagesResource
-
-        return AsyncPagesResource(self)
-
-    @cached_property
     def project(self) -> AsyncProjectResource:
         from .resources.project import AsyncProjectResource
 
         return AsyncProjectResource(self)
+
+    @cached_property
+    def workspaces(self) -> AsyncWorkspacesResource:
+        from .resources.workspaces import AsyncWorkspacesResource
+
+        return AsyncWorkspacesResource(self)
 
     @cached_property
     def with_raw_response(self) -> AsyncUnlayerWithRawResponse:
@@ -532,34 +493,16 @@ class UnlayerWithRawResponse:
         return ConvertResourceWithRawResponse(self._client.convert)
 
     @cached_property
-    def documents(self) -> documents.DocumentsResourceWithRawResponse:
-        from .resources.documents import DocumentsResourceWithRawResponse
-
-        return DocumentsResourceWithRawResponse(self._client.documents)
-
-    @cached_property
-    def emails(self) -> emails.EmailsResourceWithRawResponse:
-        from .resources.emails import EmailsResourceWithRawResponse
-
-        return EmailsResourceWithRawResponse(self._client.emails)
-
-    @cached_property
-    def export(self) -> export.ExportResourceWithRawResponse:
-        from .resources.export import ExportResourceWithRawResponse
-
-        return ExportResourceWithRawResponse(self._client.export)
-
-    @cached_property
-    def pages(self) -> pages.PagesResourceWithRawResponse:
-        from .resources.pages import PagesResourceWithRawResponse
-
-        return PagesResourceWithRawResponse(self._client.pages)
-
-    @cached_property
     def project(self) -> project.ProjectResourceWithRawResponse:
         from .resources.project import ProjectResourceWithRawResponse
 
         return ProjectResourceWithRawResponse(self._client.project)
+
+    @cached_property
+    def workspaces(self) -> workspaces.WorkspacesResourceWithRawResponse:
+        from .resources.workspaces import WorkspacesResourceWithRawResponse
+
+        return WorkspacesResourceWithRawResponse(self._client.workspaces)
 
 
 class AsyncUnlayerWithRawResponse:
@@ -575,34 +518,16 @@ class AsyncUnlayerWithRawResponse:
         return AsyncConvertResourceWithRawResponse(self._client.convert)
 
     @cached_property
-    def documents(self) -> documents.AsyncDocumentsResourceWithRawResponse:
-        from .resources.documents import AsyncDocumentsResourceWithRawResponse
-
-        return AsyncDocumentsResourceWithRawResponse(self._client.documents)
-
-    @cached_property
-    def emails(self) -> emails.AsyncEmailsResourceWithRawResponse:
-        from .resources.emails import AsyncEmailsResourceWithRawResponse
-
-        return AsyncEmailsResourceWithRawResponse(self._client.emails)
-
-    @cached_property
-    def export(self) -> export.AsyncExportResourceWithRawResponse:
-        from .resources.export import AsyncExportResourceWithRawResponse
-
-        return AsyncExportResourceWithRawResponse(self._client.export)
-
-    @cached_property
-    def pages(self) -> pages.AsyncPagesResourceWithRawResponse:
-        from .resources.pages import AsyncPagesResourceWithRawResponse
-
-        return AsyncPagesResourceWithRawResponse(self._client.pages)
-
-    @cached_property
     def project(self) -> project.AsyncProjectResourceWithRawResponse:
         from .resources.project import AsyncProjectResourceWithRawResponse
 
         return AsyncProjectResourceWithRawResponse(self._client.project)
+
+    @cached_property
+    def workspaces(self) -> workspaces.AsyncWorkspacesResourceWithRawResponse:
+        from .resources.workspaces import AsyncWorkspacesResourceWithRawResponse
+
+        return AsyncWorkspacesResourceWithRawResponse(self._client.workspaces)
 
 
 class UnlayerWithStreamedResponse:
@@ -618,34 +543,16 @@ class UnlayerWithStreamedResponse:
         return ConvertResourceWithStreamingResponse(self._client.convert)
 
     @cached_property
-    def documents(self) -> documents.DocumentsResourceWithStreamingResponse:
-        from .resources.documents import DocumentsResourceWithStreamingResponse
-
-        return DocumentsResourceWithStreamingResponse(self._client.documents)
-
-    @cached_property
-    def emails(self) -> emails.EmailsResourceWithStreamingResponse:
-        from .resources.emails import EmailsResourceWithStreamingResponse
-
-        return EmailsResourceWithStreamingResponse(self._client.emails)
-
-    @cached_property
-    def export(self) -> export.ExportResourceWithStreamingResponse:
-        from .resources.export import ExportResourceWithStreamingResponse
-
-        return ExportResourceWithStreamingResponse(self._client.export)
-
-    @cached_property
-    def pages(self) -> pages.PagesResourceWithStreamingResponse:
-        from .resources.pages import PagesResourceWithStreamingResponse
-
-        return PagesResourceWithStreamingResponse(self._client.pages)
-
-    @cached_property
     def project(self) -> project.ProjectResourceWithStreamingResponse:
         from .resources.project import ProjectResourceWithStreamingResponse
 
         return ProjectResourceWithStreamingResponse(self._client.project)
+
+    @cached_property
+    def workspaces(self) -> workspaces.WorkspacesResourceWithStreamingResponse:
+        from .resources.workspaces import WorkspacesResourceWithStreamingResponse
+
+        return WorkspacesResourceWithStreamingResponse(self._client.workspaces)
 
 
 class AsyncUnlayerWithStreamedResponse:
@@ -661,34 +568,16 @@ class AsyncUnlayerWithStreamedResponse:
         return AsyncConvertResourceWithStreamingResponse(self._client.convert)
 
     @cached_property
-    def documents(self) -> documents.AsyncDocumentsResourceWithStreamingResponse:
-        from .resources.documents import AsyncDocumentsResourceWithStreamingResponse
-
-        return AsyncDocumentsResourceWithStreamingResponse(self._client.documents)
-
-    @cached_property
-    def emails(self) -> emails.AsyncEmailsResourceWithStreamingResponse:
-        from .resources.emails import AsyncEmailsResourceWithStreamingResponse
-
-        return AsyncEmailsResourceWithStreamingResponse(self._client.emails)
-
-    @cached_property
-    def export(self) -> export.AsyncExportResourceWithStreamingResponse:
-        from .resources.export import AsyncExportResourceWithStreamingResponse
-
-        return AsyncExportResourceWithStreamingResponse(self._client.export)
-
-    @cached_property
-    def pages(self) -> pages.AsyncPagesResourceWithStreamingResponse:
-        from .resources.pages import AsyncPagesResourceWithStreamingResponse
-
-        return AsyncPagesResourceWithStreamingResponse(self._client.pages)
-
-    @cached_property
     def project(self) -> project.AsyncProjectResourceWithStreamingResponse:
         from .resources.project import AsyncProjectResourceWithStreamingResponse
 
         return AsyncProjectResourceWithStreamingResponse(self._client.project)
+
+    @cached_property
+    def workspaces(self) -> workspaces.AsyncWorkspacesResourceWithStreamingResponse:
+        from .resources.workspaces import AsyncWorkspacesResourceWithStreamingResponse
+
+        return AsyncWorkspacesResourceWithStreamingResponse(self._client.workspaces)
 
 
 Client = Unlayer
