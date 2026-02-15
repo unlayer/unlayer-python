@@ -24,6 +24,14 @@ from .export import (
     ExportResourceWithStreamingResponse,
     AsyncExportResourceWithStreamingResponse,
 )
+from .convert import (
+    ConvertResource,
+    AsyncConvertResource,
+    ConvertResourceWithRawResponse,
+    AsyncConvertResourceWithRawResponse,
+    ConvertResourceWithStreamingResponse,
+    AsyncConvertResourceWithStreamingResponse,
+)
 from .project import (
     ProjectResource,
     AsyncProjectResource,
@@ -42,6 +50,12 @@ from .documents import (
 )
 
 __all__ = [
+    "ConvertResource",
+    "AsyncConvertResource",
+    "ConvertResourceWithRawResponse",
+    "AsyncConvertResourceWithRawResponse",
+    "ConvertResourceWithStreamingResponse",
+    "AsyncConvertResourceWithStreamingResponse",
     "DocumentsResource",
     "AsyncDocumentsResource",
     "DocumentsResourceWithRawResponse",
