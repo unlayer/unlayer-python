@@ -31,10 +31,11 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import convert, project, workspaces
+    from .resources import convert, project, templates, workspaces
+    from .resources.project import ProjectResource, AsyncProjectResource
+    from .resources.templates import TemplatesResource, AsyncTemplatesResource
     from .resources.workspaces import WorkspacesResource, AsyncWorkspacesResource
     from .resources.convert.convert import ConvertResource, AsyncConvertResource
-    from .resources.project.project import ProjectResource, AsyncProjectResource
 
 __all__ = [
     "ENVIRONMENTS",
@@ -146,6 +147,12 @@ class Unlayer(SyncAPIClient):
         from .resources.project import ProjectResource
 
         return ProjectResource(self)
+
+    @cached_property
+    def templates(self) -> TemplatesResource:
+        from .resources.templates import TemplatesResource
+
+        return TemplatesResource(self)
 
     @cached_property
     def workspaces(self) -> WorkspacesResource:
@@ -360,6 +367,12 @@ class AsyncUnlayer(AsyncAPIClient):
         return AsyncProjectResource(self)
 
     @cached_property
+    def templates(self) -> AsyncTemplatesResource:
+        from .resources.templates import AsyncTemplatesResource
+
+        return AsyncTemplatesResource(self)
+
+    @cached_property
     def workspaces(self) -> AsyncWorkspacesResource:
         from .resources.workspaces import AsyncWorkspacesResource
 
@@ -499,6 +512,12 @@ class UnlayerWithRawResponse:
         return ProjectResourceWithRawResponse(self._client.project)
 
     @cached_property
+    def templates(self) -> templates.TemplatesResourceWithRawResponse:
+        from .resources.templates import TemplatesResourceWithRawResponse
+
+        return TemplatesResourceWithRawResponse(self._client.templates)
+
+    @cached_property
     def workspaces(self) -> workspaces.WorkspacesResourceWithRawResponse:
         from .resources.workspaces import WorkspacesResourceWithRawResponse
 
@@ -522,6 +541,12 @@ class AsyncUnlayerWithRawResponse:
         from .resources.project import AsyncProjectResourceWithRawResponse
 
         return AsyncProjectResourceWithRawResponse(self._client.project)
+
+    @cached_property
+    def templates(self) -> templates.AsyncTemplatesResourceWithRawResponse:
+        from .resources.templates import AsyncTemplatesResourceWithRawResponse
+
+        return AsyncTemplatesResourceWithRawResponse(self._client.templates)
 
     @cached_property
     def workspaces(self) -> workspaces.AsyncWorkspacesResourceWithRawResponse:
@@ -549,6 +574,12 @@ class UnlayerWithStreamedResponse:
         return ProjectResourceWithStreamingResponse(self._client.project)
 
     @cached_property
+    def templates(self) -> templates.TemplatesResourceWithStreamingResponse:
+        from .resources.templates import TemplatesResourceWithStreamingResponse
+
+        return TemplatesResourceWithStreamingResponse(self._client.templates)
+
+    @cached_property
     def workspaces(self) -> workspaces.WorkspacesResourceWithStreamingResponse:
         from .resources.workspaces import WorkspacesResourceWithStreamingResponse
 
@@ -572,6 +603,12 @@ class AsyncUnlayerWithStreamedResponse:
         from .resources.project import AsyncProjectResourceWithStreamingResponse
 
         return AsyncProjectResourceWithStreamingResponse(self._client.project)
+
+    @cached_property
+    def templates(self) -> templates.AsyncTemplatesResourceWithStreamingResponse:
+        from .resources.templates import AsyncTemplatesResourceWithStreamingResponse
+
+        return AsyncTemplatesResourceWithStreamingResponse(self._client.templates)
 
     @cached_property
     def workspaces(self) -> workspaces.AsyncWorkspacesResourceWithStreamingResponse:

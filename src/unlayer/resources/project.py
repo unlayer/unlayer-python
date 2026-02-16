@@ -4,36 +4,24 @@ from __future__ import annotations
 
 import httpx
 
-from ...types import project_retrieve_params
-from ..._types import Body, Query, Headers, NotGiven, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from .templates import (
-    TemplatesResource,
-    AsyncTemplatesResource,
-    TemplatesResourceWithRawResponse,
-    AsyncTemplatesResourceWithRawResponse,
-    TemplatesResourceWithStreamingResponse,
-    AsyncTemplatesResourceWithStreamingResponse,
-)
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from ..types import project_retrieve_params
+from .._types import Body, Query, Headers, NotGiven, not_given
+from .._utils import maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
-from ...types.project_retrieve_response import ProjectRetrieveResponse
+from .._base_client import make_request_options
+from ..types.project_retrieve_response import ProjectRetrieveResponse
 
 __all__ = ["ProjectResource", "AsyncProjectResource"]
 
 
 class ProjectResource(SyncAPIResource):
-    @cached_property
-    def templates(self) -> TemplatesResource:
-        return TemplatesResource(self._client)
-
     @cached_property
     def with_raw_response(self) -> ProjectResourceWithRawResponse:
         """
@@ -92,10 +80,6 @@ class ProjectResource(SyncAPIResource):
 
 
 class AsyncProjectResource(AsyncAPIResource):
-    @cached_property
-    def templates(self) -> AsyncTemplatesResource:
-        return AsyncTemplatesResource(self._client)
-
     @cached_property
     def with_raw_response(self) -> AsyncProjectResourceWithRawResponse:
         """
@@ -163,10 +147,6 @@ class ProjectResourceWithRawResponse:
             project.retrieve,
         )
 
-    @cached_property
-    def templates(self) -> TemplatesResourceWithRawResponse:
-        return TemplatesResourceWithRawResponse(self._project.templates)
-
 
 class AsyncProjectResourceWithRawResponse:
     def __init__(self, project: AsyncProjectResource) -> None:
@@ -175,10 +155,6 @@ class AsyncProjectResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             project.retrieve,
         )
-
-    @cached_property
-    def templates(self) -> AsyncTemplatesResourceWithRawResponse:
-        return AsyncTemplatesResourceWithRawResponse(self._project.templates)
 
 
 class ProjectResourceWithStreamingResponse:
@@ -189,10 +165,6 @@ class ProjectResourceWithStreamingResponse:
             project.retrieve,
         )
 
-    @cached_property
-    def templates(self) -> TemplatesResourceWithStreamingResponse:
-        return TemplatesResourceWithStreamingResponse(self._project.templates)
-
 
 class AsyncProjectResourceWithStreamingResponse:
     def __init__(self, project: AsyncProjectResource) -> None:
@@ -201,7 +173,3 @@ class AsyncProjectResourceWithStreamingResponse:
         self.retrieve = async_to_streamed_response_wrapper(
             project.retrieve,
         )
-
-    @cached_property
-    def templates(self) -> AsyncTemplatesResourceWithStreamingResponse:
-        return AsyncTemplatesResourceWithStreamingResponse(self._project.templates)

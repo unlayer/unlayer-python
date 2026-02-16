@@ -6,21 +6,21 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from ..types import template_list_params, template_retrieve_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncCursorPage, AsyncCursorPage
-from ..._base_client import AsyncPaginator, make_request_options
-from ...types.project import template_list_params, template_retrieve_params
-from ...types.project.template_list_response import TemplateListResponse
-from ...types.project.template_retrieve_response import TemplateRetrieveResponse
+from ..pagination import SyncCursorPage, AsyncCursorPage
+from .._base_client import AsyncPaginator, make_request_options
+from ..types.template_list_response import TemplateListResponse
+from ..types.template_retrieve_response import TemplateRetrieveResponse
 
 __all__ = ["TemplatesResource", "AsyncTemplatesResource"]
 
@@ -58,7 +58,7 @@ class TemplatesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TemplateRetrieveResponse:
         """
-        Get project template by ID.
+        Get template by ID.
 
         Args:
           project_id: The project ID
@@ -74,7 +74,7 @@ class TemplatesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/v3/project/templates/{id}",
+            f"/v3/templates/{id}",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -100,10 +100,10 @@ class TemplatesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[TemplateListResponse]:
-        """List project templates with cursor-based pagination.
+        """List templates with cursor-based pagination.
 
-        Returns templates in
-        descending order by update time.
+        Returns templates in descending
+        order by update time.
 
         Args:
           project_id: The project ID to list templates for
@@ -125,7 +125,7 @@ class TemplatesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v3/project/templates",
+            "/v3/templates",
             page=SyncCursorPage[TemplateListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -180,7 +180,7 @@ class AsyncTemplatesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TemplateRetrieveResponse:
         """
-        Get project template by ID.
+        Get template by ID.
 
         Args:
           project_id: The project ID
@@ -196,7 +196,7 @@ class AsyncTemplatesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/v3/project/templates/{id}",
+            f"/v3/templates/{id}",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -224,10 +224,10 @@ class AsyncTemplatesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[TemplateListResponse, AsyncCursorPage[TemplateListResponse]]:
-        """List project templates with cursor-based pagination.
+        """List templates with cursor-based pagination.
 
-        Returns templates in
-        descending order by update time.
+        Returns templates in descending
+        order by update time.
 
         Args:
           project_id: The project ID to list templates for
@@ -249,7 +249,7 @@ class AsyncTemplatesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v3/project/templates",
+            "/v3/templates",
             page=AsyncCursorPage[TemplateListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
