@@ -34,20 +34,20 @@ from unlayer.types import ProjectRetrieveResponse
 
 Methods:
 
-- <code title="get /v3/project">client.project.<a href="./src/unlayer/resources/project/project.py">retrieve</a>(\*\*<a href="src/unlayer/types/project_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/project_retrieve_response.py">ProjectRetrieveResponse</a></code>
+- <code title="get /v3/project">client.project.<a href="./src/unlayer/resources/project.py">retrieve</a>(\*\*<a href="src/unlayer/types/project_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/project_retrieve_response.py">ProjectRetrieveResponse</a></code>
 
-## Templates
+# Templates
 
 Types:
 
 ```python
-from unlayer.types.project import TemplateRetrieveResponse, TemplateListResponse
+from unlayer.types import TemplateRetrieveResponse, TemplateListResponse
 ```
 
 Methods:
 
-- <code title="get /v3/project/templates/{id}">client.project.templates.<a href="./src/unlayer/resources/project/templates.py">retrieve</a>(id, \*\*<a href="src/unlayer/types/project/template_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/project/template_retrieve_response.py">TemplateRetrieveResponse</a></code>
-- <code title="get /v3/project/templates">client.project.templates.<a href="./src/unlayer/resources/project/templates.py">list</a>(\*\*<a href="src/unlayer/types/project/template_list_params.py">params</a>) -> <a href="./src/unlayer/types/project/template_list_response.py">SyncCursorPage[TemplateListResponse]</a></code>
+- <code title="get /v3/templates/{id}">client.templates.<a href="./src/unlayer/resources/templates.py">retrieve</a>(id, \*\*<a href="src/unlayer/types/template_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/template_retrieve_response.py">TemplateRetrieveResponse</a></code>
+- <code title="get /v3/templates">client.templates.<a href="./src/unlayer/resources/templates.py">list</a>(\*\*<a href="src/unlayer/types/template_list_params.py">params</a>) -> <a href="./src/unlayer/types/template_list_response.py">SyncCursorPage[TemplateListResponse]</a></code>
 
 # Workspaces
 

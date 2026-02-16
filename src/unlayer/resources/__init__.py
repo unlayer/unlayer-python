@@ -16,6 +16,14 @@ from .project import (
     ProjectResourceWithStreamingResponse,
     AsyncProjectResourceWithStreamingResponse,
 )
+from .templates import (
+    TemplatesResource,
+    AsyncTemplatesResource,
+    TemplatesResourceWithRawResponse,
+    AsyncTemplatesResourceWithRawResponse,
+    TemplatesResourceWithStreamingResponse,
+    AsyncTemplatesResourceWithStreamingResponse,
+)
 from .workspaces import (
     WorkspacesResource,
     AsyncWorkspacesResource,
@@ -38,6 +46,12 @@ __all__ = [
     "AsyncProjectResourceWithRawResponse",
     "ProjectResourceWithStreamingResponse",
     "AsyncProjectResourceWithStreamingResponse",
+    "TemplatesResource",
+    "AsyncTemplatesResource",
+    "TemplatesResourceWithRawResponse",
+    "AsyncTemplatesResourceWithRawResponse",
+    "TemplatesResourceWithStreamingResponse",
+    "AsyncTemplatesResourceWithStreamingResponse",
     "WorkspacesResource",
     "AsyncWorkspacesResource",
     "WorkspacesResourceWithRawResponse",

@@ -9,11 +9,8 @@ import pytest
 
 from unlayer import Unlayer, AsyncUnlayer
 from tests.utils import assert_matches_type
+from unlayer.types import TemplateListResponse, TemplateRetrieveResponse
 from unlayer.pagination import SyncCursorPage, AsyncCursorPage
-from unlayer.types.project import (
-    TemplateListResponse,
-    TemplateRetrieveResponse,
-)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -23,7 +20,7 @@ class TestTemplates:
 
     @parametrize
     def test_method_retrieve(self, client: Unlayer) -> None:
-        template = client.project.templates.retrieve(
+        template = client.templates.retrieve(
             id="id",
             project_id="projectId",
         )
@@ -31,7 +28,7 @@ class TestTemplates:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Unlayer) -> None:
-        response = client.project.templates.with_raw_response.retrieve(
+        response = client.templates.with_raw_response.retrieve(
             id="id",
             project_id="projectId",
         )
@@ -43,7 +40,7 @@ class TestTemplates:
 
     @parametrize
     def test_streaming_response_retrieve(self, client: Unlayer) -> None:
-        with client.project.templates.with_streaming_response.retrieve(
+        with client.templates.with_streaming_response.retrieve(
             id="id",
             project_id="projectId",
         ) as response:
@@ -58,21 +55,21 @@ class TestTemplates:
     @parametrize
     def test_path_params_retrieve(self, client: Unlayer) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.project.templates.with_raw_response.retrieve(
+            client.templates.with_raw_response.retrieve(
                 id="",
                 project_id="projectId",
             )
 
     @parametrize
     def test_method_list(self, client: Unlayer) -> None:
-        template = client.project.templates.list(
+        template = client.templates.list(
             project_id="projectId",
         )
         assert_matches_type(SyncCursorPage[TemplateListResponse], template, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Unlayer) -> None:
-        template = client.project.templates.list(
+        template = client.templates.list(
             project_id="projectId",
             cursor="cursor",
             display_mode="email",
@@ -83,7 +80,7 @@ class TestTemplates:
 
     @parametrize
     def test_raw_response_list(self, client: Unlayer) -> None:
-        response = client.project.templates.with_raw_response.list(
+        response = client.templates.with_raw_response.list(
             project_id="projectId",
         )
 
@@ -94,7 +91,7 @@ class TestTemplates:
 
     @parametrize
     def test_streaming_response_list(self, client: Unlayer) -> None:
-        with client.project.templates.with_streaming_response.list(
+        with client.templates.with_streaming_response.list(
             project_id="projectId",
         ) as response:
             assert not response.is_closed
@@ -113,7 +110,7 @@ class TestAsyncTemplates:
 
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncUnlayer) -> None:
-        template = await async_client.project.templates.retrieve(
+        template = await async_client.templates.retrieve(
             id="id",
             project_id="projectId",
         )
@@ -121,7 +118,7 @@ class TestAsyncTemplates:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.templates.with_raw_response.retrieve(
+        response = await async_client.templates.with_raw_response.retrieve(
             id="id",
             project_id="projectId",
         )
@@ -133,7 +130,7 @@ class TestAsyncTemplates:
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.templates.with_streaming_response.retrieve(
+        async with async_client.templates.with_streaming_response.retrieve(
             id="id",
             project_id="projectId",
         ) as response:
@@ -148,21 +145,21 @@ class TestAsyncTemplates:
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncUnlayer) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.project.templates.with_raw_response.retrieve(
+            await async_client.templates.with_raw_response.retrieve(
                 id="",
                 project_id="projectId",
             )
 
     @parametrize
     async def test_method_list(self, async_client: AsyncUnlayer) -> None:
-        template = await async_client.project.templates.list(
+        template = await async_client.templates.list(
             project_id="projectId",
         )
         assert_matches_type(AsyncCursorPage[TemplateListResponse], template, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncUnlayer) -> None:
-        template = await async_client.project.templates.list(
+        template = await async_client.templates.list(
             project_id="projectId",
             cursor="cursor",
             display_mode="email",
@@ -173,7 +170,7 @@ class TestAsyncTemplates:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.templates.with_raw_response.list(
+        response = await async_client.templates.with_raw_response.list(
             project_id="projectId",
         )
 
@@ -184,7 +181,7 @@ class TestAsyncTemplates:
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.templates.with_streaming_response.list(
+        async with async_client.templates.with_streaming_response.list(
             project_id="projectId",
         ) as response:
             assert not response.is_closed

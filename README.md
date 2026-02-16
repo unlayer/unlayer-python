@@ -134,7 +134,7 @@ client = Unlayer()
 
 all_templates = []
 # Automatically fetches more pages as needed.
-for template in client.project.templates.list(
+for template in client.templates.list(
     project_id="your-project-id",
     limit=10,
 ):
@@ -155,7 +155,7 @@ client = AsyncUnlayer()
 async def main() -> None:
     all_templates = []
     # Iterate through items across all pages, issuing requests as needed.
-    async for template in client.project.templates.list(
+    async for template in client.templates.list(
         project_id="your-project-id",
         limit=10,
     ):
@@ -169,7 +169,7 @@ asyncio.run(main())
 Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
 
 ```python
-first_page = await client.project.templates.list(
+first_page = await client.templates.list(
     project_id="your-project-id",
     limit=10,
 )
@@ -184,7 +184,7 @@ if first_page.has_next_page():
 Or just work directly with the returned data:
 
 ```python
-first_page = await client.project.templates.list(
+first_page = await client.templates.list(
     project_id="your-project-id",
     limit=10,
 )
