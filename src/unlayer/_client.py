@@ -32,8 +32,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import convert, project, templates, workspaces
-    from .resources.project import ProjectResource, AsyncProjectResource
+    from .resources import convert, projects, templates, workspaces
+    from .resources.projects import ProjectsResource, AsyncProjectsResource
     from .resources.templates import TemplatesResource, AsyncTemplatesResource
     from .resources.workspaces import WorkspacesResource, AsyncWorkspacesResource
     from .resources.convert.convert import ConvertResource, AsyncConvertResource
@@ -114,10 +114,10 @@ class Unlayer(SyncAPIClient):
         return ConvertResource(self)
 
     @cached_property
-    def project(self) -> ProjectResource:
-        from .resources.project import ProjectResource
+    def projects(self) -> ProjectsResource:
+        from .resources.projects import ProjectsResource
 
-        return ProjectResource(self)
+        return ProjectsResource(self)
 
     @cached_property
     def templates(self) -> TemplatesResource:
@@ -344,10 +344,10 @@ class AsyncUnlayer(AsyncAPIClient):
         return AsyncConvertResource(self)
 
     @cached_property
-    def project(self) -> AsyncProjectResource:
-        from .resources.project import AsyncProjectResource
+    def projects(self) -> AsyncProjectsResource:
+        from .resources.projects import AsyncProjectsResource
 
-        return AsyncProjectResource(self)
+        return AsyncProjectsResource(self)
 
     @cached_property
     def templates(self) -> AsyncTemplatesResource:
@@ -514,10 +514,10 @@ class UnlayerWithRawResponse:
         return ConvertResourceWithRawResponse(self._client.convert)
 
     @cached_property
-    def project(self) -> project.ProjectResourceWithRawResponse:
-        from .resources.project import ProjectResourceWithRawResponse
+    def projects(self) -> projects.ProjectsResourceWithRawResponse:
+        from .resources.projects import ProjectsResourceWithRawResponse
 
-        return ProjectResourceWithRawResponse(self._client.project)
+        return ProjectsResourceWithRawResponse(self._client.projects)
 
     @cached_property
     def templates(self) -> templates.TemplatesResourceWithRawResponse:
@@ -545,10 +545,10 @@ class AsyncUnlayerWithRawResponse:
         return AsyncConvertResourceWithRawResponse(self._client.convert)
 
     @cached_property
-    def project(self) -> project.AsyncProjectResourceWithRawResponse:
-        from .resources.project import AsyncProjectResourceWithRawResponse
+    def projects(self) -> projects.AsyncProjectsResourceWithRawResponse:
+        from .resources.projects import AsyncProjectsResourceWithRawResponse
 
-        return AsyncProjectResourceWithRawResponse(self._client.project)
+        return AsyncProjectsResourceWithRawResponse(self._client.projects)
 
     @cached_property
     def templates(self) -> templates.AsyncTemplatesResourceWithRawResponse:
@@ -576,10 +576,10 @@ class UnlayerWithStreamedResponse:
         return ConvertResourceWithStreamingResponse(self._client.convert)
 
     @cached_property
-    def project(self) -> project.ProjectResourceWithStreamingResponse:
-        from .resources.project import ProjectResourceWithStreamingResponse
+    def projects(self) -> projects.ProjectsResourceWithStreamingResponse:
+        from .resources.projects import ProjectsResourceWithStreamingResponse
 
-        return ProjectResourceWithStreamingResponse(self._client.project)
+        return ProjectsResourceWithStreamingResponse(self._client.projects)
 
     @cached_property
     def templates(self) -> templates.TemplatesResourceWithStreamingResponse:
@@ -607,10 +607,10 @@ class AsyncUnlayerWithStreamedResponse:
         return AsyncConvertResourceWithStreamingResponse(self._client.convert)
 
     @cached_property
-    def project(self) -> project.AsyncProjectResourceWithStreamingResponse:
-        from .resources.project import AsyncProjectResourceWithStreamingResponse
+    def projects(self) -> projects.AsyncProjectsResourceWithStreamingResponse:
+        from .resources.projects import AsyncProjectsResourceWithStreamingResponse
 
-        return AsyncProjectResourceWithStreamingResponse(self._client.project)
+        return AsyncProjectsResourceWithStreamingResponse(self._client.projects)
 
     @cached_property
     def templates(self) -> templates.AsyncTemplatesResourceWithStreamingResponse:

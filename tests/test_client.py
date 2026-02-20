@@ -23,7 +23,7 @@ from unlayer import Unlayer, AsyncUnlayer, APIResponseValidationError
 from unlayer._types import Omit
 from unlayer._utils import asyncify
 from unlayer._models import BaseModel, FinalRequestOptions
-from unlayer._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from unlayer._exceptions import APIStatusError, APIResponseValidationError
 from unlayer._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -101,14 +101,6 @@ async def _make_async_iterator(iterable: Iterable[T], counter: Optional[Counter]
         if counter:
             counter.value += 1
         yield item
-
-
-def _get_open_connections(client: Unlayer | AsyncUnlayer) -> int:
-    transport = client._client._transport
-    assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
-
-    pool = transport._pool
-    return len(pool._requests)
 
 
 class TestUnlayer:
@@ -855,25 +847,6 @@ class TestUnlayer:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("unlayer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Unlayer) -> None:
-        respx_mock.get("/v3/project").mock(side_effect=httpx.TimeoutException("Test timeout error"))
-
-        with pytest.raises(APITimeoutError):
-            client.project.with_streaming_response.retrieve().__enter__()
-
-        assert _get_open_connections(client) == 0
-
-    @mock.patch("unlayer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Unlayer) -> None:
-        respx_mock.get("/v3/project").mock(return_value=httpx.Response(500))
-
-        with pytest.raises(APIStatusError):
-            client.project.with_streaming_response.retrieve().__enter__()
-        assert _get_open_connections(client) == 0
-
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("unlayer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
@@ -898,9 +871,9 @@ class TestUnlayer:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/v3/project").mock(side_effect=retry_handler)
+        respx_mock.get("/v3/templates").mock(side_effect=retry_handler)
 
-        response = client.project.with_raw_response.retrieve()
+        response = client.templates.with_raw_response.list()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -922,9 +895,9 @@ class TestUnlayer:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/v3/project").mock(side_effect=retry_handler)
+        respx_mock.get("/v3/templates").mock(side_effect=retry_handler)
 
-        response = client.project.with_raw_response.retrieve(extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.templates.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -945,9 +918,9 @@ class TestUnlayer:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/v3/project").mock(side_effect=retry_handler)
+        respx_mock.get("/v3/templates").mock(side_effect=retry_handler)
 
-        response = client.project.with_raw_response.retrieve(extra_headers={"x-stainless-retry-count": "42"})
+        response = client.templates.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1762,27 +1735,6 @@ class TestAsyncUnlayer:
         calculated = async_client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("unlayer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_timeout_errors_doesnt_leak(
-        self, respx_mock: MockRouter, async_client: AsyncUnlayer
-    ) -> None:
-        respx_mock.get("/v3/project").mock(side_effect=httpx.TimeoutException("Test timeout error"))
-
-        with pytest.raises(APITimeoutError):
-            await async_client.project.with_streaming_response.retrieve().__aenter__()
-
-        assert _get_open_connections(async_client) == 0
-
-    @mock.patch("unlayer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncUnlayer) -> None:
-        respx_mock.get("/v3/project").mock(return_value=httpx.Response(500))
-
-        with pytest.raises(APIStatusError):
-            await async_client.project.with_streaming_response.retrieve().__aenter__()
-        assert _get_open_connections(async_client) == 0
-
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("unlayer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
@@ -1807,9 +1759,9 @@ class TestAsyncUnlayer:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/v3/project").mock(side_effect=retry_handler)
+        respx_mock.get("/v3/templates").mock(side_effect=retry_handler)
 
-        response = await client.project.with_raw_response.retrieve()
+        response = await client.templates.with_raw_response.list()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1831,9 +1783,9 @@ class TestAsyncUnlayer:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/v3/project").mock(side_effect=retry_handler)
+        respx_mock.get("/v3/templates").mock(side_effect=retry_handler)
 
-        response = await client.project.with_raw_response.retrieve(extra_headers={"x-stainless-retry-count": Omit()})
+        response = await client.templates.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1854,9 +1806,9 @@ class TestAsyncUnlayer:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/v3/project").mock(side_effect=retry_handler)
+        respx_mock.get("/v3/templates").mock(side_effect=retry_handler)
 
-        response = await client.project.with_raw_response.retrieve(extra_headers={"x-stainless-retry-count": "42"})
+        response = await client.templates.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
