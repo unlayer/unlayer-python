@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -10,5 +10,5 @@ __all__ = ["ProjectRetrieveParams"]
 
 
 class ProjectRetrieveParams(TypedDict, total=False):
-    project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
-    """The project ID"""
+    project_id: Annotated[str, PropertyInfo(alias="projectId")]
+    """The project ID (required for PAT auth, auto-resolved for API key auth)"""

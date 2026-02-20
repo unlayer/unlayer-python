@@ -29,9 +29,7 @@ import os
 from unlayer import Unlayer
 
 client = Unlayer(
-    access_token=os.environ.get("UNLAYER_ACCESS_TOKEN"),  # This is the default and can be omitted
-    # or 'production' | 'qa' | 'dev'; defaults to "production".
-    environment="stage",
+    api_key=os.environ.get("UNLAYER_API_KEY"),  # This is the default and can be omitted
 )
 
 project = client.project.retrieve(
@@ -40,10 +38,10 @@ project = client.project.retrieve(
 print(project.data)
 ```
 
-While you can provide a `access_token` keyword argument,
+While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `UNLAYER_ACCESS_TOKEN="My Access Token"` to your `.env` file
-so that your Access Token is not stored in source control.
+to add `UNLAYER_API_KEY="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
 
 ## Async usage
 
@@ -55,9 +53,7 @@ import asyncio
 from unlayer import AsyncUnlayer
 
 client = AsyncUnlayer(
-    access_token=os.environ.get("UNLAYER_ACCESS_TOKEN"),  # This is the default and can be omitted
-    # or 'production' | 'qa' | 'dev'; defaults to "production".
-    environment="stage",
+    api_key=os.environ.get("UNLAYER_API_KEY"),  # This is the default and can be omitted
 )
 
 
@@ -95,9 +91,7 @@ from unlayer import AsyncUnlayer
 
 async def main() -> None:
     async with AsyncUnlayer(
-        access_token=os.environ.get(
-            "UNLAYER_ACCESS_TOKEN"
-        ),  # This is the default and can be omitted
+        api_key=os.environ.get("UNLAYER_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         project = await client.project.retrieve(
@@ -132,8 +126,8 @@ client = Unlayer()
 all_templates = []
 # Automatically fetches more pages as needed.
 for template in client.templates.list(
-    project_id="your-project-id",
     limit=10,
+    project_id="your-project-id",
 ):
     # Do something with template here
     all_templates.append(template)
@@ -153,8 +147,8 @@ async def main() -> None:
     all_templates = []
     # Iterate through items across all pages, issuing requests as needed.
     async for template in client.templates.list(
-        project_id="your-project-id",
         limit=10,
+        project_id="your-project-id",
     ):
         all_templates.append(template)
     print(all_templates)
@@ -167,8 +161,8 @@ Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get
 
 ```python
 first_page = await client.templates.list(
-    project_id="your-project-id",
     limit=10,
+    project_id="your-project-id",
 )
 if first_page.has_next_page():
     print(f"will fetch next page using these details: {first_page.next_page_info()}")
@@ -182,8 +176,8 @@ Or just work directly with the returned data:
 
 ```python
 first_page = await client.templates.list(
-    project_id="your-project-id",
     limit=10,
+    project_id="your-project-id",
 )
 
 print(f"next page cursor: {first_page.next_cursor}")  # => "next page cursor: ..."

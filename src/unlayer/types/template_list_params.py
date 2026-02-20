@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -10,9 +10,6 @@ __all__ = ["TemplateListParams"]
 
 
 class TemplateListParams(TypedDict, total=False):
-    project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
-    """The project ID to list templates for"""
-
     cursor: str
     """Pagination cursor from previous response"""
 
@@ -24,3 +21,6 @@ class TemplateListParams(TypedDict, total=False):
 
     name: str
     """Filter by name (case-insensitive search)"""
+
+    project_id: Annotated[str, PropertyInfo(alias="projectId")]
+    """The project ID to list templates for"""
