@@ -24,7 +24,7 @@ Methods:
 
 - <code title="post /v3/convert/simple-to-full">client.convert.simple_to_full.<a href="./src/unlayer/resources/convert/simple_to_full.py">create</a>(\*\*<a href="src/unlayer/types/convert/simple_to_full_create_params.py">params</a>) -> <a href="./src/unlayer/types/convert/simple_to_full_create_response.py">SimpleToFullCreateResponse</a></code>
 
-# Project
+# Projects
 
 Types:
 
@@ -34,7 +34,7 @@ from unlayer.types import ProjectRetrieveResponse
 
 Methods:
 
-- <code title="get /v3/project">client.project.<a href="./src/unlayer/resources/project.py">retrieve</a>(\*\*<a href="src/unlayer/types/project_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/project_retrieve_response.py">ProjectRetrieveResponse</a></code>
+- <code title="get /v3/projects/{id}">client.projects.<a href="./src/unlayer/resources/projects.py">retrieve</a>(id) -> <a href="./src/unlayer/types/project_retrieve_response.py">ProjectRetrieveResponse</a></code>
 
 # Templates
 

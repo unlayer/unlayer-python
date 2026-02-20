@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from .template_list_params import TemplateListParams as TemplateListParams
 from .template_list_response import TemplateListResponse as TemplateListResponse
-from .project_retrieve_params import ProjectRetrieveParams as ProjectRetrieveParams
 from .workspace_list_response import WorkspaceListResponse as WorkspaceListResponse
 from .template_retrieve_params import TemplateRetrieveParams as TemplateRetrieveParams
 from .project_retrieve_response import ProjectRetrieveResponse as ProjectRetrieveResponse
