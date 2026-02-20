@@ -19,6 +19,11 @@ class TestProject:
 
     @parametrize
     def test_method_retrieve(self, client: Unlayer) -> None:
+        project = client.project.retrieve()
+        assert_matches_type(ProjectRetrieveResponse, project, path=["response"])
+
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Unlayer) -> None:
         project = client.project.retrieve(
             project_id="projectId",
         )
@@ -26,9 +31,7 @@ class TestProject:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Unlayer) -> None:
-        response = client.project.with_raw_response.retrieve(
-            project_id="projectId",
-        )
+        response = client.project.with_raw_response.retrieve()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -37,9 +40,7 @@ class TestProject:
 
     @parametrize
     def test_streaming_response_retrieve(self, client: Unlayer) -> None:
-        with client.project.with_streaming_response.retrieve(
-            project_id="projectId",
-        ) as response:
+        with client.project.with_streaming_response.retrieve() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -56,6 +57,11 @@ class TestAsyncProject:
 
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncUnlayer) -> None:
+        project = await async_client.project.retrieve()
+        assert_matches_type(ProjectRetrieveResponse, project, path=["response"])
+
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncUnlayer) -> None:
         project = await async_client.project.retrieve(
             project_id="projectId",
         )
@@ -63,9 +69,7 @@ class TestAsyncProject:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.project.with_raw_response.retrieve(
-            project_id="projectId",
-        )
+        response = await async_client.project.with_raw_response.retrieve()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -74,9 +78,7 @@ class TestAsyncProject:
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.project.with_streaming_response.retrieve(
-            project_id="projectId",
-        ) as response:
+        async with async_client.project.with_streaming_response.retrieve() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

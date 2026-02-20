@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import os
-from typing import TYPE_CHECKING, Any, Dict, Mapping, cast
-from typing_extensions import Self, Literal, override
+from typing import TYPE_CHECKING, Any, Mapping
+from typing_extensions import Self, override
 
 import httpx
 
@@ -12,6 +12,7 @@ from . import _exceptions
 from ._qs import Querystring
 from ._types import (
     Omit,
+    Headers,
     Timeout,
     NotGiven,
     Transport,
@@ -23,7 +24,7 @@ from ._utils import is_given, get_async_library
 from ._compat import cached_property
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import UnlayerError, APIStatusError
+from ._exceptions import APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -37,38 +38,22 @@ if TYPE_CHECKING:
     from .resources.workspaces import WorkspacesResource, AsyncWorkspacesResource
     from .resources.convert.convert import ConvertResource, AsyncConvertResource
 
-__all__ = [
-    "ENVIRONMENTS",
-    "Timeout",
-    "Transport",
-    "ProxiesTypes",
-    "RequestOptions",
-    "Unlayer",
-    "AsyncUnlayer",
-    "Client",
-    "AsyncClient",
-]
-
-ENVIRONMENTS: Dict[str, str] = {
-    "production": "https://api.unlayer.com",
-    "stage": "https://api.stage.unlayer.com",
-    "qa": "https://api.qa.unlayer.com",
-    "dev": "https://api.dev.unlayer.com",
-}
+__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Unlayer", "AsyncUnlayer", "Client", "AsyncClient"]
 
 
 class Unlayer(SyncAPIClient):
     # client options
-    access_token: str
-
-    _environment: Literal["production", "stage", "qa", "dev"] | NotGiven
+    api_key: str | None
+    personal_access_token: str | None
+    project_id: str | None
 
     def __init__(
         self,
         *,
-        access_token: str | None = None,
-        environment: Literal["production", "stage", "qa", "dev"] | NotGiven = not_given,
-        base_url: str | httpx.URL | None | NotGiven = not_given,
+        api_key: str | None = None,
+        personal_access_token: str | None = None,
+        project_id: str | None = None,
+        base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
@@ -89,41 +74,27 @@ class Unlayer(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous Unlayer client instance.
 
-        This automatically infers the `access_token` argument from the `UNLAYER_ACCESS_TOKEN` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `UNLAYER_API_KEY`
+        - `personal_access_token` from `UNLAYER_PERSONAL_ACCESS_TOKEN`
+        - `project_id` from `UNLAYER_PROJECT_ID`
         """
-        if access_token is None:
-            access_token = os.environ.get("UNLAYER_ACCESS_TOKEN")
-        if access_token is None:
-            raise UnlayerError(
-                "The access_token client option must be set either by passing access_token to the client or by setting the UNLAYER_ACCESS_TOKEN environment variable"
-            )
-        self.access_token = access_token
+        if api_key is None:
+            api_key = os.environ.get("UNLAYER_API_KEY")
+        self.api_key = api_key
 
-        self._environment = environment
+        if personal_access_token is None:
+            personal_access_token = os.environ.get("UNLAYER_PERSONAL_ACCESS_TOKEN")
+        self.personal_access_token = personal_access_token
 
-        base_url_env = os.environ.get("UNLAYER_BASE_URL")
-        if is_given(base_url) and base_url is not None:
-            # cast required because mypy doesn't understand the type narrowing
-            base_url = cast("str | httpx.URL", base_url)  # pyright: ignore[reportUnnecessaryCast]
-        elif is_given(environment):
-            if base_url_env and base_url is not None:
-                raise ValueError(
-                    "Ambiguous URL; The `UNLAYER_BASE_URL` env var and the `environment` argument are given. If you want to use the environment, you must pass base_url=None",
-                )
+        if project_id is None:
+            project_id = os.environ.get("UNLAYER_PROJECT_ID")
+        self.project_id = project_id
 
-            try:
-                base_url = ENVIRONMENTS[environment]
-            except KeyError as exc:
-                raise ValueError(f"Unknown environment: {environment}") from exc
-        elif base_url_env is not None:
-            base_url = base_url_env
-        else:
-            self._environment = environment = "production"
-
-            try:
-                base_url = ENVIRONMENTS[environment]
-            except KeyError as exc:
-                raise ValueError(f"Unknown environment: {environment}") from exc
+        if base_url is None:
+            base_url = os.environ.get("UNLAYER_BASE_URL")
+        if base_url is None:
+            base_url = f"https://api.unlayer.com"
 
         super().__init__(
             version=__version__,
@@ -176,8 +147,21 @@ class Unlayer(SyncAPIClient):
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
-        access_token = self.access_token
-        return {"Authorization": f"Bearer {access_token}"}
+        return {**self._api_key_auth, **self._personal_access_token_auth}
+
+    @property
+    def _api_key_auth(self) -> dict[str, str]:
+        api_key = self.api_key
+        if api_key is None:
+            return {}
+        return {"Authorization": f"Bearer {api_key}"}
+
+    @property
+    def _personal_access_token_auth(self) -> dict[str, str]:
+        personal_access_token = self.personal_access_token
+        if personal_access_token is None:
+            return {}
+        return {"Authorization": f"Bearer {personal_access_token}"}
 
     @property
     @override
@@ -185,14 +169,25 @@ class Unlayer(SyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": "false",
+            "X-Project-ID": self.project_id if self.project_id is not None else Omit(),
             **self._custom_headers,
         }
+
+    @override
+    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
+        if headers.get("Authorization") or isinstance(custom_headers.get("Authorization"), Omit):
+            return
+
+        raise TypeError(
+            '"Could not resolve authentication method. Expected either api_key or personal_access_token to be set. Or for one of the `Authorization` or `Authorization` headers to be explicitly omitted"'
+        )
 
     def copy(
         self,
         *,
-        access_token: str | None = None,
-        environment: Literal["production", "stage", "qa", "dev"] | None = None,
+        api_key: str | None = None,
+        personal_access_token: str | None = None,
+        project_id: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
@@ -226,9 +221,10 @@ class Unlayer(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            access_token=access_token or self.access_token,
+            api_key=api_key or self.api_key,
+            personal_access_token=personal_access_token or self.personal_access_token,
+            project_id=project_id or self.project_id,
             base_url=base_url or self.base_url,
-            environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
             max_retries=max_retries if is_given(max_retries) else self.max_retries,
@@ -277,16 +273,17 @@ class Unlayer(SyncAPIClient):
 
 class AsyncUnlayer(AsyncAPIClient):
     # client options
-    access_token: str
-
-    _environment: Literal["production", "stage", "qa", "dev"] | NotGiven
+    api_key: str | None
+    personal_access_token: str | None
+    project_id: str | None
 
     def __init__(
         self,
         *,
-        access_token: str | None = None,
-        environment: Literal["production", "stage", "qa", "dev"] | NotGiven = not_given,
-        base_url: str | httpx.URL | None | NotGiven = not_given,
+        api_key: str | None = None,
+        personal_access_token: str | None = None,
+        project_id: str | None = None,
+        base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
@@ -307,41 +304,27 @@ class AsyncUnlayer(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncUnlayer client instance.
 
-        This automatically infers the `access_token` argument from the `UNLAYER_ACCESS_TOKEN` environment variable if it is not provided.
+        This automatically infers the following arguments from their corresponding environment variables if they are not provided:
+        - `api_key` from `UNLAYER_API_KEY`
+        - `personal_access_token` from `UNLAYER_PERSONAL_ACCESS_TOKEN`
+        - `project_id` from `UNLAYER_PROJECT_ID`
         """
-        if access_token is None:
-            access_token = os.environ.get("UNLAYER_ACCESS_TOKEN")
-        if access_token is None:
-            raise UnlayerError(
-                "The access_token client option must be set either by passing access_token to the client or by setting the UNLAYER_ACCESS_TOKEN environment variable"
-            )
-        self.access_token = access_token
+        if api_key is None:
+            api_key = os.environ.get("UNLAYER_API_KEY")
+        self.api_key = api_key
 
-        self._environment = environment
+        if personal_access_token is None:
+            personal_access_token = os.environ.get("UNLAYER_PERSONAL_ACCESS_TOKEN")
+        self.personal_access_token = personal_access_token
 
-        base_url_env = os.environ.get("UNLAYER_BASE_URL")
-        if is_given(base_url) and base_url is not None:
-            # cast required because mypy doesn't understand the type narrowing
-            base_url = cast("str | httpx.URL", base_url)  # pyright: ignore[reportUnnecessaryCast]
-        elif is_given(environment):
-            if base_url_env and base_url is not None:
-                raise ValueError(
-                    "Ambiguous URL; The `UNLAYER_BASE_URL` env var and the `environment` argument are given. If you want to use the environment, you must pass base_url=None",
-                )
+        if project_id is None:
+            project_id = os.environ.get("UNLAYER_PROJECT_ID")
+        self.project_id = project_id
 
-            try:
-                base_url = ENVIRONMENTS[environment]
-            except KeyError as exc:
-                raise ValueError(f"Unknown environment: {environment}") from exc
-        elif base_url_env is not None:
-            base_url = base_url_env
-        else:
-            self._environment = environment = "production"
-
-            try:
-                base_url = ENVIRONMENTS[environment]
-            except KeyError as exc:
-                raise ValueError(f"Unknown environment: {environment}") from exc
+        if base_url is None:
+            base_url = os.environ.get("UNLAYER_BASE_URL")
+        if base_url is None:
+            base_url = f"https://api.unlayer.com"
 
         super().__init__(
             version=__version__,
@@ -394,8 +377,21 @@ class AsyncUnlayer(AsyncAPIClient):
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
-        access_token = self.access_token
-        return {"Authorization": f"Bearer {access_token}"}
+        return {**self._api_key_auth, **self._personal_access_token_auth}
+
+    @property
+    def _api_key_auth(self) -> dict[str, str]:
+        api_key = self.api_key
+        if api_key is None:
+            return {}
+        return {"Authorization": f"Bearer {api_key}"}
+
+    @property
+    def _personal_access_token_auth(self) -> dict[str, str]:
+        personal_access_token = self.personal_access_token
+        if personal_access_token is None:
+            return {}
+        return {"Authorization": f"Bearer {personal_access_token}"}
 
     @property
     @override
@@ -403,14 +399,25 @@ class AsyncUnlayer(AsyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": f"async:{get_async_library()}",
+            "X-Project-ID": self.project_id if self.project_id is not None else Omit(),
             **self._custom_headers,
         }
+
+    @override
+    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
+        if headers.get("Authorization") or isinstance(custom_headers.get("Authorization"), Omit):
+            return
+
+        raise TypeError(
+            '"Could not resolve authentication method. Expected either api_key or personal_access_token to be set. Or for one of the `Authorization` or `Authorization` headers to be explicitly omitted"'
+        )
 
     def copy(
         self,
         *,
-        access_token: str | None = None,
-        environment: Literal["production", "stage", "qa", "dev"] | None = None,
+        api_key: str | None = None,
+        personal_access_token: str | None = None,
+        project_id: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
@@ -444,9 +451,10 @@ class AsyncUnlayer(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            access_token=access_token or self.access_token,
+            api_key=api_key or self.api_key,
+            personal_access_token=personal_access_token or self.personal_access_token,
+            project_id=project_id or self.project_id,
             base_url=base_url or self.base_url,
-            environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
             max_retries=max_retries if is_given(max_retries) else self.max_retries,
