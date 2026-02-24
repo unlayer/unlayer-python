@@ -1,6 +1,6 @@
 [project]
 name = "unlayer"
-version = "0.0.1"
+version = "0.1.0"
 description = "The official Python library for the unlayer API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -37,8 +37,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/stainless-sdks/unlayer-python"
-Repository = "https://github.com/stainless-sdks/unlayer-python"
+Homepage = "https://github.com/unlayer/unlayer-python"
+Repository = "https://github.com/unlayer/unlayer-python"
 
 [project.optional-dependencies]
 aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
@@ -126,7 +126,7 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/stainless-sdks/unlayer-python/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/unlayer/unlayer-python/tree/main/\g<2>)'
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

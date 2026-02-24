@@ -27,7 +27,7 @@ class WorkspacesResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/unlayer-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/unlayer/unlayer-python#accessing-raw-response-data-eg-headers
         """
         return WorkspacesResourceWithRawResponse(self)
 
@@ -36,7 +36,7 @@ class WorkspacesResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/unlayer-python#with_streaming_response
+        For more information, see https://www.github.com/unlayer/unlayer-python#with_streaming_response
         """
         return WorkspacesResourceWithStreamingResponse(self)
 
@@ -51,8 +51,10 @@ class WorkspacesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkspaceRetrieveResponse:
-        """
-        Get a specific workspace by ID with its projects.
+        """Get a specific workspace by ID with its projects.
+
+        Requires a Personal Access
+        Token (PAT).
 
         Args:
           extra_headers: Send extra headers
@@ -83,7 +85,11 @@ class WorkspacesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkspaceListResponse:
-        """Get all workspaces accessible by the current token."""
+        """Get all workspaces accessible by the current token.
+
+        Requires a Personal Access
+        Token (PAT).
+        """
         return self._get(
             "/v3/workspaces",
             options=make_request_options(
@@ -100,7 +106,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/unlayer-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/unlayer/unlayer-python#accessing-raw-response-data-eg-headers
         """
         return AsyncWorkspacesResourceWithRawResponse(self)
 
@@ -109,7 +115,7 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/unlayer-python#with_streaming_response
+        For more information, see https://www.github.com/unlayer/unlayer-python#with_streaming_response
         """
         return AsyncWorkspacesResourceWithStreamingResponse(self)
 
@@ -124,8 +130,10 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkspaceRetrieveResponse:
-        """
-        Get a specific workspace by ID with its projects.
+        """Get a specific workspace by ID with its projects.
+
+        Requires a Personal Access
+        Token (PAT).
 
         Args:
           extra_headers: Send extra headers
@@ -156,7 +164,11 @@ class AsyncWorkspacesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkspaceListResponse:
-        """Get all workspaces accessible by the current token."""
+        """Get all workspaces accessible by the current token.
+
+        Requires a Personal Access
+        Token (PAT).
+        """
         return await self._get(
             "/v3/workspaces",
             options=make_request_options(

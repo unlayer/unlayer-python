@@ -32,7 +32,7 @@ class TemplatesResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/unlayer-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/unlayer/unlayer-python#accessing-raw-response-data-eg-headers
         """
         return TemplatesResourceWithRawResponse(self)
 
@@ -41,7 +41,7 @@ class TemplatesResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/unlayer-python#with_streaming_response
+        For more information, see https://www.github.com/unlayer/unlayer-python#with_streaming_response
         """
         return TemplatesResourceWithStreamingResponse(self)
 
@@ -49,7 +49,7 @@ class TemplatesResource(SyncAPIResource):
         self,
         id: str,
         *,
-        project_id: str,
+        project_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -61,7 +61,7 @@ class TemplatesResource(SyncAPIResource):
         Get template by ID.
 
         Args:
-          project_id: The project ID
+          project_id: The project ID (required for PAT auth, auto-resolved for API key auth)
 
           extra_headers: Send extra headers
 
@@ -88,11 +88,11 @@ class TemplatesResource(SyncAPIResource):
     def list(
         self,
         *,
-        project_id: str,
         cursor: str | Omit = omit,
         display_mode: Literal["email", "web", "document"] | Omit = omit,
         limit: int | Omit = omit,
         name: str | Omit = omit,
+        project_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -106,8 +106,6 @@ class TemplatesResource(SyncAPIResource):
         order by update time.
 
         Args:
-          project_id: The project ID to list templates for
-
           cursor: Pagination cursor from previous response
 
           display_mode: Filter by template type
@@ -115,6 +113,8 @@ class TemplatesResource(SyncAPIResource):
           limit: Number of templates to return (1-100)
 
           name: Filter by name (case-insensitive search)
+
+          project_id: The project ID to list templates for
 
           extra_headers: Send extra headers
 
@@ -134,11 +134,11 @@ class TemplatesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "project_id": project_id,
                         "cursor": cursor,
                         "display_mode": display_mode,
                         "limit": limit,
                         "name": name,
+                        "project_id": project_id,
                     },
                     template_list_params.TemplateListParams,
                 ),
@@ -154,7 +154,7 @@ class AsyncTemplatesResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/unlayer-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/unlayer/unlayer-python#accessing-raw-response-data-eg-headers
         """
         return AsyncTemplatesResourceWithRawResponse(self)
 
@@ -163,7 +163,7 @@ class AsyncTemplatesResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/unlayer-python#with_streaming_response
+        For more information, see https://www.github.com/unlayer/unlayer-python#with_streaming_response
         """
         return AsyncTemplatesResourceWithStreamingResponse(self)
 
@@ -171,7 +171,7 @@ class AsyncTemplatesResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        project_id: str,
+        project_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -183,7 +183,7 @@ class AsyncTemplatesResource(AsyncAPIResource):
         Get template by ID.
 
         Args:
-          project_id: The project ID
+          project_id: The project ID (required for PAT auth, auto-resolved for API key auth)
 
           extra_headers: Send extra headers
 
@@ -212,11 +212,11 @@ class AsyncTemplatesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        project_id: str,
         cursor: str | Omit = omit,
         display_mode: Literal["email", "web", "document"] | Omit = omit,
         limit: int | Omit = omit,
         name: str | Omit = omit,
+        project_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -230,8 +230,6 @@ class AsyncTemplatesResource(AsyncAPIResource):
         order by update time.
 
         Args:
-          project_id: The project ID to list templates for
-
           cursor: Pagination cursor from previous response
 
           display_mode: Filter by template type
@@ -239,6 +237,8 @@ class AsyncTemplatesResource(AsyncAPIResource):
           limit: Number of templates to return (1-100)
 
           name: Filter by name (case-insensitive search)
+
+          project_id: The project ID to list templates for
 
           extra_headers: Send extra headers
 
@@ -258,11 +258,11 @@ class AsyncTemplatesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "project_id": project_id,
                         "cursor": cursor,
                         "display_mode": display_mode,
                         "limit": limit,
                         "name": name,
+                        "project_id": project_id,
                     },
                     template_list_params.TemplateListParams,
                 ),
