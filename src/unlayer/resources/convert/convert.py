@@ -27,10 +27,12 @@ __all__ = ["ConvertResource", "AsyncConvertResource"]
 class ConvertResource(SyncAPIResource):
     @cached_property
     def full_to_simple(self) -> FullToSimpleResource:
+        """Design schema conversion between Full and Simple formats."""
         return FullToSimpleResource(self._client)
 
     @cached_property
     def simple_to_full(self) -> SimpleToFullResource:
+        """Design schema conversion between Full and Simple formats."""
         return SimpleToFullResource(self._client)
 
     @cached_property
@@ -56,10 +58,12 @@ class ConvertResource(SyncAPIResource):
 class AsyncConvertResource(AsyncAPIResource):
     @cached_property
     def full_to_simple(self) -> AsyncFullToSimpleResource:
+        """Design schema conversion between Full and Simple formats."""
         return AsyncFullToSimpleResource(self._client)
 
     @cached_property
     def simple_to_full(self) -> AsyncSimpleToFullResource:
+        """Design schema conversion between Full and Simple formats."""
         return AsyncSimpleToFullResource(self._client)
 
     @cached_property
@@ -88,10 +92,12 @@ class ConvertResourceWithRawResponse:
 
     @cached_property
     def full_to_simple(self) -> FullToSimpleResourceWithRawResponse:
+        """Design schema conversion between Full and Simple formats."""
         return FullToSimpleResourceWithRawResponse(self._convert.full_to_simple)
 
     @cached_property
     def simple_to_full(self) -> SimpleToFullResourceWithRawResponse:
+        """Design schema conversion between Full and Simple formats."""
         return SimpleToFullResourceWithRawResponse(self._convert.simple_to_full)
 
 
@@ -101,10 +107,12 @@ class AsyncConvertResourceWithRawResponse:
 
     @cached_property
     def full_to_simple(self) -> AsyncFullToSimpleResourceWithRawResponse:
+        """Design schema conversion between Full and Simple formats."""
         return AsyncFullToSimpleResourceWithRawResponse(self._convert.full_to_simple)
 
     @cached_property
     def simple_to_full(self) -> AsyncSimpleToFullResourceWithRawResponse:
+        """Design schema conversion between Full and Simple formats."""
         return AsyncSimpleToFullResourceWithRawResponse(self._convert.simple_to_full)
 
 
@@ -114,10 +122,12 @@ class ConvertResourceWithStreamingResponse:
 
     @cached_property
     def full_to_simple(self) -> FullToSimpleResourceWithStreamingResponse:
+        """Design schema conversion between Full and Simple formats."""
         return FullToSimpleResourceWithStreamingResponse(self._convert.full_to_simple)
 
     @cached_property
     def simple_to_full(self) -> SimpleToFullResourceWithStreamingResponse:
+        """Design schema conversion between Full and Simple formats."""
         return SimpleToFullResourceWithStreamingResponse(self._convert.simple_to_full)
 
 
@@ -127,8 +137,10 @@ class AsyncConvertResourceWithStreamingResponse:
 
     @cached_property
     def full_to_simple(self) -> AsyncFullToSimpleResourceWithStreamingResponse:
+        """Design schema conversion between Full and Simple formats."""
         return AsyncFullToSimpleResourceWithStreamingResponse(self._convert.full_to_simple)
 
     @cached_property
     def simple_to_full(self) -> AsyncSimpleToFullResourceWithStreamingResponse:
+        """Design schema conversion between Full and Simple formats."""
         return AsyncSimpleToFullResourceWithStreamingResponse(self._convert.simple_to_full)
