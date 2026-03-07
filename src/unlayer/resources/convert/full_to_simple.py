@@ -24,6 +24,8 @@ __all__ = ["FullToSimpleResource", "AsyncFullToSimpleResource"]
 
 
 class FullToSimpleResource(SyncAPIResource):
+    """Design schema conversion between Full and Simple formats."""
+
     @cached_property
     def with_raw_response(self) -> FullToSimpleResourceWithRawResponse:
         """
@@ -91,6 +93,8 @@ class FullToSimpleResource(SyncAPIResource):
 
 
 class AsyncFullToSimpleResource(AsyncAPIResource):
+    """Design schema conversion between Full and Simple formats."""
+
     @cached_property
     def with_raw_response(self) -> AsyncFullToSimpleResourceWithRawResponse:
         """

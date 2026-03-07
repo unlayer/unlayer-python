@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.1 (2026-03-07)
+
+Full Changelog: [v0.1.0...v0.1.1](https://github.com/unlayer/unlayer-python/compare/v0.1.0...v0.1.1)
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([907041a](https://github.com/unlayer/unlayer-python/commit/907041a9070f3c4a86605a21c9ab9a004a9bf553))
+* **internal:** codegen related update ([d58e1b8](https://github.com/unlayer/unlayer-python/commit/d58e1b80f026a3fbb93c51e57af8afedcdb866e9))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([caea803](https://github.com/unlayer/unlayer-python/commit/caea803e4fc873ade6fbc9b9b66ff67938780f65))
+* **test:** do not count install time for mock server timeout ([3ad7bbb](https://github.com/unlayer/unlayer-python/commit/3ad7bbb203d27a7b7f69fda2d0f3aebea329c49e))
+
+
+### Refactors
+
+* **types:** use `extra_items` from PEP 728 ([19677f4](https://github.com/unlayer/unlayer-python/commit/19677f4a04cd989500eecce93cbb0506cf1ebf32))
+
 ## 0.1.0 (2026-02-24)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/unlayer/unlayer-python/compare/v0.0.1...v0.1.0)

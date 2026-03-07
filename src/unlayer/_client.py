@@ -115,18 +115,21 @@ class Unlayer(SyncAPIClient):
 
     @cached_property
     def projects(self) -> ProjectsResource:
+        """Project details and configuration."""
         from .resources.projects import ProjectsResource
 
         return ProjectsResource(self)
 
     @cached_property
     def templates(self) -> TemplatesResource:
+        """Template management and retrieval."""
         from .resources.templates import TemplatesResource
 
         return TemplatesResource(self)
 
     @cached_property
     def workspaces(self) -> WorkspacesResource:
+        """Workspace access and management."""
         from .resources.workspaces import WorkspacesResource
 
         return WorkspacesResource(self)
@@ -345,18 +348,21 @@ class AsyncUnlayer(AsyncAPIClient):
 
     @cached_property
     def projects(self) -> AsyncProjectsResource:
+        """Project details and configuration."""
         from .resources.projects import AsyncProjectsResource
 
         return AsyncProjectsResource(self)
 
     @cached_property
     def templates(self) -> AsyncTemplatesResource:
+        """Template management and retrieval."""
         from .resources.templates import AsyncTemplatesResource
 
         return AsyncTemplatesResource(self)
 
     @cached_property
     def workspaces(self) -> AsyncWorkspacesResource:
+        """Workspace access and management."""
         from .resources.workspaces import AsyncWorkspacesResource
 
         return AsyncWorkspacesResource(self)
@@ -515,18 +521,21 @@ class UnlayerWithRawResponse:
 
     @cached_property
     def projects(self) -> projects.ProjectsResourceWithRawResponse:
+        """Project details and configuration."""
         from .resources.projects import ProjectsResourceWithRawResponse
 
         return ProjectsResourceWithRawResponse(self._client.projects)
 
     @cached_property
     def templates(self) -> templates.TemplatesResourceWithRawResponse:
+        """Template management and retrieval."""
         from .resources.templates import TemplatesResourceWithRawResponse
 
         return TemplatesResourceWithRawResponse(self._client.templates)
 
     @cached_property
     def workspaces(self) -> workspaces.WorkspacesResourceWithRawResponse:
+        """Workspace access and management."""
         from .resources.workspaces import WorkspacesResourceWithRawResponse
 
         return WorkspacesResourceWithRawResponse(self._client.workspaces)
@@ -546,18 +555,21 @@ class AsyncUnlayerWithRawResponse:
 
     @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithRawResponse:
+        """Project details and configuration."""
         from .resources.projects import AsyncProjectsResourceWithRawResponse
 
         return AsyncProjectsResourceWithRawResponse(self._client.projects)
 
     @cached_property
     def templates(self) -> templates.AsyncTemplatesResourceWithRawResponse:
+        """Template management and retrieval."""
         from .resources.templates import AsyncTemplatesResourceWithRawResponse
 
         return AsyncTemplatesResourceWithRawResponse(self._client.templates)
 
     @cached_property
     def workspaces(self) -> workspaces.AsyncWorkspacesResourceWithRawResponse:
+        """Workspace access and management."""
         from .resources.workspaces import AsyncWorkspacesResourceWithRawResponse
 
         return AsyncWorkspacesResourceWithRawResponse(self._client.workspaces)
@@ -577,18 +589,21 @@ class UnlayerWithStreamedResponse:
 
     @cached_property
     def projects(self) -> projects.ProjectsResourceWithStreamingResponse:
+        """Project details and configuration."""
         from .resources.projects import ProjectsResourceWithStreamingResponse
 
         return ProjectsResourceWithStreamingResponse(self._client.projects)
 
     @cached_property
     def templates(self) -> templates.TemplatesResourceWithStreamingResponse:
+        """Template management and retrieval."""
         from .resources.templates import TemplatesResourceWithStreamingResponse
 
         return TemplatesResourceWithStreamingResponse(self._client.templates)
 
     @cached_property
     def workspaces(self) -> workspaces.WorkspacesResourceWithStreamingResponse:
+        """Workspace access and management."""
         from .resources.workspaces import WorkspacesResourceWithStreamingResponse
 
         return WorkspacesResourceWithStreamingResponse(self._client.workspaces)
@@ -608,18 +623,21 @@ class AsyncUnlayerWithStreamedResponse:
 
     @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithStreamingResponse:
+        """Project details and configuration."""
         from .resources.projects import AsyncProjectsResourceWithStreamingResponse
 
         return AsyncProjectsResourceWithStreamingResponse(self._client.projects)
 
     @cached_property
     def templates(self) -> templates.AsyncTemplatesResourceWithStreamingResponse:
+        """Template management and retrieval."""
         from .resources.templates import AsyncTemplatesResourceWithStreamingResponse
 
         return AsyncTemplatesResourceWithStreamingResponse(self._client.templates)
 
     @cached_property
     def workspaces(self) -> workspaces.AsyncWorkspacesResourceWithStreamingResponse:
+        """Workspace access and management."""
         from .resources.workspaces import AsyncWorkspacesResourceWithStreamingResponse
 
         return AsyncWorkspacesResourceWithStreamingResponse(self._client.workspaces)

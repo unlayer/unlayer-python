@@ -21,6 +21,8 @@ __all__ = ["WorkspacesResource", "AsyncWorkspacesResource"]
 
 
 class WorkspacesResource(SyncAPIResource):
+    """Workspace access and management."""
+
     @cached_property
     def with_raw_response(self) -> WorkspacesResourceWithRawResponse:
         """
@@ -100,6 +102,8 @@ class WorkspacesResource(SyncAPIResource):
 
 
 class AsyncWorkspacesResource(AsyncAPIResource):
+    """Workspace access and management."""
+
     @cached_property
     def with_raw_response(self) -> AsyncWorkspacesResourceWithRawResponse:
         """
