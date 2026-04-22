@@ -199,10 +199,15 @@ from unlayer import Unlayer
 
 client = Unlayer()
 
-full_to_simple = client.convert.full_to_simple.create(
-    design={"body": {"foo": "bar"}},
+generate = client.ai.generate.create(
+    display_mode="email",
+    input=[{"type": "text"}],
+    output={
+        "block_type": "template",
+        "type": "json",
+    },
 )
-print(full_to_simple.design)
+print(generate.output)
 ```
 
 ## Handling errors

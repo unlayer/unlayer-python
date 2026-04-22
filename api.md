@@ -1,3 +1,17 @@
+# AI
+
+## Generate
+
+Types:
+
+```python
+from unlayer.types.ai import GenerateCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/ai/generate">client.ai.generate.<a href="./src/unlayer/resources/ai/generate.py">create</a>(\*\*<a href="src/unlayer/types/ai/generate_create_params.py">params</a>) -> <a href="./src/unlayer/types/ai/generate_create_response.py">GenerateCreateResponse</a></code>
+
 # Convert
 
 ## FullToSimple
