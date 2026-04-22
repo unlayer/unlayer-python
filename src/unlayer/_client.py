@@ -32,7 +32,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import convert, projects, templates, workspaces
+    from .resources import ai, convert, projects, templates, workspaces
+    from .resources.ai.ai import AIResource, AsyncAIResource
     from .resources.projects import ProjectsResource, AsyncProjectsResource
     from .resources.templates import TemplatesResource, AsyncTemplatesResource
     from .resources.workspaces import WorkspacesResource, AsyncWorkspacesResource
@@ -106,6 +107,12 @@ class Unlayer(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+    @cached_property
+    def ai(self) -> AIResource:
+        from .resources.ai import AIResource
+
+        return AIResource(self)
 
     @cached_property
     def convert(self) -> ConvertResource:
@@ -341,6 +348,12 @@ class AsyncUnlayer(AsyncAPIClient):
         )
 
     @cached_property
+    def ai(self) -> AsyncAIResource:
+        from .resources.ai import AsyncAIResource
+
+        return AsyncAIResource(self)
+
+    @cached_property
     def convert(self) -> AsyncConvertResource:
         from .resources.convert import AsyncConvertResource
 
@@ -514,6 +527,12 @@ class UnlayerWithRawResponse:
         self._client = client
 
     @cached_property
+    def ai(self) -> ai.AIResourceWithRawResponse:
+        from .resources.ai import AIResourceWithRawResponse
+
+        return AIResourceWithRawResponse(self._client.ai)
+
+    @cached_property
     def convert(self) -> convert.ConvertResourceWithRawResponse:
         from .resources.convert import ConvertResourceWithRawResponse
 
@@ -546,6 +565,12 @@ class AsyncUnlayerWithRawResponse:
 
     def __init__(self, client: AsyncUnlayer) -> None:
         self._client = client
+
+    @cached_property
+    def ai(self) -> ai.AsyncAIResourceWithRawResponse:
+        from .resources.ai import AsyncAIResourceWithRawResponse
+
+        return AsyncAIResourceWithRawResponse(self._client.ai)
 
     @cached_property
     def convert(self) -> convert.AsyncConvertResourceWithRawResponse:
@@ -582,6 +607,12 @@ class UnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def ai(self) -> ai.AIResourceWithStreamingResponse:
+        from .resources.ai import AIResourceWithStreamingResponse
+
+        return AIResourceWithStreamingResponse(self._client.ai)
+
+    @cached_property
     def convert(self) -> convert.ConvertResourceWithStreamingResponse:
         from .resources.convert import ConvertResourceWithStreamingResponse
 
@@ -614,6 +645,12 @@ class AsyncUnlayerWithStreamedResponse:
 
     def __init__(self, client: AsyncUnlayer) -> None:
         self._client = client
+
+    @cached_property
+    def ai(self) -> ai.AsyncAIResourceWithStreamingResponse:
+        from .resources.ai import AsyncAIResourceWithStreamingResponse
+
+        return AsyncAIResourceWithStreamingResponse(self._client.ai)
 
     @cached_property
     def convert(self) -> convert.AsyncConvertResourceWithStreamingResponse:
