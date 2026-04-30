@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .ai import (
+    AIResource,
+    AsyncAIResource,
+    AIResourceWithRawResponse,
+    AsyncAIResourceWithRawResponse,
+    AIResourceWithStreamingResponse,
+    AsyncAIResourceWithStreamingResponse,
+)
 from .convert import (
     ConvertResource,
     AsyncConvertResource,
@@ -34,6 +42,12 @@ from .workspaces import (
 )
 
 __all__ = [
+    "AIResource",
+    "AsyncAIResource",
+    "AIResourceWithRawResponse",
+    "AsyncAIResourceWithRawResponse",
+    "AIResourceWithStreamingResponse",
+    "AsyncAIResourceWithStreamingResponse",
     "ConvertResource",
     "AsyncConvertResource",
     "ConvertResourceWithRawResponse",

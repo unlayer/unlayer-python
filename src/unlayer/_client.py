@@ -20,7 +20,11 @@ from ._types import (
     RequestOptions,
     not_given,
 )
-from ._utils import is_given, get_async_library
+from ._utils import (
+    is_given,
+    is_mapping_t,
+    get_async_library,
+)
 from ._compat import cached_property
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
@@ -32,7 +36,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import convert, projects, templates, workspaces
+    from .resources import ai, convert, projects, templates, workspaces
+    from .resources.ai.ai import AIResource, AsyncAIResource
     from .resources.projects import ProjectsResource, AsyncProjectsResource
     from .resources.templates import TemplatesResource, AsyncTemplatesResource
     from .resources.workspaces import WorkspacesResource, AsyncWorkspacesResource
@@ -96,6 +101,15 @@ class Unlayer(SyncAPIClient):
         if base_url is None:
             base_url = f"https://api.unlayer.com"
 
+        custom_headers_env = os.environ.get("UNLAYER_CUSTOM_HEADERS")
+        if custom_headers_env is not None:
+            parsed: dict[str, str] = {}
+            for line in custom_headers_env.split("\n"):
+                colon = line.find(":")
+                if colon >= 0:
+                    parsed[line[:colon].strip()] = line[colon + 1 :].strip()
+            default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
+
         super().__init__(
             version=__version__,
             base_url=base_url,
@@ -108,6 +122,12 @@ class Unlayer(SyncAPIClient):
         )
 
     @cached_property
+    def ai(self) -> AIResource:
+        from .resources.ai import AIResource
+
+        return AIResource(self)
+
+    @cached_property
     def convert(self) -> ConvertResource:
         from .resources.convert import ConvertResource
 
@@ -115,18 +135,21 @@ class Unlayer(SyncAPIClient):
 
     @cached_property
     def projects(self) -> ProjectsResource:
+        """Project details and configuration."""
         from .resources.projects import ProjectsResource
 
         return ProjectsResource(self)
 
     @cached_property
     def templates(self) -> TemplatesResource:
+        """Template management and retrieval."""
         from .resources.templates import TemplatesResource
 
         return TemplatesResource(self)
 
     @cached_property
     def workspaces(self) -> WorkspacesResource:
+        """Workspace access and management."""
         from .resources.workspaces import WorkspacesResource
 
         return WorkspacesResource(self)
@@ -326,6 +349,15 @@ class AsyncUnlayer(AsyncAPIClient):
         if base_url is None:
             base_url = f"https://api.unlayer.com"
 
+        custom_headers_env = os.environ.get("UNLAYER_CUSTOM_HEADERS")
+        if custom_headers_env is not None:
+            parsed: dict[str, str] = {}
+            for line in custom_headers_env.split("\n"):
+                colon = line.find(":")
+                if colon >= 0:
+                    parsed[line[:colon].strip()] = line[colon + 1 :].strip()
+            default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
+
         super().__init__(
             version=__version__,
             base_url=base_url,
@@ -338,6 +370,12 @@ class AsyncUnlayer(AsyncAPIClient):
         )
 
     @cached_property
+    def ai(self) -> AsyncAIResource:
+        from .resources.ai import AsyncAIResource
+
+        return AsyncAIResource(self)
+
+    @cached_property
     def convert(self) -> AsyncConvertResource:
         from .resources.convert import AsyncConvertResource
 
@@ -345,18 +383,21 @@ class AsyncUnlayer(AsyncAPIClient):
 
     @cached_property
     def projects(self) -> AsyncProjectsResource:
+        """Project details and configuration."""
         from .resources.projects import AsyncProjectsResource
 
         return AsyncProjectsResource(self)
 
     @cached_property
     def templates(self) -> AsyncTemplatesResource:
+        """Template management and retrieval."""
         from .resources.templates import AsyncTemplatesResource
 
         return AsyncTemplatesResource(self)
 
     @cached_property
     def workspaces(self) -> AsyncWorkspacesResource:
+        """Workspace access and management."""
         from .resources.workspaces import AsyncWorkspacesResource
 
         return AsyncWorkspacesResource(self)
@@ -508,6 +549,12 @@ class UnlayerWithRawResponse:
         self._client = client
 
     @cached_property
+    def ai(self) -> ai.AIResourceWithRawResponse:
+        from .resources.ai import AIResourceWithRawResponse
+
+        return AIResourceWithRawResponse(self._client.ai)
+
+    @cached_property
     def convert(self) -> convert.ConvertResourceWithRawResponse:
         from .resources.convert import ConvertResourceWithRawResponse
 
@@ -515,18 +562,21 @@ class UnlayerWithRawResponse:
 
     @cached_property
     def projects(self) -> projects.ProjectsResourceWithRawResponse:
+        """Project details and configuration."""
         from .resources.projects import ProjectsResourceWithRawResponse
 
         return ProjectsResourceWithRawResponse(self._client.projects)
 
     @cached_property
     def templates(self) -> templates.TemplatesResourceWithRawResponse:
+        """Template management and retrieval."""
         from .resources.templates import TemplatesResourceWithRawResponse
 
         return TemplatesResourceWithRawResponse(self._client.templates)
 
     @cached_property
     def workspaces(self) -> workspaces.WorkspacesResourceWithRawResponse:
+        """Workspace access and management."""
         from .resources.workspaces import WorkspacesResourceWithRawResponse
 
         return WorkspacesResourceWithRawResponse(self._client.workspaces)
@@ -539,6 +589,12 @@ class AsyncUnlayerWithRawResponse:
         self._client = client
 
     @cached_property
+    def ai(self) -> ai.AsyncAIResourceWithRawResponse:
+        from .resources.ai import AsyncAIResourceWithRawResponse
+
+        return AsyncAIResourceWithRawResponse(self._client.ai)
+
+    @cached_property
     def convert(self) -> convert.AsyncConvertResourceWithRawResponse:
         from .resources.convert import AsyncConvertResourceWithRawResponse
 
@@ -546,18 +602,21 @@ class AsyncUnlayerWithRawResponse:
 
     @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithRawResponse:
+        """Project details and configuration."""
         from .resources.projects import AsyncProjectsResourceWithRawResponse
 
         return AsyncProjectsResourceWithRawResponse(self._client.projects)
 
     @cached_property
     def templates(self) -> templates.AsyncTemplatesResourceWithRawResponse:
+        """Template management and retrieval."""
         from .resources.templates import AsyncTemplatesResourceWithRawResponse
 
         return AsyncTemplatesResourceWithRawResponse(self._client.templates)
 
     @cached_property
     def workspaces(self) -> workspaces.AsyncWorkspacesResourceWithRawResponse:
+        """Workspace access and management."""
         from .resources.workspaces import AsyncWorkspacesResourceWithRawResponse
 
         return AsyncWorkspacesResourceWithRawResponse(self._client.workspaces)
@@ -570,6 +629,12 @@ class UnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def ai(self) -> ai.AIResourceWithStreamingResponse:
+        from .resources.ai import AIResourceWithStreamingResponse
+
+        return AIResourceWithStreamingResponse(self._client.ai)
+
+    @cached_property
     def convert(self) -> convert.ConvertResourceWithStreamingResponse:
         from .resources.convert import ConvertResourceWithStreamingResponse
 
@@ -577,18 +642,21 @@ class UnlayerWithStreamedResponse:
 
     @cached_property
     def projects(self) -> projects.ProjectsResourceWithStreamingResponse:
+        """Project details and configuration."""
         from .resources.projects import ProjectsResourceWithStreamingResponse
 
         return ProjectsResourceWithStreamingResponse(self._client.projects)
 
     @cached_property
     def templates(self) -> templates.TemplatesResourceWithStreamingResponse:
+        """Template management and retrieval."""
         from .resources.templates import TemplatesResourceWithStreamingResponse
 
         return TemplatesResourceWithStreamingResponse(self._client.templates)
 
     @cached_property
     def workspaces(self) -> workspaces.WorkspacesResourceWithStreamingResponse:
+        """Workspace access and management."""
         from .resources.workspaces import WorkspacesResourceWithStreamingResponse
 
         return WorkspacesResourceWithStreamingResponse(self._client.workspaces)
@@ -601,6 +669,12 @@ class AsyncUnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def ai(self) -> ai.AsyncAIResourceWithStreamingResponse:
+        from .resources.ai import AsyncAIResourceWithStreamingResponse
+
+        return AsyncAIResourceWithStreamingResponse(self._client.ai)
+
+    @cached_property
     def convert(self) -> convert.AsyncConvertResourceWithStreamingResponse:
         from .resources.convert import AsyncConvertResourceWithStreamingResponse
 
@@ -608,18 +682,21 @@ class AsyncUnlayerWithStreamedResponse:
 
     @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithStreamingResponse:
+        """Project details and configuration."""
         from .resources.projects import AsyncProjectsResourceWithStreamingResponse
 
         return AsyncProjectsResourceWithStreamingResponse(self._client.projects)
 
     @cached_property
     def templates(self) -> templates.AsyncTemplatesResourceWithStreamingResponse:
+        """Template management and retrieval."""
         from .resources.templates import AsyncTemplatesResourceWithStreamingResponse
 
         return AsyncTemplatesResourceWithStreamingResponse(self._client.templates)
 
     @cached_property
     def workspaces(self) -> workspaces.AsyncWorkspacesResourceWithStreamingResponse:
+        """Workspace access and management."""
         from .resources.workspaces import AsyncWorkspacesResourceWithStreamingResponse
 
         return AsyncWorkspacesResourceWithStreamingResponse(self._client.workspaces)

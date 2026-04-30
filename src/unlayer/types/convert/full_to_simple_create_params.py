@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing import Dict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
@@ -25,12 +25,9 @@ class FullToSimpleCreateParams(TypedDict, total=False):
     include_default_values: Annotated[bool, PropertyInfo(alias="includeDefaultValues")]
 
 
-class DesignTyped(TypedDict, total=False):
+class Design(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     body: Required[Dict[str, object]]
 
     counters: Dict[str, object]
 
     schema_version: Annotated[float, PropertyInfo(alias="schemaVersion")]
-
-
-Design: TypeAlias = Union[DesignTyped, Dict[str, object]]

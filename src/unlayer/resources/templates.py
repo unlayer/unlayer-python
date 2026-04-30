@@ -8,7 +8,7 @@ import httpx
 
 from ..types import template_list_params, template_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -26,6 +26,8 @@ __all__ = ["TemplatesResource", "AsyncTemplatesResource"]
 
 
 class TemplatesResource(SyncAPIResource):
+    """Template management and retrieval."""
+
     @cached_property
     def with_raw_response(self) -> TemplatesResourceWithRawResponse:
         """
@@ -74,7 +76,7 @@ class TemplatesResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/v3/templates/{id}",
+            path_template("/v3/templates/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -148,6 +150,8 @@ class TemplatesResource(SyncAPIResource):
 
 
 class AsyncTemplatesResource(AsyncAPIResource):
+    """Template management and retrieval."""
+
     @cached_property
     def with_raw_response(self) -> AsyncTemplatesResourceWithRawResponse:
         """
@@ -196,7 +200,7 @@ class AsyncTemplatesResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/v3/templates/{id}",
+            path_template("/v3/templates/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
