@@ -36,12 +36,10 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import ai, convert, projects, templates, workspaces
-    from .resources.ai.ai import AIResource, AsyncAIResource
+    from .resources import projects, templates, workspaces
     from .resources.projects import ProjectsResource, AsyncProjectsResource
-    from .resources.templates import TemplatesResource, AsyncTemplatesResource
     from .resources.workspaces import WorkspacesResource, AsyncWorkspacesResource
-    from .resources.convert.convert import ConvertResource, AsyncConvertResource
+    from .resources.templates.templates import TemplatesResource, AsyncTemplatesResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Unlayer", "AsyncUnlayer", "Client", "AsyncClient"]
 
@@ -122,18 +120,6 @@ class Unlayer(SyncAPIClient):
         )
 
     @cached_property
-    def ai(self) -> AIResource:
-        from .resources.ai import AIResource
-
-        return AIResource(self)
-
-    @cached_property
-    def convert(self) -> ConvertResource:
-        from .resources.convert import ConvertResource
-
-        return ConvertResource(self)
-
-    @cached_property
     def projects(self) -> ProjectsResource:
         """Project details and configuration."""
         from .resources.projects import ProjectsResource
@@ -142,7 +128,9 @@ class Unlayer(SyncAPIClient):
 
     @cached_property
     def templates(self) -> TemplatesResource:
-        """Template management and retrieval."""
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
         from .resources.templates import TemplatesResource
 
         return TemplatesResource(self)
@@ -370,18 +358,6 @@ class AsyncUnlayer(AsyncAPIClient):
         )
 
     @cached_property
-    def ai(self) -> AsyncAIResource:
-        from .resources.ai import AsyncAIResource
-
-        return AsyncAIResource(self)
-
-    @cached_property
-    def convert(self) -> AsyncConvertResource:
-        from .resources.convert import AsyncConvertResource
-
-        return AsyncConvertResource(self)
-
-    @cached_property
     def projects(self) -> AsyncProjectsResource:
         """Project details and configuration."""
         from .resources.projects import AsyncProjectsResource
@@ -390,7 +366,9 @@ class AsyncUnlayer(AsyncAPIClient):
 
     @cached_property
     def templates(self) -> AsyncTemplatesResource:
-        """Template management and retrieval."""
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
         from .resources.templates import AsyncTemplatesResource
 
         return AsyncTemplatesResource(self)
@@ -549,18 +527,6 @@ class UnlayerWithRawResponse:
         self._client = client
 
     @cached_property
-    def ai(self) -> ai.AIResourceWithRawResponse:
-        from .resources.ai import AIResourceWithRawResponse
-
-        return AIResourceWithRawResponse(self._client.ai)
-
-    @cached_property
-    def convert(self) -> convert.ConvertResourceWithRawResponse:
-        from .resources.convert import ConvertResourceWithRawResponse
-
-        return ConvertResourceWithRawResponse(self._client.convert)
-
-    @cached_property
     def projects(self) -> projects.ProjectsResourceWithRawResponse:
         """Project details and configuration."""
         from .resources.projects import ProjectsResourceWithRawResponse
@@ -569,7 +535,9 @@ class UnlayerWithRawResponse:
 
     @cached_property
     def templates(self) -> templates.TemplatesResourceWithRawResponse:
-        """Template management and retrieval."""
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
         from .resources.templates import TemplatesResourceWithRawResponse
 
         return TemplatesResourceWithRawResponse(self._client.templates)
@@ -589,18 +557,6 @@ class AsyncUnlayerWithRawResponse:
         self._client = client
 
     @cached_property
-    def ai(self) -> ai.AsyncAIResourceWithRawResponse:
-        from .resources.ai import AsyncAIResourceWithRawResponse
-
-        return AsyncAIResourceWithRawResponse(self._client.ai)
-
-    @cached_property
-    def convert(self) -> convert.AsyncConvertResourceWithRawResponse:
-        from .resources.convert import AsyncConvertResourceWithRawResponse
-
-        return AsyncConvertResourceWithRawResponse(self._client.convert)
-
-    @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithRawResponse:
         """Project details and configuration."""
         from .resources.projects import AsyncProjectsResourceWithRawResponse
@@ -609,7 +565,9 @@ class AsyncUnlayerWithRawResponse:
 
     @cached_property
     def templates(self) -> templates.AsyncTemplatesResourceWithRawResponse:
-        """Template management and retrieval."""
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
         from .resources.templates import AsyncTemplatesResourceWithRawResponse
 
         return AsyncTemplatesResourceWithRawResponse(self._client.templates)
@@ -629,18 +587,6 @@ class UnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
-    def ai(self) -> ai.AIResourceWithStreamingResponse:
-        from .resources.ai import AIResourceWithStreamingResponse
-
-        return AIResourceWithStreamingResponse(self._client.ai)
-
-    @cached_property
-    def convert(self) -> convert.ConvertResourceWithStreamingResponse:
-        from .resources.convert import ConvertResourceWithStreamingResponse
-
-        return ConvertResourceWithStreamingResponse(self._client.convert)
-
-    @cached_property
     def projects(self) -> projects.ProjectsResourceWithStreamingResponse:
         """Project details and configuration."""
         from .resources.projects import ProjectsResourceWithStreamingResponse
@@ -649,7 +595,9 @@ class UnlayerWithStreamedResponse:
 
     @cached_property
     def templates(self) -> templates.TemplatesResourceWithStreamingResponse:
-        """Template management and retrieval."""
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
         from .resources.templates import TemplatesResourceWithStreamingResponse
 
         return TemplatesResourceWithStreamingResponse(self._client.templates)
@@ -669,18 +617,6 @@ class AsyncUnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
-    def ai(self) -> ai.AsyncAIResourceWithStreamingResponse:
-        from .resources.ai import AsyncAIResourceWithStreamingResponse
-
-        return AsyncAIResourceWithStreamingResponse(self._client.ai)
-
-    @cached_property
-    def convert(self) -> convert.AsyncConvertResourceWithStreamingResponse:
-        from .resources.convert import AsyncConvertResourceWithStreamingResponse
-
-        return AsyncConvertResourceWithStreamingResponse(self._client.convert)
-
-    @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithStreamingResponse:
         """Project details and configuration."""
         from .resources.projects import AsyncProjectsResourceWithStreamingResponse
@@ -689,7 +625,9 @@ class AsyncUnlayerWithStreamedResponse:
 
     @cached_property
     def templates(self) -> templates.AsyncTemplatesResourceWithStreamingResponse:
-        """Template management and retrieval."""
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
         from .resources.templates import AsyncTemplatesResourceWithStreamingResponse
 
         return AsyncTemplatesResourceWithStreamingResponse(self._client.templates)
