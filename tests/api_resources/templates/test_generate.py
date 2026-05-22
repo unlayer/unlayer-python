@@ -9,7 +9,7 @@ import pytest
 
 from unlayer import Unlayer, AsyncUnlayer
 from tests.utils import assert_matches_type
-from unlayer.types.ai import GenerateCreateResponse
+from unlayer.types.templates import GenerateCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,7 +19,7 @@ class TestGenerate:
 
     @parametrize
     def test_method_create(self, client: Unlayer) -> None:
-        generate = client.ai.generate.create(
+        generate = client.templates.generate.create(
             display_mode="email",
             input=[{"type": "text"}],
             output={
@@ -31,7 +31,7 @@ class TestGenerate:
 
     @parametrize
     def test_method_create_with_all_params(self, client: Unlayer) -> None:
-        generate = client.ai.generate.create(
+        generate = client.templates.generate.create(
             display_mode="email",
             input=[
                 {
@@ -65,7 +65,7 @@ class TestGenerate:
 
     @parametrize
     def test_raw_response_create(self, client: Unlayer) -> None:
-        response = client.ai.generate.with_raw_response.create(
+        response = client.templates.generate.with_raw_response.create(
             display_mode="email",
             input=[{"type": "text"}],
             output={
@@ -81,7 +81,7 @@ class TestGenerate:
 
     @parametrize
     def test_streaming_response_create(self, client: Unlayer) -> None:
-        with client.ai.generate.with_streaming_response.create(
+        with client.templates.generate.with_streaming_response.create(
             display_mode="email",
             input=[{"type": "text"}],
             output={
@@ -105,7 +105,7 @@ class TestAsyncGenerate:
 
     @parametrize
     async def test_method_create(self, async_client: AsyncUnlayer) -> None:
-        generate = await async_client.ai.generate.create(
+        generate = await async_client.templates.generate.create(
             display_mode="email",
             input=[{"type": "text"}],
             output={
@@ -117,7 +117,7 @@ class TestAsyncGenerate:
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncUnlayer) -> None:
-        generate = await async_client.ai.generate.create(
+        generate = await async_client.templates.generate.create(
             display_mode="email",
             input=[
                 {
@@ -151,7 +151,7 @@ class TestAsyncGenerate:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.ai.generate.with_raw_response.create(
+        response = await async_client.templates.generate.with_raw_response.create(
             display_mode="email",
             input=[{"type": "text"}],
             output={
@@ -167,7 +167,7 @@ class TestAsyncGenerate:
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.ai.generate.with_streaming_response.create(
+        async with async_client.templates.generate.with_streaming_response.create(
             display_mode="email",
             input=[{"type": "text"}],
             output={

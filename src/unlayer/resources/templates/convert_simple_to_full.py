@@ -17,40 +17,41 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.convert import full_to_simple_create_params
-from ...types.convert.full_to_simple_create_response import FullToSimpleCreateResponse
+from ...types.templates import convert_simple_to_full_create_params
+from ...types.templates.convert_simple_to_full_create_response import ConvertSimpleToFullCreateResponse
 
-__all__ = ["FullToSimpleResource", "AsyncFullToSimpleResource"]
+__all__ = ["ConvertSimpleToFullResource", "AsyncConvertSimpleToFullResource"]
 
 
-class FullToSimpleResource(SyncAPIResource):
-    """Design schema conversion between Full and Simple formats."""
+class ConvertSimpleToFullResource(SyncAPIResource):
+    """
+    Template management — list, retrieve, generate, import, export, and convert designs.
+    """
 
     @cached_property
-    def with_raw_response(self) -> FullToSimpleResourceWithRawResponse:
+    def with_raw_response(self) -> ConvertSimpleToFullResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/unlayer/unlayer-python#accessing-raw-response-data-eg-headers
         """
-        return FullToSimpleResourceWithRawResponse(self)
+        return ConvertSimpleToFullResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> FullToSimpleResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ConvertSimpleToFullResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/unlayer/unlayer-python#with_streaming_response
         """
-        return FullToSimpleResourceWithStreamingResponse(self)
+        return ConvertSimpleToFullResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
-        design: full_to_simple_create_params.Design,
+        design: convert_simple_to_full_create_params.Design,
         display_mode: Literal["email", "web", "popup", "document"] | Omit = omit,
-        include_conversion: bool | Omit = omit,
         include_default_values: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -58,14 +59,11 @@ class FullToSimpleResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FullToSimpleCreateResponse:
+    ) -> ConvertSimpleToFullCreateResponse:
         """
-        Convert design json from Full to Simple schema.
+        Convert design json from Simple to Full schema.
 
         Args:
-          include_conversion: When true, includes \\__conversion metadata in the response. This metadata can be
-              passed to simple-to-full to restore original values without data loss.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -75,51 +73,51 @@ class FullToSimpleResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v3/convert/full-to-simple",
+            "/v3/templates/convert/simple-to-full",
             body=maybe_transform(
                 {
                     "design": design,
                     "display_mode": display_mode,
-                    "include_conversion": include_conversion,
                     "include_default_values": include_default_values,
                 },
-                full_to_simple_create_params.FullToSimpleCreateParams,
+                convert_simple_to_full_create_params.ConvertSimpleToFullCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=FullToSimpleCreateResponse,
+            cast_to=ConvertSimpleToFullCreateResponse,
         )
 
 
-class AsyncFullToSimpleResource(AsyncAPIResource):
-    """Design schema conversion between Full and Simple formats."""
+class AsyncConvertSimpleToFullResource(AsyncAPIResource):
+    """
+    Template management — list, retrieve, generate, import, export, and convert designs.
+    """
 
     @cached_property
-    def with_raw_response(self) -> AsyncFullToSimpleResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncConvertSimpleToFullResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/unlayer/unlayer-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncFullToSimpleResourceWithRawResponse(self)
+        return AsyncConvertSimpleToFullResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncFullToSimpleResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncConvertSimpleToFullResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/unlayer/unlayer-python#with_streaming_response
         """
-        return AsyncFullToSimpleResourceWithStreamingResponse(self)
+        return AsyncConvertSimpleToFullResourceWithStreamingResponse(self)
 
     async def create(
         self,
         *,
-        design: full_to_simple_create_params.Design,
+        design: convert_simple_to_full_create_params.Design,
         display_mode: Literal["email", "web", "popup", "document"] | Omit = omit,
-        include_conversion: bool | Omit = omit,
         include_default_values: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -127,14 +125,11 @@ class AsyncFullToSimpleResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FullToSimpleCreateResponse:
+    ) -> ConvertSimpleToFullCreateResponse:
         """
-        Convert design json from Full to Simple schema.
+        Convert design json from Simple to Full schema.
 
         Args:
-          include_conversion: When true, includes \\__conversion metadata in the response. This metadata can be
-              passed to simple-to-full to restore original values without data loss.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -144,54 +139,53 @@ class AsyncFullToSimpleResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v3/convert/full-to-simple",
+            "/v3/templates/convert/simple-to-full",
             body=await async_maybe_transform(
                 {
                     "design": design,
                     "display_mode": display_mode,
-                    "include_conversion": include_conversion,
                     "include_default_values": include_default_values,
                 },
-                full_to_simple_create_params.FullToSimpleCreateParams,
+                convert_simple_to_full_create_params.ConvertSimpleToFullCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=FullToSimpleCreateResponse,
+            cast_to=ConvertSimpleToFullCreateResponse,
         )
 
 
-class FullToSimpleResourceWithRawResponse:
-    def __init__(self, full_to_simple: FullToSimpleResource) -> None:
-        self._full_to_simple = full_to_simple
+class ConvertSimpleToFullResourceWithRawResponse:
+    def __init__(self, convert_simple_to_full: ConvertSimpleToFullResource) -> None:
+        self._convert_simple_to_full = convert_simple_to_full
 
         self.create = to_raw_response_wrapper(
-            full_to_simple.create,
+            convert_simple_to_full.create,
         )
 
 
-class AsyncFullToSimpleResourceWithRawResponse:
-    def __init__(self, full_to_simple: AsyncFullToSimpleResource) -> None:
-        self._full_to_simple = full_to_simple
+class AsyncConvertSimpleToFullResourceWithRawResponse:
+    def __init__(self, convert_simple_to_full: AsyncConvertSimpleToFullResource) -> None:
+        self._convert_simple_to_full = convert_simple_to_full
 
         self.create = async_to_raw_response_wrapper(
-            full_to_simple.create,
+            convert_simple_to_full.create,
         )
 
 
-class FullToSimpleResourceWithStreamingResponse:
-    def __init__(self, full_to_simple: FullToSimpleResource) -> None:
-        self._full_to_simple = full_to_simple
+class ConvertSimpleToFullResourceWithStreamingResponse:
+    def __init__(self, convert_simple_to_full: ConvertSimpleToFullResource) -> None:
+        self._convert_simple_to_full = convert_simple_to_full
 
         self.create = to_streamed_response_wrapper(
-            full_to_simple.create,
+            convert_simple_to_full.create,
         )
 
 
-class AsyncFullToSimpleResourceWithStreamingResponse:
-    def __init__(self, full_to_simple: AsyncFullToSimpleResource) -> None:
-        self._full_to_simple = full_to_simple
+class AsyncConvertSimpleToFullResourceWithStreamingResponse:
+    def __init__(self, convert_simple_to_full: AsyncConvertSimpleToFullResource) -> None:
+        self._convert_simple_to_full = convert_simple_to_full
 
         self.create = async_to_streamed_response_wrapper(
-            full_to_simple.create,
+            convert_simple_to_full.create,
         )

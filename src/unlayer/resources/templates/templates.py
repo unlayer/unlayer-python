@@ -6,27 +6,89 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import template_list_params, template_retrieve_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ...types import template_list_params, template_retrieve_params
+from .import_ import (
+    ImportResource,
+    AsyncImportResource,
+    ImportResourceWithRawResponse,
+    AsyncImportResourceWithRawResponse,
+    ImportResourceWithStreamingResponse,
+    AsyncImportResourceWithStreamingResponse,
+)
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from .generate import (
+    GenerateResource,
+    AsyncGenerateResource,
+    GenerateResourceWithRawResponse,
+    AsyncGenerateResourceWithRawResponse,
+    GenerateResourceWithStreamingResponse,
+    AsyncGenerateResourceWithStreamingResponse,
+)
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.template_list_response import TemplateListResponse
-from ..types.template_retrieve_response import TemplateRetrieveResponse
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ..._base_client import AsyncPaginator, make_request_options
+from .convert_full_to_simple import (
+    ConvertFullToSimpleResource,
+    AsyncConvertFullToSimpleResource,
+    ConvertFullToSimpleResourceWithRawResponse,
+    AsyncConvertFullToSimpleResourceWithRawResponse,
+    ConvertFullToSimpleResourceWithStreamingResponse,
+    AsyncConvertFullToSimpleResourceWithStreamingResponse,
+)
+from .convert_simple_to_full import (
+    ConvertSimpleToFullResource,
+    AsyncConvertSimpleToFullResource,
+    ConvertSimpleToFullResourceWithRawResponse,
+    AsyncConvertSimpleToFullResourceWithRawResponse,
+    ConvertSimpleToFullResourceWithStreamingResponse,
+    AsyncConvertSimpleToFullResourceWithStreamingResponse,
+)
+from ...types.template_list_response import TemplateListResponse
+from ...types.template_retrieve_response import TemplateRetrieveResponse
 
 __all__ = ["TemplatesResource", "AsyncTemplatesResource"]
 
 
 class TemplatesResource(SyncAPIResource):
-    """Template management and retrieval."""
+    """
+    Template management — list, retrieve, generate, import, export, and convert designs.
+    """
+
+    @cached_property
+    def convert_full_to_simple(self) -> ConvertFullToSimpleResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return ConvertFullToSimpleResource(self._client)
+
+    @cached_property
+    def convert_simple_to_full(self) -> ConvertSimpleToFullResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return ConvertSimpleToFullResource(self._client)
+
+    @cached_property
+    def generate(self) -> GenerateResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return GenerateResource(self._client)
+
+    @cached_property
+    def import_(self) -> ImportResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return ImportResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> TemplatesResourceWithRawResponse:
@@ -150,7 +212,37 @@ class TemplatesResource(SyncAPIResource):
 
 
 class AsyncTemplatesResource(AsyncAPIResource):
-    """Template management and retrieval."""
+    """
+    Template management — list, retrieve, generate, import, export, and convert designs.
+    """
+
+    @cached_property
+    def convert_full_to_simple(self) -> AsyncConvertFullToSimpleResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncConvertFullToSimpleResource(self._client)
+
+    @cached_property
+    def convert_simple_to_full(self) -> AsyncConvertSimpleToFullResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncConvertSimpleToFullResource(self._client)
+
+    @cached_property
+    def generate(self) -> AsyncGenerateResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncGenerateResource(self._client)
+
+    @cached_property
+    def import_(self) -> AsyncImportResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncImportResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncTemplatesResourceWithRawResponse:
@@ -286,6 +378,34 @@ class TemplatesResourceWithRawResponse:
             templates.list,
         )
 
+    @cached_property
+    def convert_full_to_simple(self) -> ConvertFullToSimpleResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return ConvertFullToSimpleResourceWithRawResponse(self._templates.convert_full_to_simple)
+
+    @cached_property
+    def convert_simple_to_full(self) -> ConvertSimpleToFullResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return ConvertSimpleToFullResourceWithRawResponse(self._templates.convert_simple_to_full)
+
+    @cached_property
+    def generate(self) -> GenerateResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return GenerateResourceWithRawResponse(self._templates.generate)
+
+    @cached_property
+    def import_(self) -> ImportResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return ImportResourceWithRawResponse(self._templates.import_)
+
 
 class AsyncTemplatesResourceWithRawResponse:
     def __init__(self, templates: AsyncTemplatesResource) -> None:
@@ -297,6 +417,34 @@ class AsyncTemplatesResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             templates.list,
         )
+
+    @cached_property
+    def convert_full_to_simple(self) -> AsyncConvertFullToSimpleResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncConvertFullToSimpleResourceWithRawResponse(self._templates.convert_full_to_simple)
+
+    @cached_property
+    def convert_simple_to_full(self) -> AsyncConvertSimpleToFullResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncConvertSimpleToFullResourceWithRawResponse(self._templates.convert_simple_to_full)
+
+    @cached_property
+    def generate(self) -> AsyncGenerateResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncGenerateResourceWithRawResponse(self._templates.generate)
+
+    @cached_property
+    def import_(self) -> AsyncImportResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncImportResourceWithRawResponse(self._templates.import_)
 
 
 class TemplatesResourceWithStreamingResponse:
@@ -310,6 +458,34 @@ class TemplatesResourceWithStreamingResponse:
             templates.list,
         )
 
+    @cached_property
+    def convert_full_to_simple(self) -> ConvertFullToSimpleResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return ConvertFullToSimpleResourceWithStreamingResponse(self._templates.convert_full_to_simple)
+
+    @cached_property
+    def convert_simple_to_full(self) -> ConvertSimpleToFullResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return ConvertSimpleToFullResourceWithStreamingResponse(self._templates.convert_simple_to_full)
+
+    @cached_property
+    def generate(self) -> GenerateResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return GenerateResourceWithStreamingResponse(self._templates.generate)
+
+    @cached_property
+    def import_(self) -> ImportResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return ImportResourceWithStreamingResponse(self._templates.import_)
+
 
 class AsyncTemplatesResourceWithStreamingResponse:
     def __init__(self, templates: AsyncTemplatesResource) -> None:
@@ -321,3 +497,31 @@ class AsyncTemplatesResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             templates.list,
         )
+
+    @cached_property
+    def convert_full_to_simple(self) -> AsyncConvertFullToSimpleResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncConvertFullToSimpleResourceWithStreamingResponse(self._templates.convert_full_to_simple)
+
+    @cached_property
+    def convert_simple_to_full(self) -> AsyncConvertSimpleToFullResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncConvertSimpleToFullResourceWithStreamingResponse(self._templates.convert_simple_to_full)
+
+    @cached_property
+    def generate(self) -> AsyncGenerateResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncGenerateResourceWithStreamingResponse(self._templates.generate)
+
+    @cached_property
+    def import_(self) -> AsyncImportResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncImportResourceWithStreamingResponse(self._templates.import_)

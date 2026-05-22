@@ -7,10 +7,10 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
-__all__ = ["SimpleToFullCreateParams", "Design", "Design_Conversion"]
+__all__ = ["ConvertSimpleToFullCreateParams", "Design", "Design_Conversion"]
 
 
-class SimpleToFullCreateParams(TypedDict, total=False):
+class ConvertSimpleToFullCreateParams(TypedDict, total=False):
     design: Required[Design]
 
     display_mode: Annotated[Literal["email", "web", "popup", "document"], PropertyInfo(alias="displayMode")]

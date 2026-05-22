@@ -1,43 +1,3 @@
-# AI
-
-## Generate
-
-Types:
-
-```python
-from unlayer.types.ai import GenerateCreateResponse
-```
-
-Methods:
-
-- <code title="post /v3/ai/generate">client.ai.generate.<a href="./src/unlayer/resources/ai/generate.py">create</a>(\*\*<a href="src/unlayer/types/ai/generate_create_params.py">params</a>) -> <a href="./src/unlayer/types/ai/generate_create_response.py">GenerateCreateResponse</a></code>
-
-# Convert
-
-## FullToSimple
-
-Types:
-
-```python
-from unlayer.types.convert import FullToSimpleCreateResponse
-```
-
-Methods:
-
-- <code title="post /v3/convert/full-to-simple">client.convert.full_to_simple.<a href="./src/unlayer/resources/convert/full_to_simple.py">create</a>(\*\*<a href="src/unlayer/types/convert/full_to_simple_create_params.py">params</a>) -> <a href="./src/unlayer/types/convert/full_to_simple_create_response.py">FullToSimpleCreateResponse</a></code>
-
-## SimpleToFull
-
-Types:
-
-```python
-from unlayer.types.convert import SimpleToFullCreateResponse
-```
-
-Methods:
-
-- <code title="post /v3/convert/simple-to-full">client.convert.simple_to_full.<a href="./src/unlayer/resources/convert/simple_to_full.py">create</a>(\*\*<a href="src/unlayer/types/convert/simple_to_full_create_params.py">params</a>) -> <a href="./src/unlayer/types/convert/simple_to_full_create_response.py">SimpleToFullCreateResponse</a></code>
-
 # Projects
 
 Types:
@@ -60,8 +20,56 @@ from unlayer.types import TemplateRetrieveResponse, TemplateListResponse
 
 Methods:
 
-- <code title="get /v3/templates/{id}">client.templates.<a href="./src/unlayer/resources/templates.py">retrieve</a>(id, \*\*<a href="src/unlayer/types/template_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/template_retrieve_response.py">TemplateRetrieveResponse</a></code>
-- <code title="get /v3/templates">client.templates.<a href="./src/unlayer/resources/templates.py">list</a>(\*\*<a href="src/unlayer/types/template_list_params.py">params</a>) -> <a href="./src/unlayer/types/template_list_response.py">SyncCursorPage[TemplateListResponse]</a></code>
+- <code title="get /v3/templates/{id}">client.templates.<a href="./src/unlayer/resources/templates/templates.py">retrieve</a>(id, \*\*<a href="src/unlayer/types/template_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/template_retrieve_response.py">TemplateRetrieveResponse</a></code>
+- <code title="get /v3/templates">client.templates.<a href="./src/unlayer/resources/templates/templates.py">list</a>(\*\*<a href="src/unlayer/types/template_list_params.py">params</a>) -> <a href="./src/unlayer/types/template_list_response.py">SyncCursorPage[TemplateListResponse]</a></code>
+
+## ConvertFullToSimple
+
+Types:
+
+```python
+from unlayer.types.templates import ConvertFullToSimpleCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/templates/convert/full-to-simple">client.templates.convert_full_to_simple.<a href="./src/unlayer/resources/templates/convert_full_to_simple.py">create</a>(\*\*<a href="src/unlayer/types/templates/convert_full_to_simple_create_params.py">params</a>) -> <a href="./src/unlayer/types/templates/convert_full_to_simple_create_response.py">ConvertFullToSimpleCreateResponse</a></code>
+
+## ConvertSimpleToFull
+
+Types:
+
+```python
+from unlayer.types.templates import ConvertSimpleToFullCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/templates/convert/simple-to-full">client.templates.convert_simple_to_full.<a href="./src/unlayer/resources/templates/convert_simple_to_full.py">create</a>(\*\*<a href="src/unlayer/types/templates/convert_simple_to_full_create_params.py">params</a>) -> <a href="./src/unlayer/types/templates/convert_simple_to_full_create_response.py">ConvertSimpleToFullCreateResponse</a></code>
+
+## Generate
+
+Types:
+
+```python
+from unlayer.types.templates import GenerateCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/templates/generate">client.templates.generate.<a href="./src/unlayer/resources/templates/generate.py">create</a>(\*\*<a href="src/unlayer/types/templates/generate_create_params.py">params</a>) -> <a href="./src/unlayer/types/templates/generate_create_response.py">GenerateCreateResponse</a></code>
+
+## Import
+
+Types:
+
+```python
+from unlayer.types.templates import ImportCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/templates/import">client.templates.import*.<a href="./src/unlayer/resources/templates/import*.py">create</a>(\*\*<a href="src/unlayer/types/templates/import_create_params.py">params</a>) -> <a href="./src/unlayer/types/templates/import_create_response.py">ImportCreateResponse</a></code>
 
 # Workspaces
 

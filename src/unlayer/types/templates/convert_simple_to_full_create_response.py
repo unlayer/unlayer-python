@@ -5,14 +5,14 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["SimpleToFullCreateResponse", "Data"]
+__all__ = ["ConvertSimpleToFullCreateResponse", "Data"]
 
 
 class Data(BaseModel):
     design: Optional[Dict[str, object]] = None
 
 
-class SimpleToFullCreateResponse(BaseModel):
+class ConvertSimpleToFullCreateResponse(BaseModel):
     data: Optional[Data] = None
 
     success: Optional[Literal[True]] = None
