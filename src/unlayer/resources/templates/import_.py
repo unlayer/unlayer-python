@@ -54,7 +54,7 @@ class ImportResource(SyncAPIResource):
         display_mode: Literal["email", "web", "popup", "document"],
         input: Iterable[import_create_params.Input],
         project_id: str | Omit = omit,
-        model: Literal["anthropic/claude-opus-4-6", "openai/gpt-5.2"] | Omit = omit,
+        model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -74,8 +74,11 @@ class ImportResource(SyncAPIResource):
 
           project_id: The project ID (required for PAT auth, auto-resolved for API key auth)
 
-          model: AI model to use, in provider/model format. Optional — defaults to
-              anthropic/claude-opus-4-6.
+          model: AI model to use. Accepts a provider/model string (e.g.
+              "anthropic/claude-opus-4-7", "openai/gpt-5.5"), a bare provider ("anthropic",
+              "openai") which uses that provider's default model, or a bare model id
+              ("claude-opus-4-7", "gpt-5.5") with the provider inferred from the name.
+              Optional — defaults to anthropic/claude-opus-4-7.
 
           extra_headers: Send extra headers
 
@@ -136,7 +139,7 @@ class AsyncImportResource(AsyncAPIResource):
         display_mode: Literal["email", "web", "popup", "document"],
         input: Iterable[import_create_params.Input],
         project_id: str | Omit = omit,
-        model: Literal["anthropic/claude-opus-4-6", "openai/gpt-5.2"] | Omit = omit,
+        model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -156,8 +159,11 @@ class AsyncImportResource(AsyncAPIResource):
 
           project_id: The project ID (required for PAT auth, auto-resolved for API key auth)
 
-          model: AI model to use, in provider/model format. Optional — defaults to
-              anthropic/claude-opus-4-6.
+          model: AI model to use. Accepts a provider/model string (e.g.
+              "anthropic/claude-opus-4-7", "openai/gpt-5.5"), a bare provider ("anthropic",
+              "openai") which uses that provider's default model, or a bare model id
+              ("claude-opus-4-7", "gpt-5.5") with the provider inferred from the name.
+              Optional — defaults to anthropic/claude-opus-4-7.
 
           extra_headers: Send extra headers
 

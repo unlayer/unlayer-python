@@ -78,9 +78,6 @@ class TemplatesResource(SyncAPIResource):
 
     @cached_property
     def generate(self) -> GenerateResource:
-        """
-        Template management — list, retrieve, generate, import, export, and convert designs.
-        """
         return GenerateResource(self._client)
 
     @cached_property
@@ -232,9 +229,6 @@ class AsyncTemplatesResource(AsyncAPIResource):
 
     @cached_property
     def generate(self) -> AsyncGenerateResource:
-        """
-        Template management — list, retrieve, generate, import, export, and convert designs.
-        """
         return AsyncGenerateResource(self._client)
 
     @cached_property
@@ -394,9 +388,6 @@ class TemplatesResourceWithRawResponse:
 
     @cached_property
     def generate(self) -> GenerateResourceWithRawResponse:
-        """
-        Template management — list, retrieve, generate, import, export, and convert designs.
-        """
         return GenerateResourceWithRawResponse(self._templates.generate)
 
     @cached_property
@@ -434,9 +425,6 @@ class AsyncTemplatesResourceWithRawResponse:
 
     @cached_property
     def generate(self) -> AsyncGenerateResourceWithRawResponse:
-        """
-        Template management — list, retrieve, generate, import, export, and convert designs.
-        """
         return AsyncGenerateResourceWithRawResponse(self._templates.generate)
 
     @cached_property
@@ -474,9 +462,6 @@ class TemplatesResourceWithStreamingResponse:
 
     @cached_property
     def generate(self) -> GenerateResourceWithStreamingResponse:
-        """
-        Template management — list, retrieve, generate, import, export, and convert designs.
-        """
         return GenerateResourceWithStreamingResponse(self._templates.generate)
 
     @cached_property
@@ -514,9 +499,6 @@ class AsyncTemplatesResourceWithStreamingResponse:
 
     @cached_property
     def generate(self) -> AsyncGenerateResourceWithStreamingResponse:
-        """
-        Template management — list, retrieve, generate, import, export, and convert designs.
-        """
         return AsyncGenerateResourceWithStreamingResponse(self._templates.generate)
 
     @cached_property

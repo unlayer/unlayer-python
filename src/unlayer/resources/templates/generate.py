@@ -3,11 +3,10 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Literal
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -25,10 +24,6 @@ __all__ = ["GenerateResource", "AsyncGenerateResource"]
 
 
 class GenerateResource(SyncAPIResource):
-    """
-    Template management — list, retrieve, generate, import, export, and convert designs.
-    """
-
     @cached_property
     def with_raw_response(self) -> GenerateResourceWithRawResponse:
         """
@@ -51,12 +46,13 @@ class GenerateResource(SyncAPIResource):
     def create(
         self,
         *,
-        display_mode: Literal["email", "web", "popup", "document"],
-        input: Iterable[generate_create_params.Input],
+        messages: Iterable[generate_create_params.Message],
         output: generate_create_params.Output,
         project_id: str | Omit = omit,
         context: generate_create_params.Context | Omit = omit,
-        model: Literal["anthropic/claude-opus-4-6", "openai/gpt-5.2"] | Omit = omit,
+        conversation_id: str | Omit = omit,
+        locale: str | Omit = omit,
+        model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -64,24 +60,31 @@ class GenerateResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> GenerateCreateResponse:
-        """Generate, modify, or import an Unlayer design using AI.
+        """Generate or modify an Unlayer design using AI.
 
-        Provide typed input
-        parts to describe what to generate.
+        Send the conversation as
+        `messages` (today only the last user message is consumed; earlier turns are
+        accepted as chat history) and describe the target with `output.kind` +
+        `output.displayMode`. Pass the current canvas state in `context` (full design
+        JSON + selection pointer) to modify an existing design. Only `anthropic` and
+        `openai` models are supported. To import existing HTML or an image instead, use
+        POST /v3/templates/import.
 
         Args:
-          display_mode: Display mode for the design
-
-          input: Array of typed input parts (max 50)
-
-          output: What to generate
+          messages: Conversation messages in chronological order, capped at 10 messages. The last
+              `user` message is the prompt for this turn; any earlier `user`/`assistant` text
+              turns are forwarded to the model as prior chat context. A `user` message may
+              carry a predefined prompt action via `metadata.action.id` (e.g. SPELLING,
+              REPHRASE).
 
           project_id: The project ID (required for PAT auth, auto-resolved for API key auth)
 
-          context: Editor environment context
+          conversation_id: Reserved for future server-side conversation memory.
 
-          model: AI model to use, in provider/model format. Optional — defaults to
-              anthropic/claude-opus-4-6.
+          locale: BCP-47 fallback locale for AI status messages.
+
+          model: AI model in "provider/id" form, e.g. "anthropic/claude-opus-4-7". Optional —
+              server resolves a default per output kind.
 
           extra_headers: Send extra headers
 
@@ -95,10 +98,11 @@ class GenerateResource(SyncAPIResource):
             "/v3/templates/generate",
             body=maybe_transform(
                 {
-                    "display_mode": display_mode,
-                    "input": input,
+                    "messages": messages,
                     "output": output,
                     "context": context,
+                    "conversation_id": conversation_id,
+                    "locale": locale,
                     "model": model,
                 },
                 generate_create_params.GenerateCreateParams,
@@ -113,12 +117,27 @@ class GenerateResource(SyncAPIResource):
             cast_to=GenerateCreateResponse,
         )
 
+    def retrieve(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._get(
+            "/v3/templates/generate",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AsyncGenerateResource(AsyncAPIResource):
-    """
-    Template management — list, retrieve, generate, import, export, and convert designs.
-    """
-
     @cached_property
     def with_raw_response(self) -> AsyncGenerateResourceWithRawResponse:
         """
@@ -141,12 +160,13 @@ class AsyncGenerateResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        display_mode: Literal["email", "web", "popup", "document"],
-        input: Iterable[generate_create_params.Input],
+        messages: Iterable[generate_create_params.Message],
         output: generate_create_params.Output,
         project_id: str | Omit = omit,
         context: generate_create_params.Context | Omit = omit,
-        model: Literal["anthropic/claude-opus-4-6", "openai/gpt-5.2"] | Omit = omit,
+        conversation_id: str | Omit = omit,
+        locale: str | Omit = omit,
+        model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -154,24 +174,31 @@ class AsyncGenerateResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> GenerateCreateResponse:
-        """Generate, modify, or import an Unlayer design using AI.
+        """Generate or modify an Unlayer design using AI.
 
-        Provide typed input
-        parts to describe what to generate.
+        Send the conversation as
+        `messages` (today only the last user message is consumed; earlier turns are
+        accepted as chat history) and describe the target with `output.kind` +
+        `output.displayMode`. Pass the current canvas state in `context` (full design
+        JSON + selection pointer) to modify an existing design. Only `anthropic` and
+        `openai` models are supported. To import existing HTML or an image instead, use
+        POST /v3/templates/import.
 
         Args:
-          display_mode: Display mode for the design
-
-          input: Array of typed input parts (max 50)
-
-          output: What to generate
+          messages: Conversation messages in chronological order, capped at 10 messages. The last
+              `user` message is the prompt for this turn; any earlier `user`/`assistant` text
+              turns are forwarded to the model as prior chat context. A `user` message may
+              carry a predefined prompt action via `metadata.action.id` (e.g. SPELLING,
+              REPHRASE).
 
           project_id: The project ID (required for PAT auth, auto-resolved for API key auth)
 
-          context: Editor environment context
+          conversation_id: Reserved for future server-side conversation memory.
 
-          model: AI model to use, in provider/model format. Optional — defaults to
-              anthropic/claude-opus-4-6.
+          locale: BCP-47 fallback locale for AI status messages.
+
+          model: AI model in "provider/id" form, e.g. "anthropic/claude-opus-4-7". Optional —
+              server resolves a default per output kind.
 
           extra_headers: Send extra headers
 
@@ -185,10 +212,11 @@ class AsyncGenerateResource(AsyncAPIResource):
             "/v3/templates/generate",
             body=await async_maybe_transform(
                 {
-                    "display_mode": display_mode,
-                    "input": input,
+                    "messages": messages,
                     "output": output,
                     "context": context,
+                    "conversation_id": conversation_id,
+                    "locale": locale,
                     "model": model,
                 },
                 generate_create_params.GenerateCreateParams,
@@ -205,6 +233,25 @@ class AsyncGenerateResource(AsyncAPIResource):
             cast_to=GenerateCreateResponse,
         )
 
+    async def retrieve(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._get(
+            "/v3/templates/generate",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class GenerateResourceWithRawResponse:
     def __init__(self, generate: GenerateResource) -> None:
@@ -212,6 +259,9 @@ class GenerateResourceWithRawResponse:
 
         self.create = to_raw_response_wrapper(
             generate.create,
+        )
+        self.retrieve = to_raw_response_wrapper(
+            generate.retrieve,
         )
 
 
@@ -222,6 +272,9 @@ class AsyncGenerateResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             generate.create,
         )
+        self.retrieve = async_to_raw_response_wrapper(
+            generate.retrieve,
+        )
 
 
 class GenerateResourceWithStreamingResponse:
@@ -231,6 +284,9 @@ class GenerateResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             generate.create,
         )
+        self.retrieve = to_streamed_response_wrapper(
+            generate.retrieve,
+        )
 
 
 class AsyncGenerateResourceWithStreamingResponse:
@@ -239,4 +295,7 @@ class AsyncGenerateResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             generate.create,
+        )
+        self.retrieve = async_to_streamed_response_wrapper(
+            generate.retrieve,
         )

@@ -39,7 +39,7 @@ class TestImport:
                 }
             ],
             project_id="projectId",
-            model="anthropic/claude-opus-4-6",
+            model="model",
         )
         assert_matches_type(ImportCreateResponse, import_, path=["response"])
 
@@ -97,7 +97,7 @@ class TestAsyncImport:
                 }
             ],
             project_id="projectId",
-            model="anthropic/claude-opus-4-6",
+            model="model",
         )
         assert_matches_type(ImportCreateResponse, import_, path=["response"])
 
