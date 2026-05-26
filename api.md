@@ -58,6 +58,7 @@ from unlayer.types.templates import GenerateCreateResponse
 Methods:
 
 - <code title="post /v3/templates/generate">client.templates.generate.<a href="./src/unlayer/resources/templates/generate.py">create</a>(\*\*<a href="src/unlayer/types/templates/generate_create_params.py">params</a>) -> <a href="./src/unlayer/types/templates/generate_create_response.py">GenerateCreateResponse</a></code>
+- <code title="get /v3/templates/generate">client.templates.generate.<a href="./src/unlayer/resources/templates/generate.py">retrieve</a>() -> None</code>
 
 ## Import
 

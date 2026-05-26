@@ -24,10 +24,14 @@ class ImportCreateParams(TypedDict, total=False):
     project_id: Annotated[str, PropertyInfo(alias="projectId")]
     """The project ID (required for PAT auth, auto-resolved for API key auth)"""
 
-    model: Literal["anthropic/claude-opus-4-6", "openai/gpt-5.2"]
-    """AI model to use, in provider/model format.
+    model: str
+    """AI model to use.
 
-    Optional — defaults to anthropic/claude-opus-4-6.
+    Accepts a provider/model string (e.g. "anthropic/claude-opus-4-7",
+    "openai/gpt-5.5"), a bare provider ("anthropic", "openai") which uses that
+    provider's default model, or a bare model id ("claude-opus-4-7", "gpt-5.5") with
+    the provider inferred from the name. Optional — defaults to
+    anthropic/claude-opus-4-7.
     """
 
 

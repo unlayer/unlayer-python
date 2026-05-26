@@ -20,11 +20,15 @@ class TestGenerate:
     @parametrize
     def test_method_create(self, client: Unlayer) -> None:
         generate = client.templates.generate.create(
-            display_mode="email",
-            input=[{"type": "text"}],
+            messages=[
+                {
+                    "content": [{"type": "text"}],
+                    "role": "user",
+                }
+            ],
             output={
-                "block_type": "template",
-                "type": "json",
+                "display_mode": "email",
+                "kind": "template",
             },
         )
         assert_matches_type(GenerateCreateResponse, generate, path=["response"])
@@ -32,22 +36,27 @@ class TestGenerate:
     @parametrize
     def test_method_create_with_all_params(self, client: Unlayer) -> None:
         generate = client.templates.generate.create(
-            display_mode="email",
-            input=[
+            messages=[
                 {
-                    "type": "text",
-                    "id": "id",
-                    "block_type": "blockType",
-                    "data": {"foo": "bar"},
-                    "html": "html",
-                    "schema_version": 0,
-                    "text": "text",
-                    "url": "url",
+                    "content": [
+                        {
+                            "type": "text",
+                            "file": {
+                                "url": "url",
+                                "media_type": "mediaType",
+                            },
+                            "image": "image",
+                            "text": "text",
+                        }
+                    ],
+                    "role": "user",
+                    "metadata": {"action": {"id": "id"}},
                 }
             ],
             output={
-                "block_type": "template",
-                "type": "json",
+                "display_mode": "email",
+                "kind": "template",
+                "schema_version": 0,
             },
             project_id="projectId",
             context={
@@ -58,19 +67,31 @@ class TestGenerate:
                         "slug": "slug",
                     }
                 ],
+                "full_design": {"foo": "bar"},
+                "selection": {
+                    "id": "string",
+                    "collection": "pages",
+                    "value": "value",
+                },
             },
-            model="anthropic/claude-opus-4-6",
+            conversation_id="conversationId",
+            locale="locale",
+            model="model",
         )
         assert_matches_type(GenerateCreateResponse, generate, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: Unlayer) -> None:
         response = client.templates.generate.with_raw_response.create(
-            display_mode="email",
-            input=[{"type": "text"}],
+            messages=[
+                {
+                    "content": [{"type": "text"}],
+                    "role": "user",
+                }
+            ],
             output={
-                "block_type": "template",
-                "type": "json",
+                "display_mode": "email",
+                "kind": "template",
             },
         )
 
@@ -82,11 +103,15 @@ class TestGenerate:
     @parametrize
     def test_streaming_response_create(self, client: Unlayer) -> None:
         with client.templates.generate.with_streaming_response.create(
-            display_mode="email",
-            input=[{"type": "text"}],
+            messages=[
+                {
+                    "content": [{"type": "text"}],
+                    "role": "user",
+                }
+            ],
             output={
-                "block_type": "template",
-                "type": "json",
+                "display_mode": "email",
+                "kind": "template",
             },
         ) as response:
             assert not response.is_closed
@@ -94,6 +119,31 @@ class TestGenerate:
 
             generate = response.parse()
             assert_matches_type(GenerateCreateResponse, generate, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_retrieve(self, client: Unlayer) -> None:
+        generate = client.templates.generate.retrieve()
+        assert generate is None
+
+    @parametrize
+    def test_raw_response_retrieve(self, client: Unlayer) -> None:
+        response = client.templates.generate.with_raw_response.retrieve()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        generate = response.parse()
+        assert generate is None
+
+    @parametrize
+    def test_streaming_response_retrieve(self, client: Unlayer) -> None:
+        with client.templates.generate.with_streaming_response.retrieve() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            generate = response.parse()
+            assert generate is None
 
         assert cast(Any, response.is_closed) is True
 
@@ -106,11 +156,15 @@ class TestAsyncGenerate:
     @parametrize
     async def test_method_create(self, async_client: AsyncUnlayer) -> None:
         generate = await async_client.templates.generate.create(
-            display_mode="email",
-            input=[{"type": "text"}],
+            messages=[
+                {
+                    "content": [{"type": "text"}],
+                    "role": "user",
+                }
+            ],
             output={
-                "block_type": "template",
-                "type": "json",
+                "display_mode": "email",
+                "kind": "template",
             },
         )
         assert_matches_type(GenerateCreateResponse, generate, path=["response"])
@@ -118,22 +172,27 @@ class TestAsyncGenerate:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncUnlayer) -> None:
         generate = await async_client.templates.generate.create(
-            display_mode="email",
-            input=[
+            messages=[
                 {
-                    "type": "text",
-                    "id": "id",
-                    "block_type": "blockType",
-                    "data": {"foo": "bar"},
-                    "html": "html",
-                    "schema_version": 0,
-                    "text": "text",
-                    "url": "url",
+                    "content": [
+                        {
+                            "type": "text",
+                            "file": {
+                                "url": "url",
+                                "media_type": "mediaType",
+                            },
+                            "image": "image",
+                            "text": "text",
+                        }
+                    ],
+                    "role": "user",
+                    "metadata": {"action": {"id": "id"}},
                 }
             ],
             output={
-                "block_type": "template",
-                "type": "json",
+                "display_mode": "email",
+                "kind": "template",
+                "schema_version": 0,
             },
             project_id="projectId",
             context={
@@ -144,19 +203,31 @@ class TestAsyncGenerate:
                         "slug": "slug",
                     }
                 ],
+                "full_design": {"foo": "bar"},
+                "selection": {
+                    "id": "string",
+                    "collection": "pages",
+                    "value": "value",
+                },
             },
-            model="anthropic/claude-opus-4-6",
+            conversation_id="conversationId",
+            locale="locale",
+            model="model",
         )
         assert_matches_type(GenerateCreateResponse, generate, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncUnlayer) -> None:
         response = await async_client.templates.generate.with_raw_response.create(
-            display_mode="email",
-            input=[{"type": "text"}],
+            messages=[
+                {
+                    "content": [{"type": "text"}],
+                    "role": "user",
+                }
+            ],
             output={
-                "block_type": "template",
-                "type": "json",
+                "display_mode": "email",
+                "kind": "template",
             },
         )
 
@@ -168,11 +239,15 @@ class TestAsyncGenerate:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncUnlayer) -> None:
         async with async_client.templates.generate.with_streaming_response.create(
-            display_mode="email",
-            input=[{"type": "text"}],
+            messages=[
+                {
+                    "content": [{"type": "text"}],
+                    "role": "user",
+                }
+            ],
             output={
-                "block_type": "template",
-                "type": "json",
+                "display_mode": "email",
+                "kind": "template",
             },
         ) as response:
             assert not response.is_closed
@@ -180,5 +255,30 @@ class TestAsyncGenerate:
 
             generate = await response.parse()
             assert_matches_type(GenerateCreateResponse, generate, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_retrieve(self, async_client: AsyncUnlayer) -> None:
+        generate = await async_client.templates.generate.retrieve()
+        assert generate is None
+
+    @parametrize
+    async def test_raw_response_retrieve(self, async_client: AsyncUnlayer) -> None:
+        response = await async_client.templates.generate.with_raw_response.retrieve()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        generate = await response.parse()
+        assert generate is None
+
+    @parametrize
+    async def test_streaming_response_retrieve(self, async_client: AsyncUnlayer) -> None:
+        async with async_client.templates.generate.with_streaming_response.retrieve() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            generate = await response.parse()
+            assert generate is None
 
         assert cast(Any, response.is_closed) is True

@@ -6,40 +6,73 @@ from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 
-__all__ = ["GenerateCreateResponse", "Output", "Usage"]
+__all__ = ["GenerateCreateResponse", "Model", "Output", "Usage"]
+
+
+class Model(BaseModel):
+    """
+    The provider + model that actually produced the output (may differ from the requested model after failover).
+    """
+
+    id: Optional[str] = None
+    """Resolved model id, e.g. "claude-opus-4-7"."""
+
+    provider: Optional[str] = None
+    """e.g. "anthropic", "openai"."""
 
 
 class Output(BaseModel):
-    block_type: Optional[str] = FieldInfo(alias="blockType", default=None)
+    """The generated output for the requested block."""
 
     data: Optional[Dict[str, object]] = None
-    """Generated design data"""
+    """
+    The generated design JSON, scoped to the requested kind (the full design for
+    template/page/body; the row/column/content/element for narrower kinds).
+    """
 
-    type: Optional[str] = None
+    kind: Optional[str] = None
+    """Echoes the requested `output.kind`."""
 
 
 class Usage(BaseModel):
-    cached_input_tokens: Optional[int] = FieldInfo(alias="cachedInputTokens", default=None)
+    """Aggregate token usage for the turn when exposed by the caller.
 
-    input_tokens: Optional[int] = FieldInfo(alias="inputTokens", default=None)
+    Builder copilot endpoints expose it only in local/dev/QA and omit it in staging/production.
+    """
 
-    output_tokens: Optional[int] = FieldInfo(alias="outputTokens", default=None)
+    cached_input_tokens: Optional[float] = FieldInfo(alias="cachedInputTokens", default=None)
 
-    reasoning_tokens: Optional[int] = FieldInfo(alias="reasoningTokens", default=None)
+    estimated_cost_micro_usd: Optional[float] = FieldInfo(alias="estimatedCostMicroUsd", default=None)
 
-    total_tokens: Optional[int] = FieldInfo(alias="totalTokens", default=None)
+    input_tokens: Optional[float] = FieldInfo(alias="inputTokens", default=None)
+
+    output_tokens: Optional[float] = FieldInfo(alias="outputTokens", default=None)
+
+    reasoning_tokens: Optional[float] = FieldInfo(alias="reasoningTokens", default=None)
+
+    total_tokens: Optional[float] = FieldInfo(alias="totalTokens", default=None)
 
 
 class GenerateCreateResponse(BaseModel):
-    """Successfully generated design"""
+    """
+    The generated (or modified) design plus model metadata and optional usage metadata.
+    """
 
     id: Optional[str] = None
-    """AI response ID"""
+    """Provider response id for the generation turn."""
 
-    model: Optional[str] = None
+    model: Optional[Model] = None
+    """
+    The provider + model that actually produced the output (may differ from the
+    requested model after failover).
+    """
 
     output: Optional[Output] = None
-
-    provider: Optional[str] = None
+    """The generated output for the requested block."""
 
     usage: Optional[Usage] = None
+    """Aggregate token usage for the turn when exposed by the caller.
+
+    Builder copilot endpoints expose it only in local/dev/QA and omit it in
+    staging/production.
+    """
