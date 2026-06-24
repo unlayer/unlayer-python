@@ -75,6 +75,7 @@ class TestGenerate:
                 },
             },
             conversation_id="conversationId",
+            fallback_models=True,
             locale="locale",
             model="model",
         )
@@ -211,6 +212,7 @@ class TestAsyncGenerate:
                 },
             },
             conversation_id="conversationId",
+            fallback_models=True,
             locale="locale",
             model="model",
         )
