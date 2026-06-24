@@ -39,6 +39,7 @@ class TestImport:
                 }
             ],
             project_id="projectId",
+            fallback_models=True,
             model="model",
         )
         assert_matches_type(ImportCreateResponse, import_, path=["response"])
@@ -97,6 +98,7 @@ class TestAsyncImport:
                 }
             ],
             project_id="projectId",
+            fallback_models=True,
             model="model",
         )
         assert_matches_type(ImportCreateResponse, import_, path=["response"])

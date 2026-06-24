@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Union, Iterable
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -51,6 +51,7 @@ class GenerateResource(SyncAPIResource):
         project_id: str | Omit = omit,
         context: generate_create_params.Context | Omit = omit,
         conversation_id: str | Omit = omit,
+        fallback_models: Union[bool, SequenceNotStr[str]] | Omit = omit,
         locale: str | Omit = omit,
         model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -81,10 +82,14 @@ class GenerateResource(SyncAPIResource):
 
           conversation_id: Reserved for future server-side conversation memory.
 
+          fallback_models: Transient-outage fallback controls. Omit to use Unlayer defaults only when no
+              model is pinned; true always uses Unlayer defaults; false disables the outage
+              tail; an ordered array replaces the default provider/model strings.
+
           locale: BCP-47 fallback locale for AI status messages.
 
-          model: AI model in "provider/id" form, e.g. "anthropic/claude-opus-4-7". Optional —
-              server resolves a default per output kind.
+          model: Preferred AI model in "provider/id" form, e.g. "anthropic/claude-opus-4-7".
+              Optional — server resolves a default per output kind.
 
           extra_headers: Send extra headers
 
@@ -102,6 +107,7 @@ class GenerateResource(SyncAPIResource):
                     "output": output,
                     "context": context,
                     "conversation_id": conversation_id,
+                    "fallback_models": fallback_models,
                     "locale": locale,
                     "model": model,
                 },
@@ -165,6 +171,7 @@ class AsyncGenerateResource(AsyncAPIResource):
         project_id: str | Omit = omit,
         context: generate_create_params.Context | Omit = omit,
         conversation_id: str | Omit = omit,
+        fallback_models: Union[bool, SequenceNotStr[str]] | Omit = omit,
         locale: str | Omit = omit,
         model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -195,10 +202,14 @@ class AsyncGenerateResource(AsyncAPIResource):
 
           conversation_id: Reserved for future server-side conversation memory.
 
+          fallback_models: Transient-outage fallback controls. Omit to use Unlayer defaults only when no
+              model is pinned; true always uses Unlayer defaults; false disables the outage
+              tail; an ordered array replaces the default provider/model strings.
+
           locale: BCP-47 fallback locale for AI status messages.
 
-          model: AI model in "provider/id" form, e.g. "anthropic/claude-opus-4-7". Optional —
-              server resolves a default per output kind.
+          model: Preferred AI model in "provider/id" form, e.g. "anthropic/claude-opus-4-7".
+              Optional — server resolves a default per output kind.
 
           extra_headers: Send extra headers
 
@@ -216,6 +227,7 @@ class AsyncGenerateResource(AsyncAPIResource):
                     "output": output,
                     "context": context,
                     "conversation_id": conversation_id,
+                    "fallback_models": fallback_models,
                     "locale": locale,
                     "model": model,
                 },

@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Union, Iterable
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -54,6 +54,7 @@ class ImportResource(SyncAPIResource):
         display_mode: Literal["email", "web", "popup", "document"],
         input: Iterable[import_create_params.Input],
         project_id: str | Omit = omit,
+        fallback_models: Union[bool, SequenceNotStr[str]] | Omit = omit,
         model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -74,7 +75,11 @@ class ImportResource(SyncAPIResource):
 
           project_id: The project ID (required for PAT auth, auto-resolved for API key auth)
 
-          model: AI model to use. Accepts a provider/model string (e.g.
+          fallback_models: Transient-outage fallback controls. Omit to use Unlayer defaults only when no
+              model is pinned; true always uses Unlayer defaults; false disables the outage
+              tail; an ordered array replaces the default provider/model strings.
+
+          model: Preferred AI model. Accepts a provider/model string (e.g.
               "anthropic/claude-opus-4-7", "openai/gpt-5.5"), a bare provider ("anthropic",
               "openai") which uses that provider's default model, or a bare model id
               ("claude-opus-4-7", "gpt-5.5") with the provider inferred from the name.
@@ -94,6 +99,7 @@ class ImportResource(SyncAPIResource):
                 {
                     "display_mode": display_mode,
                     "input": input,
+                    "fallback_models": fallback_models,
                     "model": model,
                 },
                 import_create_params.ImportCreateParams,
@@ -139,6 +145,7 @@ class AsyncImportResource(AsyncAPIResource):
         display_mode: Literal["email", "web", "popup", "document"],
         input: Iterable[import_create_params.Input],
         project_id: str | Omit = omit,
+        fallback_models: Union[bool, SequenceNotStr[str]] | Omit = omit,
         model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -159,7 +166,11 @@ class AsyncImportResource(AsyncAPIResource):
 
           project_id: The project ID (required for PAT auth, auto-resolved for API key auth)
 
-          model: AI model to use. Accepts a provider/model string (e.g.
+          fallback_models: Transient-outage fallback controls. Omit to use Unlayer defaults only when no
+              model is pinned; true always uses Unlayer defaults; false disables the outage
+              tail; an ordered array replaces the default provider/model strings.
+
+          model: Preferred AI model. Accepts a provider/model string (e.g.
               "anthropic/claude-opus-4-7", "openai/gpt-5.5"), a bare provider ("anthropic",
               "openai") which uses that provider's default model, or a bare model id
               ("claude-opus-4-7", "gpt-5.5") with the provider inferred from the name.
@@ -179,6 +190,7 @@ class AsyncImportResource(AsyncAPIResource):
                 {
                     "display_mode": display_mode,
                     "input": input,
+                    "fallback_models": fallback_models,
                     "model": model,
                 },
                 import_create_params.ImportCreateParams,

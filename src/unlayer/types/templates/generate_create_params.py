@@ -42,11 +42,19 @@ class GenerateCreateParams(TypedDict, total=False):
     conversation_id: Annotated[str, PropertyInfo(alias="conversationId")]
     """Reserved for future server-side conversation memory."""
 
+    fallback_models: Annotated[Union[bool, SequenceNotStr[str]], PropertyInfo(alias="fallbackModels")]
+    """Transient-outage fallback controls.
+
+    Omit to use Unlayer defaults only when no model is pinned; true always uses
+    Unlayer defaults; false disables the outage tail; an ordered array replaces the
+    default provider/model strings.
+    """
+
     locale: str
     """BCP-47 fallback locale for AI status messages."""
 
     model: str
-    """AI model in "provider/id" form, e.g.
+    """Preferred AI model in "provider/id" form, e.g.
 
     "anthropic/claude-opus-4-7". Optional — server resolves a default per output
     kind.

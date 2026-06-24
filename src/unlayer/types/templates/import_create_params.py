@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 
 __all__ = ["ImportCreateParams", "Input"]
@@ -24,8 +25,16 @@ class ImportCreateParams(TypedDict, total=False):
     project_id: Annotated[str, PropertyInfo(alias="projectId")]
     """The project ID (required for PAT auth, auto-resolved for API key auth)"""
 
+    fallback_models: Annotated[Union[bool, SequenceNotStr[str]], PropertyInfo(alias="fallbackModels")]
+    """Transient-outage fallback controls.
+
+    Omit to use Unlayer defaults only when no model is pinned; true always uses
+    Unlayer defaults; false disables the outage tail; an ordered array replaces the
+    default provider/model strings.
+    """
+
     model: str
-    """AI model to use.
+    """Preferred AI model.
 
     Accepts a provider/model string (e.g. "anthropic/claude-opus-4-7",
     "openai/gpt-5.5"), a bare provider ("anthropic", "openai") which uses that
