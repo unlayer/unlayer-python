@@ -25,7 +25,11 @@ class ConvertFullToSimpleCreateParams(TypedDict, total=False):
     include_default_values: Annotated[bool, PropertyInfo(alias="includeDefaultValues")]
 
 
-class Design(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class Design(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     body: Required[Dict[str, object]]
 
     counters: Dict[str, object]
