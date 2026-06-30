@@ -24,7 +24,11 @@ class Design_Conversion(TypedDict, total=False):
     version: float
 
 
-class Design(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class Design(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     body: Required[Dict[str, object]]
 
     _conversion: Design_Conversion

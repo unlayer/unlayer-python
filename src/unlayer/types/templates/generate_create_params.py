@@ -61,7 +61,11 @@ class GenerateCreateParams(TypedDict, total=False):
     """
 
 
-class MessageContentFile(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageContentFile(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     url: Required[str]
 
     media_type: Annotated[str, PropertyInfo(alias="mediaType")]
@@ -78,11 +82,19 @@ class MessageContent(TypedDict, total=False):
     text: str
 
 
-class MessageMetadataAction(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageMetadataAction(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     id: Required[str]
 
 
-class MessageMetadata(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class MessageMetadata(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     action: MessageMetadataAction
 
 
@@ -102,13 +114,21 @@ class Output(TypedDict, total=False):
     schema_version: Annotated[int, PropertyInfo(alias="schemaVersion")]
 
 
-class ContextCustomTool(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class ContextCustomTool(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     options: Required[Dict[str, object]]
 
     slug: Required[str]
 
 
-class ContextSelection(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class ContextSelection(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     id: Required[Union[str, float]]
 
     collection: Required[Literal["pages", "bodies", "rows", "columns", "contents", "headers", "footers"]]
@@ -116,7 +136,11 @@ class ContextSelection(TypedDict, total=False, extra_items=object):  # type: ign
     value: str
 
 
-class Context(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class Context(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     available_tools: Annotated[SequenceNotStr[str], PropertyInfo(alias="availableTools")]
 
     custom_tools: Annotated[Iterable[ContextCustomTool], PropertyInfo(alias="customTools")]
