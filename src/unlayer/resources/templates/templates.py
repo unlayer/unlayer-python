@@ -26,6 +26,22 @@ from .generate import (
     AsyncGenerateResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
+from .export_pdf import (
+    ExportPdfResource,
+    AsyncExportPdfResource,
+    ExportPdfResourceWithRawResponse,
+    AsyncExportPdfResourceWithRawResponse,
+    ExportPdfResourceWithStreamingResponse,
+    AsyncExportPdfResourceWithStreamingResponse,
+)
+from .export_zip import (
+    ExportZipResource,
+    AsyncExportZipResource,
+    ExportZipResourceWithRawResponse,
+    AsyncExportZipResourceWithRawResponse,
+    ExportZipResourceWithStreamingResponse,
+    AsyncExportZipResourceWithStreamingResponse,
+)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
     to_raw_response_wrapper,
@@ -33,7 +49,23 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .export_html import (
+    ExportHTMLResource,
+    AsyncExportHTMLResource,
+    ExportHTMLResourceWithRawResponse,
+    AsyncExportHTMLResourceWithRawResponse,
+    ExportHTMLResourceWithStreamingResponse,
+    AsyncExportHTMLResourceWithStreamingResponse,
+)
 from ...pagination import SyncCursorPage, AsyncCursorPage
+from .export_image import (
+    ExportImageResource,
+    AsyncExportImageResource,
+    ExportImageResourceWithRawResponse,
+    AsyncExportImageResourceWithRawResponse,
+    ExportImageResourceWithStreamingResponse,
+    AsyncExportImageResourceWithStreamingResponse,
+)
 from ..._base_client import AsyncPaginator, make_request_options
 from .convert_full_to_simple import (
     ConvertFullToSimpleResource,
@@ -75,6 +107,22 @@ class TemplatesResource(SyncAPIResource):
         Template management — list, retrieve, generate, import, export, and convert designs.
         """
         return ConvertSimpleToFullResource(self._client)
+
+    @cached_property
+    def export_html(self) -> ExportHTMLResource:
+        return ExportHTMLResource(self._client)
+
+    @cached_property
+    def export_image(self) -> ExportImageResource:
+        return ExportImageResource(self._client)
+
+    @cached_property
+    def export_pdf(self) -> ExportPdfResource:
+        return ExportPdfResource(self._client)
+
+    @cached_property
+    def export_zip(self) -> ExportZipResource:
+        return ExportZipResource(self._client)
 
     @cached_property
     def generate(self) -> GenerateResource:
@@ -226,6 +274,22 @@ class AsyncTemplatesResource(AsyncAPIResource):
         Template management — list, retrieve, generate, import, export, and convert designs.
         """
         return AsyncConvertSimpleToFullResource(self._client)
+
+    @cached_property
+    def export_html(self) -> AsyncExportHTMLResource:
+        return AsyncExportHTMLResource(self._client)
+
+    @cached_property
+    def export_image(self) -> AsyncExportImageResource:
+        return AsyncExportImageResource(self._client)
+
+    @cached_property
+    def export_pdf(self) -> AsyncExportPdfResource:
+        return AsyncExportPdfResource(self._client)
+
+    @cached_property
+    def export_zip(self) -> AsyncExportZipResource:
+        return AsyncExportZipResource(self._client)
 
     @cached_property
     def generate(self) -> AsyncGenerateResource:
@@ -387,6 +451,22 @@ class TemplatesResourceWithRawResponse:
         return ConvertSimpleToFullResourceWithRawResponse(self._templates.convert_simple_to_full)
 
     @cached_property
+    def export_html(self) -> ExportHTMLResourceWithRawResponse:
+        return ExportHTMLResourceWithRawResponse(self._templates.export_html)
+
+    @cached_property
+    def export_image(self) -> ExportImageResourceWithRawResponse:
+        return ExportImageResourceWithRawResponse(self._templates.export_image)
+
+    @cached_property
+    def export_pdf(self) -> ExportPdfResourceWithRawResponse:
+        return ExportPdfResourceWithRawResponse(self._templates.export_pdf)
+
+    @cached_property
+    def export_zip(self) -> ExportZipResourceWithRawResponse:
+        return ExportZipResourceWithRawResponse(self._templates.export_zip)
+
+    @cached_property
     def generate(self) -> GenerateResourceWithRawResponse:
         return GenerateResourceWithRawResponse(self._templates.generate)
 
@@ -422,6 +502,22 @@ class AsyncTemplatesResourceWithRawResponse:
         Template management — list, retrieve, generate, import, export, and convert designs.
         """
         return AsyncConvertSimpleToFullResourceWithRawResponse(self._templates.convert_simple_to_full)
+
+    @cached_property
+    def export_html(self) -> AsyncExportHTMLResourceWithRawResponse:
+        return AsyncExportHTMLResourceWithRawResponse(self._templates.export_html)
+
+    @cached_property
+    def export_image(self) -> AsyncExportImageResourceWithRawResponse:
+        return AsyncExportImageResourceWithRawResponse(self._templates.export_image)
+
+    @cached_property
+    def export_pdf(self) -> AsyncExportPdfResourceWithRawResponse:
+        return AsyncExportPdfResourceWithRawResponse(self._templates.export_pdf)
+
+    @cached_property
+    def export_zip(self) -> AsyncExportZipResourceWithRawResponse:
+        return AsyncExportZipResourceWithRawResponse(self._templates.export_zip)
 
     @cached_property
     def generate(self) -> AsyncGenerateResourceWithRawResponse:
@@ -461,6 +557,22 @@ class TemplatesResourceWithStreamingResponse:
         return ConvertSimpleToFullResourceWithStreamingResponse(self._templates.convert_simple_to_full)
 
     @cached_property
+    def export_html(self) -> ExportHTMLResourceWithStreamingResponse:
+        return ExportHTMLResourceWithStreamingResponse(self._templates.export_html)
+
+    @cached_property
+    def export_image(self) -> ExportImageResourceWithStreamingResponse:
+        return ExportImageResourceWithStreamingResponse(self._templates.export_image)
+
+    @cached_property
+    def export_pdf(self) -> ExportPdfResourceWithStreamingResponse:
+        return ExportPdfResourceWithStreamingResponse(self._templates.export_pdf)
+
+    @cached_property
+    def export_zip(self) -> ExportZipResourceWithStreamingResponse:
+        return ExportZipResourceWithStreamingResponse(self._templates.export_zip)
+
+    @cached_property
     def generate(self) -> GenerateResourceWithStreamingResponse:
         return GenerateResourceWithStreamingResponse(self._templates.generate)
 
@@ -496,6 +608,22 @@ class AsyncTemplatesResourceWithStreamingResponse:
         Template management — list, retrieve, generate, import, export, and convert designs.
         """
         return AsyncConvertSimpleToFullResourceWithStreamingResponse(self._templates.convert_simple_to_full)
+
+    @cached_property
+    def export_html(self) -> AsyncExportHTMLResourceWithStreamingResponse:
+        return AsyncExportHTMLResourceWithStreamingResponse(self._templates.export_html)
+
+    @cached_property
+    def export_image(self) -> AsyncExportImageResourceWithStreamingResponse:
+        return AsyncExportImageResourceWithStreamingResponse(self._templates.export_image)
+
+    @cached_property
+    def export_pdf(self) -> AsyncExportPdfResourceWithStreamingResponse:
+        return AsyncExportPdfResourceWithStreamingResponse(self._templates.export_pdf)
+
+    @cached_property
+    def export_zip(self) -> AsyncExportZipResourceWithStreamingResponse:
+        return AsyncExportZipResourceWithStreamingResponse(self._templates.export_zip)
 
     @cached_property
     def generate(self) -> AsyncGenerateResourceWithStreamingResponse:
