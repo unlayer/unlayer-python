@@ -47,6 +47,54 @@ Methods:
 
 - <code title="post /v3/templates/convert/simple-to-full">client.templates.convert_simple_to_full.<a href="./src/unlayer/resources/templates/convert_simple_to_full.py">create</a>(\*\*<a href="src/unlayer/types/templates/convert_simple_to_full_create_params.py">params</a>) -> <a href="./src/unlayer/types/templates/convert_simple_to_full_create_response.py">ConvertSimpleToFullCreateResponse</a></code>
 
+## ExportHTML
+
+Types:
+
+```python
+from unlayer.types.templates import ExportHTMLCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/templates/export/html">client.templates.export_html.<a href="./src/unlayer/resources/templates/export_html.py">create</a>(\*\*<a href="src/unlayer/types/templates/export_html_create_params.py">params</a>) -> <a href="./src/unlayer/types/templates/export_html_create_response.py">ExportHTMLCreateResponse</a></code>
+
+## ExportImage
+
+Types:
+
+```python
+from unlayer.types.templates import ExportImageCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/templates/export/image">client.templates.export_image.<a href="./src/unlayer/resources/templates/export_image.py">create</a>(\*\*<a href="src/unlayer/types/templates/export_image_create_params.py">params</a>) -> <a href="./src/unlayer/types/templates/export_image_create_response.py">ExportImageCreateResponse</a></code>
+
+## ExportPdf
+
+Types:
+
+```python
+from unlayer.types.templates import ExportPdfCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/templates/export/pdf">client.templates.export_pdf.<a href="./src/unlayer/resources/templates/export_pdf.py">create</a>(\*\*<a href="src/unlayer/types/templates/export_pdf_create_params.py">params</a>) -> <a href="./src/unlayer/types/templates/export_pdf_create_response.py">ExportPdfCreateResponse</a></code>
+
+## ExportZip
+
+Types:
+
+```python
+from unlayer.types.templates import ExportZipCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/templates/export/zip">client.templates.export_zip.<a href="./src/unlayer/resources/templates/export_zip.py">create</a>(\*\*<a href="src/unlayer/types/templates/export_zip_create_params.py">params</a>) -> <a href="./src/unlayer/types/templates/export_zip_create_response.py">ExportZipCreateResponse</a></code>
+
 ## Generate
 
 Types:
