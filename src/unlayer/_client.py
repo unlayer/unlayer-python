@@ -36,9 +36,11 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import projects, templates, workspaces
+    from .resources import me, projects, templates, workspaces, editor_sessions
+    from .resources.me.me import MeResource, AsyncMeResource
     from .resources.projects import ProjectsResource, AsyncProjectsResource
     from .resources.workspaces import WorkspacesResource, AsyncWorkspacesResource
+    from .resources.editor_sessions import EditorSessionsResource, AsyncEditorSessionsResource
     from .resources.templates.templates import TemplatesResource, AsyncTemplatesResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Unlayer", "AsyncUnlayer", "Client", "AsyncClient"]
@@ -118,6 +120,18 @@ class Unlayer(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+    @cached_property
+    def editor_sessions(self) -> EditorSessionsResource:
+        from .resources.editor_sessions import EditorSessionsResource
+
+        return EditorSessionsResource(self)
+
+    @cached_property
+    def me(self) -> MeResource:
+        from .resources.me import MeResource
+
+        return MeResource(self)
 
     @cached_property
     def projects(self) -> ProjectsResource:
@@ -358,6 +372,18 @@ class AsyncUnlayer(AsyncAPIClient):
         )
 
     @cached_property
+    def editor_sessions(self) -> AsyncEditorSessionsResource:
+        from .resources.editor_sessions import AsyncEditorSessionsResource
+
+        return AsyncEditorSessionsResource(self)
+
+    @cached_property
+    def me(self) -> AsyncMeResource:
+        from .resources.me import AsyncMeResource
+
+        return AsyncMeResource(self)
+
+    @cached_property
     def projects(self) -> AsyncProjectsResource:
         """Project details and configuration."""
         from .resources.projects import AsyncProjectsResource
@@ -527,6 +553,18 @@ class UnlayerWithRawResponse:
         self._client = client
 
     @cached_property
+    def editor_sessions(self) -> editor_sessions.EditorSessionsResourceWithRawResponse:
+        from .resources.editor_sessions import EditorSessionsResourceWithRawResponse
+
+        return EditorSessionsResourceWithRawResponse(self._client.editor_sessions)
+
+    @cached_property
+    def me(self) -> me.MeResourceWithRawResponse:
+        from .resources.me import MeResourceWithRawResponse
+
+        return MeResourceWithRawResponse(self._client.me)
+
+    @cached_property
     def projects(self) -> projects.ProjectsResourceWithRawResponse:
         """Project details and configuration."""
         from .resources.projects import ProjectsResourceWithRawResponse
@@ -555,6 +593,18 @@ class AsyncUnlayerWithRawResponse:
 
     def __init__(self, client: AsyncUnlayer) -> None:
         self._client = client
+
+    @cached_property
+    def editor_sessions(self) -> editor_sessions.AsyncEditorSessionsResourceWithRawResponse:
+        from .resources.editor_sessions import AsyncEditorSessionsResourceWithRawResponse
+
+        return AsyncEditorSessionsResourceWithRawResponse(self._client.editor_sessions)
+
+    @cached_property
+    def me(self) -> me.AsyncMeResourceWithRawResponse:
+        from .resources.me import AsyncMeResourceWithRawResponse
+
+        return AsyncMeResourceWithRawResponse(self._client.me)
 
     @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithRawResponse:
@@ -587,6 +637,18 @@ class UnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def editor_sessions(self) -> editor_sessions.EditorSessionsResourceWithStreamingResponse:
+        from .resources.editor_sessions import EditorSessionsResourceWithStreamingResponse
+
+        return EditorSessionsResourceWithStreamingResponse(self._client.editor_sessions)
+
+    @cached_property
+    def me(self) -> me.MeResourceWithStreamingResponse:
+        from .resources.me import MeResourceWithStreamingResponse
+
+        return MeResourceWithStreamingResponse(self._client.me)
+
+    @cached_property
     def projects(self) -> projects.ProjectsResourceWithStreamingResponse:
         """Project details and configuration."""
         from .resources.projects import ProjectsResourceWithStreamingResponse
@@ -615,6 +677,18 @@ class AsyncUnlayerWithStreamedResponse:
 
     def __init__(self, client: AsyncUnlayer) -> None:
         self._client = client
+
+    @cached_property
+    def editor_sessions(self) -> editor_sessions.AsyncEditorSessionsResourceWithStreamingResponse:
+        from .resources.editor_sessions import AsyncEditorSessionsResourceWithStreamingResponse
+
+        return AsyncEditorSessionsResourceWithStreamingResponse(self._client.editor_sessions)
+
+    @cached_property
+    def me(self) -> me.AsyncMeResourceWithStreamingResponse:
+        from .resources.me import AsyncMeResourceWithStreamingResponse
+
+        return AsyncMeResourceWithStreamingResponse(self._client.me)
 
     @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithStreamingResponse:

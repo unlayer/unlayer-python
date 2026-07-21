@@ -1,3 +1,29 @@
+# EditorSessions
+
+Types:
+
+```python
+from unlayer.types import EditorSessionCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/editor-sessions">client.editor_sessions.<a href="./src/unlayer/resources/editor_sessions.py">create</a>(\*\*<a href="src/unlayer/types/editor_session_create_params.py">params</a>) -> <a href="./src/unlayer/types/editor_session_create_response.py">EditorSessionCreateResponse</a></code>
+
+# Me
+
+## Subscription
+
+Types:
+
+```python
+from unlayer.types.me import SubscriptionRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /v3/me/subscription">client.me.subscription.<a href="./src/unlayer/resources/me/subscription.py">retrieve</a>(\*\*<a href="src/unlayer/types/me/subscription_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/me/subscription_retrieve_response.py">SubscriptionRetrieveResponse</a></code>
+
 # Projects
 
 Types:

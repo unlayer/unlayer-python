@@ -9,3 +9,5 @@ from .template_retrieve_params import TemplateRetrieveParams as TemplateRetrieve
 from .project_retrieve_response import ProjectRetrieveResponse as ProjectRetrieveResponse
 from .template_retrieve_response import TemplateRetrieveResponse as TemplateRetrieveResponse
 from .workspace_retrieve_response import WorkspaceRetrieveResponse as WorkspaceRetrieveResponse
+from .editor_session_create_params import EditorSessionCreateParams as EditorSessionCreateParams
+from .editor_session_create_response import EditorSessionCreateResponse as EditorSessionCreateResponse
