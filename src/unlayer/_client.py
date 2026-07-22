@@ -38,9 +38,9 @@ from ._base_client import (
 if TYPE_CHECKING:
     from .resources import me, projects, templates, workspaces, editor_sessions
     from .resources.me.me import MeResource, AsyncMeResource
-    from .resources.projects import ProjectsResource, AsyncProjectsResource
     from .resources.workspaces import WorkspacesResource, AsyncWorkspacesResource
     from .resources.editor_sessions import EditorSessionsResource, AsyncEditorSessionsResource
+    from .resources.projects.projects import ProjectsResource, AsyncProjectsResource
     from .resources.templates.templates import TemplatesResource, AsyncTemplatesResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Unlayer", "AsyncUnlayer", "Client", "AsyncClient"]

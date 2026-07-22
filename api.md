@@ -34,7 +34,92 @@ from unlayer.types import ProjectRetrieveResponse
 
 Methods:
 
-- <code title="get /v3/projects/{id}">client.projects.<a href="./src/unlayer/resources/projects.py">retrieve</a>(id) -> <a href="./src/unlayer/types/project_retrieve_response.py">ProjectRetrieveResponse</a></code>
+- <code title="get /v3/projects/{id}">client.projects.<a href="./src/unlayer/resources/projects/projects.py">retrieve</a>(id) -> <a href="./src/unlayer/types/project_retrieve_response.py">ProjectRetrieveResponse</a></code>
+
+## AICredits
+
+Types:
+
+```python
+from unlayer.types.projects import AICreditRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /v3/projects/{id}/ai-credits">client.projects.ai_credits.<a href="./src/unlayer/resources/projects/ai_credits.py">retrieve</a>(id) -> <a href="./src/unlayer/types/projects/ai_credit_retrieve_response.py">AICreditRetrieveResponse</a></code>
+
+## AICreditsSettings
+
+Types:
+
+```python
+from unlayer.types.projects import AICreditsSettingRetrieveResponse, AICreditsSettingUpdateResponse
+```
+
+Methods:
+
+- <code title="get /v3/projects/{id}/ai-credits/settings">client.projects.ai_credits_settings.<a href="./src/unlayer/resources/projects/ai_credits_settings.py">retrieve</a>(id) -> <a href="./src/unlayer/types/projects/ai_credits_setting_retrieve_response.py">AICreditsSettingRetrieveResponse</a></code>
+- <code title="put /v3/projects/{id}/ai-credits/settings">client.projects.ai_credits_settings.<a href="./src/unlayer/resources/projects/ai_credits_settings.py">update</a>(id, \*\*<a href="src/unlayer/types/projects/ai_credits_setting_update_params.py">params</a>) -> <a href="./src/unlayer/types/projects/ai_credits_setting_update_response.py">AICreditsSettingUpdateResponse</a></code>
+
+## AICreditsSettingsRotateSecret
+
+Types:
+
+```python
+from unlayer.types.projects import AICreditsSettingsRotateSecretCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/projects/{id}/ai-credits/settings/rotate-secret">client.projects.ai_credits_settings_rotate_secret.<a href="./src/unlayer/resources/projects/ai_credits_settings_rotate_secret.py">create</a>(id) -> <a href="./src/unlayer/types/projects/ai_credits_settings_rotate_secret_create_response.py">AICreditsSettingsRotateSecretCreateResponse</a></code>
+
+## AICreditsUsage
+
+Types:
+
+```python
+from unlayer.types.projects import AICreditsUsageRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /v3/projects/{id}/ai-credits/usage">client.projects.ai_credits_usage.<a href="./src/unlayer/resources/projects/ai_credits_usage.py">retrieve</a>(id, \*\*<a href="src/unlayer/types/projects/ai_credits_usage_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/projects/ai_credits_usage_retrieve_response.py">AICreditsUsageRetrieveResponse</a></code>
+
+## AICreditsWebhooksDeliveries
+
+Types:
+
+```python
+from unlayer.types.projects import AICreditsWebhooksDeliveryRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /v3/projects/{id}/ai-credits/webhooks/deliveries">client.projects.ai_credits_webhooks_deliveries.<a href="./src/unlayer/resources/projects/ai_credits_webhooks_deliveries.py">retrieve</a>(id, \*\*<a href="src/unlayer/types/projects/ai_credits_webhooks_delivery_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/projects/ai_credits_webhooks_delivery_retrieve_response.py">AICreditsWebhooksDeliveryRetrieveResponse</a></code>
+
+## AICreditsWebhooksDeliveriesattempts
+
+Types:
+
+```python
+from unlayer.types.projects import AICreditsWebhooksDeliveriesattemptRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /v3/projects/{id}/ai-credits/webhooks/deliveries/{deliveryId}/attempts">client.projects.ai_credits_webhooks_deliveriesattempts.<a href="./src/unlayer/resources/projects/ai_credits_webhooks_deliveriesattempts.py">retrieve</a>(delivery_id, \*, id, \*\*<a href="src/unlayer/types/projects/ai_credits_webhooks_deliveriesattempt_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/projects/ai_credits_webhooks_deliveriesattempt_retrieve_response.py">AICreditsWebhooksDeliveriesattemptRetrieveResponse</a></code>
+
+## AICreditsWebhooksDeliveriesretry
+
+Types:
+
+```python
+from unlayer.types.projects import AICreditsWebhooksDeliveriesretryCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/projects/{id}/ai-credits/webhooks/deliveries/{deliveryId}/retry">client.projects.ai_credits_webhooks_deliveriesretry.<a href="./src/unlayer/resources/projects/ai_credits_webhooks_deliveriesretry.py">create</a>(delivery_id, \*, id) -> <a href="./src/unlayer/types/projects/ai_credits_webhooks_deliveriesretry_create_response.py">AICreditsWebhooksDeliveriesretryCreateResponse</a></code>
 
 # Templates
 
