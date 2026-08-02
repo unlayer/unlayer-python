@@ -64,6 +64,11 @@ class ConvertSimpleToFullResource(SyncAPIResource):
         Convert design json from Simple to Full schema.
 
         Args:
+          display_mode: Display mode of the design (email, web, document, popup). Defaults to "email",
+              matching /v3/templates/validate. Mode-specific repairs apply during conversion
+              (email caps contentWidth at 900px, for example), so pass the design's actual
+              mode — a web design converted under the email default can be altered.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -130,6 +135,11 @@ class AsyncConvertSimpleToFullResource(AsyncAPIResource):
         Convert design json from Simple to Full schema.
 
         Args:
+          display_mode: Display mode of the design (email, web, document, popup). Defaults to "email",
+              matching /v3/templates/validate. Mode-specific repairs apply during conversion
+              (email caps contentWidth at 900px, for example), so pass the design's actual
+              mode — a web design converted under the email default can be altered.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

@@ -6,6 +6,14 @@ from typing_extensions import Literal
 
 import httpx
 
+from .schema import (
+    SchemaResource,
+    AsyncSchemaResource,
+    SchemaResourceWithRawResponse,
+    AsyncSchemaResourceWithRawResponse,
+    SchemaResourceWithStreamingResponse,
+    AsyncSchemaResourceWithStreamingResponse,
+)
 from ...types import template_list_params, template_retrieve_params
 from .import_ import (
     ImportResource,
@@ -24,6 +32,14 @@ from .generate import (
     AsyncGenerateResourceWithRawResponse,
     GenerateResourceWithStreamingResponse,
     AsyncGenerateResourceWithStreamingResponse,
+)
+from .validate import (
+    ValidateResource,
+    AsyncValidateResource,
+    ValidateResourceWithRawResponse,
+    AsyncValidateResourceWithRawResponse,
+    ValidateResourceWithStreamingResponse,
+    AsyncValidateResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
 from .export_pdf import (
@@ -134,6 +150,20 @@ class TemplatesResource(SyncAPIResource):
         Template management — list, retrieve, generate, import, export, and convert designs.
         """
         return ImportResource(self._client)
+
+    @cached_property
+    def schema(self) -> SchemaResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return SchemaResource(self._client)
+
+    @cached_property
+    def validate(self) -> ValidateResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return ValidateResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> TemplatesResourceWithRawResponse:
@@ -301,6 +331,20 @@ class AsyncTemplatesResource(AsyncAPIResource):
         Template management — list, retrieve, generate, import, export, and convert designs.
         """
         return AsyncImportResource(self._client)
+
+    @cached_property
+    def schema(self) -> AsyncSchemaResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncSchemaResource(self._client)
+
+    @cached_property
+    def validate(self) -> AsyncValidateResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncValidateResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncTemplatesResourceWithRawResponse:
@@ -477,6 +521,20 @@ class TemplatesResourceWithRawResponse:
         """
         return ImportResourceWithRawResponse(self._templates.import_)
 
+    @cached_property
+    def schema(self) -> SchemaResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return SchemaResourceWithRawResponse(self._templates.schema)
+
+    @cached_property
+    def validate(self) -> ValidateResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return ValidateResourceWithRawResponse(self._templates.validate)
+
 
 class AsyncTemplatesResourceWithRawResponse:
     def __init__(self, templates: AsyncTemplatesResource) -> None:
@@ -529,6 +587,20 @@ class AsyncTemplatesResourceWithRawResponse:
         Template management — list, retrieve, generate, import, export, and convert designs.
         """
         return AsyncImportResourceWithRawResponse(self._templates.import_)
+
+    @cached_property
+    def schema(self) -> AsyncSchemaResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncSchemaResourceWithRawResponse(self._templates.schema)
+
+    @cached_property
+    def validate(self) -> AsyncValidateResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncValidateResourceWithRawResponse(self._templates.validate)
 
 
 class TemplatesResourceWithStreamingResponse:
@@ -583,6 +655,20 @@ class TemplatesResourceWithStreamingResponse:
         """
         return ImportResourceWithStreamingResponse(self._templates.import_)
 
+    @cached_property
+    def schema(self) -> SchemaResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return SchemaResourceWithStreamingResponse(self._templates.schema)
+
+    @cached_property
+    def validate(self) -> ValidateResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return ValidateResourceWithStreamingResponse(self._templates.validate)
+
 
 class AsyncTemplatesResourceWithStreamingResponse:
     def __init__(self, templates: AsyncTemplatesResource) -> None:
@@ -635,3 +721,17 @@ class AsyncTemplatesResourceWithStreamingResponse:
         Template management — list, retrieve, generate, import, export, and convert designs.
         """
         return AsyncImportResourceWithStreamingResponse(self._templates.import_)
+
+    @cached_property
+    def schema(self) -> AsyncSchemaResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncSchemaResourceWithStreamingResponse(self._templates.schema)
+
+    @cached_property
+    def validate(self) -> AsyncValidateResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
+        return AsyncValidateResourceWithStreamingResponse(self._templates.validate)

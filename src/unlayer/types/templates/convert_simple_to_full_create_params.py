@@ -14,6 +14,13 @@ class ConvertSimpleToFullCreateParams(TypedDict, total=False):
     design: Required[Design]
 
     display_mode: Annotated[Literal["email", "web", "popup", "document"], PropertyInfo(alias="displayMode")]
+    """Display mode of the design (email, web, document, popup).
+
+    Defaults to "email", matching /v3/templates/validate. Mode-specific repairs
+    apply during conversion (email caps contentWidth at 900px, for example), so pass
+    the design's actual mode — a web design converted under the email default can be
+    altered.
+    """
 
     include_default_values: Annotated[bool, PropertyInfo(alias="includeDefaultValues")]
 
