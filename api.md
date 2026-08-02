@@ -1,3 +1,35 @@
+# Domains
+
+Types:
+
+```python
+from unlayer.types import (
+    DomainCreateResponse,
+    DomainRetrieveResponse,
+    DomainListResponse,
+    DomainDeleteResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v3/domains">client.domains.<a href="./src/unlayer/resources/domains/domains.py">create</a>(\*\*<a href="src/unlayer/types/domain_create_params.py">params</a>) -> <a href="./src/unlayer/types/domain_create_response.py">DomainCreateResponse</a></code>
+- <code title="get /v3/domains/{id}">client.domains.<a href="./src/unlayer/resources/domains/domains.py">retrieve</a>(id) -> <a href="./src/unlayer/types/domain_retrieve_response.py">DomainRetrieveResponse</a></code>
+- <code title="get /v3/domains">client.domains.<a href="./src/unlayer/resources/domains/domains.py">list</a>() -> <a href="./src/unlayer/types/domain_list_response.py">DomainListResponse</a></code>
+- <code title="delete /v3/domains/{id}">client.domains.<a href="./src/unlayer/resources/domains/domains.py">delete</a>(id) -> <a href="./src/unlayer/types/domain_delete_response.py">DomainDeleteResponse</a></code>
+
+## Verify
+
+Types:
+
+```python
+from unlayer.types.domains import VerifyCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/domains/{id}/verify">client.domains.verify.<a href="./src/unlayer/resources/domains/verify.py">create</a>(id) -> <a href="./src/unlayer/types/domains/verify_create_response.py">VerifyCreateResponse</a></code>
+
 # EditorSessions
 
 Types:
@@ -9,6 +41,111 @@ from unlayer.types import EditorSessionCreateResponse
 Methods:
 
 - <code title="post /v3/editor-sessions">client.editor_sessions.<a href="./src/unlayer/resources/editor_sessions.py">create</a>(\*\*<a href="src/unlayer/types/editor_session_create_params.py">params</a>) -> <a href="./src/unlayer/types/editor_session_create_response.py">EditorSessionCreateResponse</a></code>
+
+# Emails
+
+Types:
+
+```python
+from unlayer.types import EmailCreateResponse, EmailRetrieveResponse, EmailListResponse
+```
+
+Methods:
+
+- <code title="post /v3/emails">client.emails.<a href="./src/unlayer/resources/emails/emails.py">create</a>(\*\*<a href="src/unlayer/types/email_create_params.py">params</a>) -> <a href="./src/unlayer/types/email_create_response.py">EmailCreateResponse</a></code>
+- <code title="get /v3/emails/{id}">client.emails.<a href="./src/unlayer/resources/emails/emails.py">retrieve</a>(id) -> <a href="./src/unlayer/types/email_retrieve_response.py">EmailRetrieveResponse</a></code>
+- <code title="get /v3/emails">client.emails.<a href="./src/unlayer/resources/emails/emails.py">list</a>(\*\*<a href="src/unlayer/types/email_list_params.py">params</a>) -> <a href="./src/unlayer/types/email_list_response.py">EmailListResponse</a></code>
+
+## Events
+
+Types:
+
+```python
+from unlayer.types.emails import EventRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /v3/emails/{id}/events">client.emails.events.<a href="./src/unlayer/resources/emails/events.py">retrieve</a>(id) -> <a href="./src/unlayer/types/emails/event_retrieve_response.py">EventRetrieveResponse</a></code>
+
+## Render
+
+Types:
+
+```python
+from unlayer.types.emails import RenderCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/emails/render">client.emails.render.<a href="./src/unlayer/resources/emails/render.py">create</a>(\*\*<a href="src/unlayer/types/emails/render_create_params.py">params</a>) -> <a href="./src/unlayer/types/emails/render_create_response.py">RenderCreateResponse</a></code>
+
+## Settings
+
+Types:
+
+```python
+from unlayer.types.emails import SettingRetrieveResponse, SettingUpdateResponse
+```
+
+Methods:
+
+- <code title="get /v3/emails/settings">client.emails.settings.<a href="./src/unlayer/resources/emails/settings.py">retrieve</a>() -> <a href="./src/unlayer/types/emails/setting_retrieve_response.py">SettingRetrieveResponse</a></code>
+- <code title="patch /v3/emails/settings">client.emails.settings.<a href="./src/unlayer/resources/emails/settings.py">update</a>(\*\*<a href="src/unlayer/types/emails/setting_update_params.py">params</a>) -> <a href="./src/unlayer/types/emails/setting_update_response.py">SettingUpdateResponse</a></code>
+
+## Stats
+
+Types:
+
+```python
+from unlayer.types.emails import StatRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /v3/emails/stats">client.emails.stats.<a href="./src/unlayer/resources/emails/stats.py">retrieve</a>(\*\*<a href="src/unlayer/types/emails/stat_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/emails/stat_retrieve_response.py">StatRetrieveResponse</a></code>
+
+## Suppressions
+
+Types:
+
+```python
+from unlayer.types.emails import (
+    SuppressionCreateResponse,
+    SuppressionRetrieveResponse,
+    SuppressionDeleteResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v3/emails/suppressions">client.emails.suppressions.<a href="./src/unlayer/resources/emails/suppressions.py">create</a>(\*\*<a href="src/unlayer/types/emails/suppression_create_params.py">params</a>) -> <a href="./src/unlayer/types/emails/suppression_create_response.py">SuppressionCreateResponse</a></code>
+- <code title="get /v3/emails/suppressions">client.emails.suppressions.<a href="./src/unlayer/resources/emails/suppressions.py">retrieve</a>(\*\*<a href="src/unlayer/types/emails/suppression_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/emails/suppression_retrieve_response.py">SuppressionRetrieveResponse</a></code>
+- <code title="delete /v3/emails/suppressions">client.emails.suppressions.<a href="./src/unlayer/resources/emails/suppressions.py">delete</a>(\*\*<a href="src/unlayer/types/emails/suppression_delete_params.py">params</a>) -> <a href="./src/unlayer/types/emails/suppression_delete_response.py">SuppressionDeleteResponse</a></code>
+
+## SuppressionsCheck
+
+Types:
+
+```python
+from unlayer.types.emails import SuppressionsCheckRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /v3/emails/suppressions/check">client.emails.suppressions_check.<a href="./src/unlayer/resources/emails/suppressions_check.py">retrieve</a>(\*\*<a href="src/unlayer/types/emails/suppressions_check_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/emails/suppressions_check_retrieve_response.py">SuppressionsCheckRetrieveResponse</a></code>
+
+## Template
+
+Types:
+
+```python
+from unlayer.types.emails import TemplateCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/emails/template">client.emails.template.<a href="./src/unlayer/resources/emails/template.py">create</a>(\*\*<a href="src/unlayer/types/emails/template_create_params.py">params</a>) -> <a href="./src/unlayer/types/emails/template_create_response.py">TemplateCreateResponse</a></code>
 
 # Me
 
@@ -230,6 +367,58 @@ from unlayer.types.templates import ImportCreateResponse
 Methods:
 
 - <code title="post /v3/templates/import">client.templates.import*.<a href="./src/unlayer/resources/templates/import*.py">create</a>(\*\*<a href="src/unlayer/types/templates/import_create_params.py">params</a>) -> <a href="./src/unlayer/types/templates/import_create_response.py">ImportCreateResponse</a></code>
+
+## Schema
+
+Methods:
+
+- <code title="get /v3/templates/schema">client.templates.schema.<a href="./src/unlayer/resources/templates/schema.py">retrieve</a>(\*\*<a href="src/unlayer/types/templates/schema_retrieve_params.py">params</a>) -> None</code>
+
+## Validate
+
+Types:
+
+```python
+from unlayer.types.templates import ValidateCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/templates/validate">client.templates.validate.<a href="./src/unlayer/resources/templates/validate.py">create</a>(\*\*<a href="src/unlayer/types/templates/validate_create_params.py">params</a>) -> <a href="./src/unlayer/types/templates/validate_create_response.py">ValidateCreateResponse</a></code>
+
+# Webhooks
+
+Types:
+
+```python
+from unlayer.types import (
+    WebhookCreateResponse,
+    WebhookRetrieveResponse,
+    WebhookUpdateResponse,
+    WebhookListResponse,
+    WebhookDeleteResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v3/webhooks">client.webhooks.<a href="./src/unlayer/resources/webhooks/webhooks.py">create</a>(\*\*<a href="src/unlayer/types/webhook_create_params.py">params</a>) -> <a href="./src/unlayer/types/webhook_create_response.py">WebhookCreateResponse</a></code>
+- <code title="get /v3/webhooks/{id}">client.webhooks.<a href="./src/unlayer/resources/webhooks/webhooks.py">retrieve</a>(id) -> <a href="./src/unlayer/types/webhook_retrieve_response.py">WebhookRetrieveResponse</a></code>
+- <code title="patch /v3/webhooks/{id}">client.webhooks.<a href="./src/unlayer/resources/webhooks/webhooks.py">update</a>(id, \*\*<a href="src/unlayer/types/webhook_update_params.py">params</a>) -> <a href="./src/unlayer/types/webhook_update_response.py">WebhookUpdateResponse</a></code>
+- <code title="get /v3/webhooks">client.webhooks.<a href="./src/unlayer/resources/webhooks/webhooks.py">list</a>() -> <a href="./src/unlayer/types/webhook_list_response.py">WebhookListResponse</a></code>
+- <code title="delete /v3/webhooks/{id}">client.webhooks.<a href="./src/unlayer/resources/webhooks/webhooks.py">delete</a>(id) -> <a href="./src/unlayer/types/webhook_delete_response.py">WebhookDeleteResponse</a></code>
+
+## RotateSecret
+
+Types:
+
+```python
+from unlayer.types.webhooks import RotateSecretCreateResponse
+```
+
+Methods:
+
+- <code title="post /v3/webhooks/{id}/rotate-secret">client.webhooks.rotate_secret.<a href="./src/unlayer/resources/webhooks/rotate_secret.py">create</a>(id) -> <a href="./src/unlayer/types/webhooks/rotate_secret_create_response.py">RotateSecretCreateResponse</a></code>
 
 # Workspaces
 

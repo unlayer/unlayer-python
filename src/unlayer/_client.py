@@ -36,11 +36,14 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import me, projects, templates, workspaces, editor_sessions
+    from .resources import me, emails, domains, projects, webhooks, templates, workspaces, editor_sessions
     from .resources.me.me import MeResource, AsyncMeResource
     from .resources.workspaces import WorkspacesResource, AsyncWorkspacesResource
+    from .resources.emails.emails import EmailsResource, AsyncEmailsResource
+    from .resources.domains.domains import DomainsResource, AsyncDomainsResource
     from .resources.editor_sessions import EditorSessionsResource, AsyncEditorSessionsResource
     from .resources.projects.projects import ProjectsResource, AsyncProjectsResource
+    from .resources.webhooks.webhooks import WebhooksResource, AsyncWebhooksResource
     from .resources.templates.templates import TemplatesResource, AsyncTemplatesResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Unlayer", "AsyncUnlayer", "Client", "AsyncClient"]
@@ -122,10 +125,22 @@ class Unlayer(SyncAPIClient):
         )
 
     @cached_property
+    def domains(self) -> DomainsResource:
+        from .resources.domains import DomainsResource
+
+        return DomainsResource(self)
+
+    @cached_property
     def editor_sessions(self) -> EditorSessionsResource:
         from .resources.editor_sessions import EditorSessionsResource
 
         return EditorSessionsResource(self)
+
+    @cached_property
+    def emails(self) -> EmailsResource:
+        from .resources.emails import EmailsResource
+
+        return EmailsResource(self)
 
     @cached_property
     def me(self) -> MeResource:
@@ -148,6 +163,12 @@ class Unlayer(SyncAPIClient):
         from .resources.templates import TemplatesResource
 
         return TemplatesResource(self)
+
+    @cached_property
+    def webhooks(self) -> WebhooksResource:
+        from .resources.webhooks import WebhooksResource
+
+        return WebhooksResource(self)
 
     @cached_property
     def workspaces(self) -> WorkspacesResource:
@@ -372,10 +393,22 @@ class AsyncUnlayer(AsyncAPIClient):
         )
 
     @cached_property
+    def domains(self) -> AsyncDomainsResource:
+        from .resources.domains import AsyncDomainsResource
+
+        return AsyncDomainsResource(self)
+
+    @cached_property
     def editor_sessions(self) -> AsyncEditorSessionsResource:
         from .resources.editor_sessions import AsyncEditorSessionsResource
 
         return AsyncEditorSessionsResource(self)
+
+    @cached_property
+    def emails(self) -> AsyncEmailsResource:
+        from .resources.emails import AsyncEmailsResource
+
+        return AsyncEmailsResource(self)
 
     @cached_property
     def me(self) -> AsyncMeResource:
@@ -398,6 +431,12 @@ class AsyncUnlayer(AsyncAPIClient):
         from .resources.templates import AsyncTemplatesResource
 
         return AsyncTemplatesResource(self)
+
+    @cached_property
+    def webhooks(self) -> AsyncWebhooksResource:
+        from .resources.webhooks import AsyncWebhooksResource
+
+        return AsyncWebhooksResource(self)
 
     @cached_property
     def workspaces(self) -> AsyncWorkspacesResource:
@@ -553,10 +592,22 @@ class UnlayerWithRawResponse:
         self._client = client
 
     @cached_property
+    def domains(self) -> domains.DomainsResourceWithRawResponse:
+        from .resources.domains import DomainsResourceWithRawResponse
+
+        return DomainsResourceWithRawResponse(self._client.domains)
+
+    @cached_property
     def editor_sessions(self) -> editor_sessions.EditorSessionsResourceWithRawResponse:
         from .resources.editor_sessions import EditorSessionsResourceWithRawResponse
 
         return EditorSessionsResourceWithRawResponse(self._client.editor_sessions)
+
+    @cached_property
+    def emails(self) -> emails.EmailsResourceWithRawResponse:
+        from .resources.emails import EmailsResourceWithRawResponse
+
+        return EmailsResourceWithRawResponse(self._client.emails)
 
     @cached_property
     def me(self) -> me.MeResourceWithRawResponse:
@@ -581,6 +632,12 @@ class UnlayerWithRawResponse:
         return TemplatesResourceWithRawResponse(self._client.templates)
 
     @cached_property
+    def webhooks(self) -> webhooks.WebhooksResourceWithRawResponse:
+        from .resources.webhooks import WebhooksResourceWithRawResponse
+
+        return WebhooksResourceWithRawResponse(self._client.webhooks)
+
+    @cached_property
     def workspaces(self) -> workspaces.WorkspacesResourceWithRawResponse:
         """Workspace access and management."""
         from .resources.workspaces import WorkspacesResourceWithRawResponse
@@ -595,10 +652,22 @@ class AsyncUnlayerWithRawResponse:
         self._client = client
 
     @cached_property
+    def domains(self) -> domains.AsyncDomainsResourceWithRawResponse:
+        from .resources.domains import AsyncDomainsResourceWithRawResponse
+
+        return AsyncDomainsResourceWithRawResponse(self._client.domains)
+
+    @cached_property
     def editor_sessions(self) -> editor_sessions.AsyncEditorSessionsResourceWithRawResponse:
         from .resources.editor_sessions import AsyncEditorSessionsResourceWithRawResponse
 
         return AsyncEditorSessionsResourceWithRawResponse(self._client.editor_sessions)
+
+    @cached_property
+    def emails(self) -> emails.AsyncEmailsResourceWithRawResponse:
+        from .resources.emails import AsyncEmailsResourceWithRawResponse
+
+        return AsyncEmailsResourceWithRawResponse(self._client.emails)
 
     @cached_property
     def me(self) -> me.AsyncMeResourceWithRawResponse:
@@ -623,6 +692,12 @@ class AsyncUnlayerWithRawResponse:
         return AsyncTemplatesResourceWithRawResponse(self._client.templates)
 
     @cached_property
+    def webhooks(self) -> webhooks.AsyncWebhooksResourceWithRawResponse:
+        from .resources.webhooks import AsyncWebhooksResourceWithRawResponse
+
+        return AsyncWebhooksResourceWithRawResponse(self._client.webhooks)
+
+    @cached_property
     def workspaces(self) -> workspaces.AsyncWorkspacesResourceWithRawResponse:
         """Workspace access and management."""
         from .resources.workspaces import AsyncWorkspacesResourceWithRawResponse
@@ -637,10 +712,22 @@ class UnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def domains(self) -> domains.DomainsResourceWithStreamingResponse:
+        from .resources.domains import DomainsResourceWithStreamingResponse
+
+        return DomainsResourceWithStreamingResponse(self._client.domains)
+
+    @cached_property
     def editor_sessions(self) -> editor_sessions.EditorSessionsResourceWithStreamingResponse:
         from .resources.editor_sessions import EditorSessionsResourceWithStreamingResponse
 
         return EditorSessionsResourceWithStreamingResponse(self._client.editor_sessions)
+
+    @cached_property
+    def emails(self) -> emails.EmailsResourceWithStreamingResponse:
+        from .resources.emails import EmailsResourceWithStreamingResponse
+
+        return EmailsResourceWithStreamingResponse(self._client.emails)
 
     @cached_property
     def me(self) -> me.MeResourceWithStreamingResponse:
@@ -665,6 +752,12 @@ class UnlayerWithStreamedResponse:
         return TemplatesResourceWithStreamingResponse(self._client.templates)
 
     @cached_property
+    def webhooks(self) -> webhooks.WebhooksResourceWithStreamingResponse:
+        from .resources.webhooks import WebhooksResourceWithStreamingResponse
+
+        return WebhooksResourceWithStreamingResponse(self._client.webhooks)
+
+    @cached_property
     def workspaces(self) -> workspaces.WorkspacesResourceWithStreamingResponse:
         """Workspace access and management."""
         from .resources.workspaces import WorkspacesResourceWithStreamingResponse
@@ -679,10 +772,22 @@ class AsyncUnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def domains(self) -> domains.AsyncDomainsResourceWithStreamingResponse:
+        from .resources.domains import AsyncDomainsResourceWithStreamingResponse
+
+        return AsyncDomainsResourceWithStreamingResponse(self._client.domains)
+
+    @cached_property
     def editor_sessions(self) -> editor_sessions.AsyncEditorSessionsResourceWithStreamingResponse:
         from .resources.editor_sessions import AsyncEditorSessionsResourceWithStreamingResponse
 
         return AsyncEditorSessionsResourceWithStreamingResponse(self._client.editor_sessions)
+
+    @cached_property
+    def emails(self) -> emails.AsyncEmailsResourceWithStreamingResponse:
+        from .resources.emails import AsyncEmailsResourceWithStreamingResponse
+
+        return AsyncEmailsResourceWithStreamingResponse(self._client.emails)
 
     @cached_property
     def me(self) -> me.AsyncMeResourceWithStreamingResponse:
@@ -705,6 +810,12 @@ class AsyncUnlayerWithStreamedResponse:
         from .resources.templates import AsyncTemplatesResourceWithStreamingResponse
 
         return AsyncTemplatesResourceWithStreamingResponse(self._client.templates)
+
+    @cached_property
+    def webhooks(self) -> webhooks.AsyncWebhooksResourceWithStreamingResponse:
+        from .resources.webhooks import AsyncWebhooksResourceWithStreamingResponse
+
+        return AsyncWebhooksResourceWithStreamingResponse(self._client.webhooks)
 
     @cached_property
     def workspaces(self) -> workspaces.AsyncWorkspacesResourceWithStreamingResponse:

@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .schema import (
+    SchemaResource,
+    AsyncSchemaResource,
+    SchemaResourceWithRawResponse,
+    AsyncSchemaResourceWithRawResponse,
+    SchemaResourceWithStreamingResponse,
+    AsyncSchemaResourceWithStreamingResponse,
+)
 from .import_ import (
     ImportResource,
     AsyncImportResource,
@@ -15,6 +23,14 @@ from .generate import (
     AsyncGenerateResourceWithRawResponse,
     GenerateResourceWithStreamingResponse,
     AsyncGenerateResourceWithStreamingResponse,
+)
+from .validate import (
+    ValidateResource,
+    AsyncValidateResource,
+    ValidateResourceWithRawResponse,
+    AsyncValidateResourceWithRawResponse,
+    ValidateResourceWithStreamingResponse,
+    AsyncValidateResourceWithStreamingResponse,
 )
 from .templates import (
     TemplatesResource,
@@ -122,6 +138,18 @@ __all__ = [
     "AsyncImportResourceWithRawResponse",
     "ImportResourceWithStreamingResponse",
     "AsyncImportResourceWithStreamingResponse",
+    "SchemaResource",
+    "AsyncSchemaResource",
+    "SchemaResourceWithRawResponse",
+    "AsyncSchemaResourceWithRawResponse",
+    "SchemaResourceWithStreamingResponse",
+    "AsyncSchemaResourceWithStreamingResponse",
+    "ValidateResource",
+    "AsyncValidateResource",
+    "ValidateResourceWithRawResponse",
+    "AsyncValidateResourceWithRawResponse",
+    "ValidateResourceWithStreamingResponse",
+    "AsyncValidateResourceWithStreamingResponse",
     "TemplatesResource",
     "AsyncTemplatesResource",
     "TemplatesResourceWithRawResponse",
