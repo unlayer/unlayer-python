@@ -8,6 +8,7 @@ from .email_list_response import EmailListResponse as EmailListResponse
 from .domain_create_params import DomainCreateParams as DomainCreateParams
 from .domain_list_response import DomainListResponse as DomainListResponse
 from .template_list_params import TemplateListParams as TemplateListParams
+from .block_retrieve_params import BlockRetrieveParams as BlockRetrieveParams
 from .email_create_response import EmailCreateResponse as EmailCreateResponse
 from .webhook_create_params import WebhookCreateParams as WebhookCreateParams
 from .webhook_list_response import WebhookListResponse as WebhookListResponse
@@ -15,6 +16,7 @@ from .webhook_update_params import WebhookUpdateParams as WebhookUpdateParams
 from .domain_create_response import DomainCreateResponse as DomainCreateResponse
 from .domain_delete_response import DomainDeleteResponse as DomainDeleteResponse
 from .template_list_response import TemplateListResponse as TemplateListResponse
+from .block_retrieve_response import BlockRetrieveResponse as BlockRetrieveResponse
 from .email_retrieve_response import EmailRetrieveResponse as EmailRetrieveResponse
 from .webhook_create_response import WebhookCreateResponse as WebhookCreateResponse
 from .webhook_delete_response import WebhookDeleteResponse as WebhookDeleteResponse
