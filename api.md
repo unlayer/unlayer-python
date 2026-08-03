@@ -1,3 +1,15 @@
+# Blocks
+
+Types:
+
+```python
+from unlayer.types import BlockRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /v3/blocks">client.blocks.<a href="./src/unlayer/resources/blocks.py">retrieve</a>(\*\*<a href="src/unlayer/types/block_retrieve_params.py">params</a>) -> <a href="./src/unlayer/types/block_retrieve_response.py">BlockRetrieveResponse</a></code>
+
 # Domains
 
 Types:

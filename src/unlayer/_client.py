@@ -36,8 +36,9 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import me, emails, domains, projects, webhooks, templates, workspaces, editor_sessions
+    from .resources import me, blocks, emails, domains, projects, webhooks, templates, workspaces, editor_sessions
     from .resources.me.me import MeResource, AsyncMeResource
+    from .resources.blocks import BlocksResource, AsyncBlocksResource
     from .resources.workspaces import WorkspacesResource, AsyncWorkspacesResource
     from .resources.emails.emails import EmailsResource, AsyncEmailsResource
     from .resources.domains.domains import DomainsResource, AsyncDomainsResource
@@ -123,6 +124,15 @@ class Unlayer(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+    @cached_property
+    def blocks(self) -> BlocksResource:
+        """
+        Reusable design blocks — list shared project blocks and end-user saved blocks for backup, migration, and usage reporting.
+        """
+        from .resources.blocks import BlocksResource
+
+        return BlocksResource(self)
 
     @cached_property
     def domains(self) -> DomainsResource:
@@ -393,6 +403,15 @@ class AsyncUnlayer(AsyncAPIClient):
         )
 
     @cached_property
+    def blocks(self) -> AsyncBlocksResource:
+        """
+        Reusable design blocks — list shared project blocks and end-user saved blocks for backup, migration, and usage reporting.
+        """
+        from .resources.blocks import AsyncBlocksResource
+
+        return AsyncBlocksResource(self)
+
+    @cached_property
     def domains(self) -> AsyncDomainsResource:
         from .resources.domains import AsyncDomainsResource
 
@@ -592,6 +611,15 @@ class UnlayerWithRawResponse:
         self._client = client
 
     @cached_property
+    def blocks(self) -> blocks.BlocksResourceWithRawResponse:
+        """
+        Reusable design blocks — list shared project blocks and end-user saved blocks for backup, migration, and usage reporting.
+        """
+        from .resources.blocks import BlocksResourceWithRawResponse
+
+        return BlocksResourceWithRawResponse(self._client.blocks)
+
+    @cached_property
     def domains(self) -> domains.DomainsResourceWithRawResponse:
         from .resources.domains import DomainsResourceWithRawResponse
 
@@ -650,6 +678,15 @@ class AsyncUnlayerWithRawResponse:
 
     def __init__(self, client: AsyncUnlayer) -> None:
         self._client = client
+
+    @cached_property
+    def blocks(self) -> blocks.AsyncBlocksResourceWithRawResponse:
+        """
+        Reusable design blocks — list shared project blocks and end-user saved blocks for backup, migration, and usage reporting.
+        """
+        from .resources.blocks import AsyncBlocksResourceWithRawResponse
+
+        return AsyncBlocksResourceWithRawResponse(self._client.blocks)
 
     @cached_property
     def domains(self) -> domains.AsyncDomainsResourceWithRawResponse:
@@ -712,6 +749,15 @@ class UnlayerWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def blocks(self) -> blocks.BlocksResourceWithStreamingResponse:
+        """
+        Reusable design blocks — list shared project blocks and end-user saved blocks for backup, migration, and usage reporting.
+        """
+        from .resources.blocks import BlocksResourceWithStreamingResponse
+
+        return BlocksResourceWithStreamingResponse(self._client.blocks)
+
+    @cached_property
     def domains(self) -> domains.DomainsResourceWithStreamingResponse:
         from .resources.domains import DomainsResourceWithStreamingResponse
 
@@ -770,6 +816,15 @@ class AsyncUnlayerWithStreamedResponse:
 
     def __init__(self, client: AsyncUnlayer) -> None:
         self._client = client
+
+    @cached_property
+    def blocks(self) -> blocks.AsyncBlocksResourceWithStreamingResponse:
+        """
+        Reusable design blocks — list shared project blocks and end-user saved blocks for backup, migration, and usage reporting.
+        """
+        from .resources.blocks import AsyncBlocksResourceWithStreamingResponse
+
+        return AsyncBlocksResourceWithStreamingResponse(self._client.blocks)
 
     @cached_property
     def domains(self) -> domains.AsyncDomainsResourceWithStreamingResponse:

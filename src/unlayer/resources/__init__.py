@@ -8,6 +8,14 @@ from .me import (
     MeResourceWithStreamingResponse,
     AsyncMeResourceWithStreamingResponse,
 )
+from .blocks import (
+    BlocksResource,
+    AsyncBlocksResource,
+    BlocksResourceWithRawResponse,
+    AsyncBlocksResourceWithRawResponse,
+    BlocksResourceWithStreamingResponse,
+    AsyncBlocksResourceWithStreamingResponse,
+)
 from .emails import (
     EmailsResource,
     AsyncEmailsResource,
@@ -66,6 +74,12 @@ from .editor_sessions import (
 )
 
 __all__ = [
+    "BlocksResource",
+    "AsyncBlocksResource",
+    "BlocksResourceWithRawResponse",
+    "AsyncBlocksResourceWithRawResponse",
+    "BlocksResourceWithStreamingResponse",
+    "AsyncBlocksResourceWithStreamingResponse",
     "DomainsResource",
     "AsyncDomainsResource",
     "DomainsResourceWithRawResponse",
