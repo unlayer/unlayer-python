@@ -70,8 +70,10 @@ class AICreditsUsageResource(SyncAPIResource):
     ) -> AICreditsUsageRetrieveResponse:
         """
         Returns AI credit consumption for the project, broken down by end user and
-        feature type. Filterable by date range, end user, and feature type. Defaults to
-        the current billing period. Only credit counts are returned; token counts, model
+        feature type. Filterable by date range, end user, and feature type. Usage is
+        updated near real time and grouped by the UTC date when the AI activity
+        occurred. Recent activity may take a short time to appear. Defaults to the
+        current billing period. Only credit counts are returned; token counts, model
         names, and costs are never exposed. Per-end-user attribution requires the
         partner to pass `endUserId` on editor initialization.
 
@@ -174,8 +176,10 @@ class AsyncAICreditsUsageResource(AsyncAPIResource):
     ) -> AICreditsUsageRetrieveResponse:
         """
         Returns AI credit consumption for the project, broken down by end user and
-        feature type. Filterable by date range, end user, and feature type. Defaults to
-        the current billing period. Only credit counts are returned; token counts, model
+        feature type. Filterable by date range, end user, and feature type. Usage is
+        updated near real time and grouped by the UTC date when the AI activity
+        occurred. Recent activity may take a short time to appear. Defaults to the
+        current billing period. Only credit counts are returned; token counts, model
         names, and costs are never exposed. Per-end-user attribution requires the
         partner to pass `endUserId` on editor initialization.
 
