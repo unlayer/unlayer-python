@@ -80,10 +80,10 @@ class ImportResource(SyncAPIResource):
               tail; an ordered array replaces the default provider/model strings.
 
           model: Preferred AI model. Accepts a provider/model string (e.g.
-              "anthropic/claude-opus-4-7", "openai/gpt-5.5"), a bare provider ("anthropic",
+              "anthropic/claude-opus-5", "openai/gpt-5.6-luna"), a bare provider ("anthropic",
               "openai") which uses that provider's default model, or a bare model id
-              ("claude-opus-4-7", "gpt-5.5") with the provider inferred from the name.
-              Optional — defaults to anthropic/claude-opus-4-7.
+              ("claude-opus-5", "gpt-5.6-luna") with the provider inferred from the name.
+              Optional — defaults to anthropic/claude-opus-5.
 
           extra_headers: Send extra headers
 
@@ -171,10 +171,10 @@ class AsyncImportResource(AsyncAPIResource):
               tail; an ordered array replaces the default provider/model strings.
 
           model: Preferred AI model. Accepts a provider/model string (e.g.
-              "anthropic/claude-opus-4-7", "openai/gpt-5.5"), a bare provider ("anthropic",
+              "anthropic/claude-opus-5", "openai/gpt-5.6-luna"), a bare provider ("anthropic",
               "openai") which uses that provider's default model, or a bare model id
-              ("claude-opus-4-7", "gpt-5.5") with the provider inferred from the name.
-              Optional — defaults to anthropic/claude-opus-4-7.
+              ("claude-opus-5", "gpt-5.6-luna") with the provider inferred from the name.
+              Optional — defaults to anthropic/claude-opus-5.
 
           extra_headers: Send extra headers
 

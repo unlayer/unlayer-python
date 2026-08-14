@@ -15,7 +15,7 @@ class Model(BaseModel):
     """
 
     id: Optional[str] = None
-    """Resolved model id, e.g. "claude-opus-4-7"."""
+    """Resolved model id, e.g. "claude-opus-5"."""
 
     provider: Optional[str] = None
     """e.g. "anthropic", "openai"."""
@@ -35,9 +35,15 @@ class Output(BaseModel):
 
 
 class Usage(BaseModel):
-    """Aggregate token usage for the turn when exposed by the caller.
+    """Aggregate token usage and billed AI credits for the turn.
 
-    Builder copilot endpoints expose it only in local/dev/QA and omit it in staging/production.
+    Estimated provider cost is included only by builder copilot endpoints in local/dev/QA.
+    """
+
+    ai_credits_used: Optional[float] = FieldInfo(alias="aiCreditsUsed", default=None)
+    """
+    Marked-up integer AI credits used by the complete turn, including failover
+    attempts.
     """
 
     cached_input_tokens: Optional[float] = FieldInfo(alias="cachedInputTokens", default=None)
@@ -71,8 +77,8 @@ class GenerateCreateResponse(BaseModel):
     """The generated output for the requested block."""
 
     usage: Optional[Usage] = None
-    """Aggregate token usage for the turn when exposed by the caller.
+    """Aggregate token usage and billed AI credits for the turn.
 
-    Builder copilot endpoints expose it only in local/dev/QA and omit it in
-    staging/production.
+    Estimated provider cost is included only by builder copilot endpoints in
+    local/dev/QA.
     """

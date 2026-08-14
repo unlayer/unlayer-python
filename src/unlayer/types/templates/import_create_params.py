@@ -36,11 +36,11 @@ class ImportCreateParams(TypedDict, total=False):
     model: str
     """Preferred AI model.
 
-    Accepts a provider/model string (e.g. "anthropic/claude-opus-4-7",
-    "openai/gpt-5.5"), a bare provider ("anthropic", "openai") which uses that
-    provider's default model, or a bare model id ("claude-opus-4-7", "gpt-5.5") with
-    the provider inferred from the name. Optional — defaults to
-    anthropic/claude-opus-4-7.
+    Accepts a provider/model string (e.g. "anthropic/claude-opus-5",
+    "openai/gpt-5.6-luna"), a bare provider ("anthropic", "openai") which uses that
+    provider's default model, or a bare model id ("claude-opus-5", "gpt-5.6-luna")
+    with the provider inferred from the name. Optional — defaults to
+    anthropic/claude-opus-5.
     """
 
 

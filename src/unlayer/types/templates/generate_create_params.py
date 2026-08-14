@@ -26,10 +26,10 @@ class GenerateCreateParams(TypedDict, total=False):
     messages: Required[Iterable[Message]]
     """Conversation messages in chronological order, capped at 10 messages.
 
-    The last `user` message is the prompt for this turn; any earlier
-    `user`/`assistant` text turns are forwarded to the model as prior chat context.
-    A `user` message may carry a predefined prompt action via `metadata.action.id`
-    (e.g. SPELLING, REPHRASE).
+    The last `user` message is the prompt for this turn; the newest earlier
+    `user`/`assistant` turns are forwarded within a 12,000-character aggregate
+    history budget. A `user` message may carry a predefined prompt action via
+    `metadata.action.id` (e.g. SPELLING, REPHRASE).
     """
 
     output: Required[Output]
@@ -56,8 +56,7 @@ class GenerateCreateParams(TypedDict, total=False):
     model: str
     """Preferred AI model in "provider/id" form, e.g.
 
-    "anthropic/claude-opus-4-7". Optional — server resolves a default per output
-    kind.
+    "anthropic/claude-opus-5". Optional — server resolves a default per output kind.
     """
 
 

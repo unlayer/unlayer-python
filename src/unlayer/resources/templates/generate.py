@@ -73,10 +73,10 @@ class GenerateResource(SyncAPIResource):
 
         Args:
           messages: Conversation messages in chronological order, capped at 10 messages. The last
-              `user` message is the prompt for this turn; any earlier `user`/`assistant` text
-              turns are forwarded to the model as prior chat context. A `user` message may
-              carry a predefined prompt action via `metadata.action.id` (e.g. SPELLING,
-              REPHRASE).
+              `user` message is the prompt for this turn; the newest earlier
+              `user`/`assistant` turns are forwarded within a 12,000-character aggregate
+              history budget. A `user` message may carry a predefined prompt action via
+              `metadata.action.id` (e.g. SPELLING, REPHRASE).
 
           project_id: The project ID (required for PAT auth, auto-resolved for API key auth)
 
@@ -88,7 +88,7 @@ class GenerateResource(SyncAPIResource):
 
           locale: BCP-47 fallback locale for AI status messages.
 
-          model: Preferred AI model in "provider/id" form, e.g. "anthropic/claude-opus-4-7".
+          model: Preferred AI model in "provider/id" form, e.g. "anthropic/claude-opus-5".
               Optional — server resolves a default per output kind.
 
           extra_headers: Send extra headers
@@ -193,10 +193,10 @@ class AsyncGenerateResource(AsyncAPIResource):
 
         Args:
           messages: Conversation messages in chronological order, capped at 10 messages. The last
-              `user` message is the prompt for this turn; any earlier `user`/`assistant` text
-              turns are forwarded to the model as prior chat context. A `user` message may
-              carry a predefined prompt action via `metadata.action.id` (e.g. SPELLING,
-              REPHRASE).
+              `user` message is the prompt for this turn; the newest earlier
+              `user`/`assistant` turns are forwarded within a 12,000-character aggregate
+              history budget. A `user` message may carry a predefined prompt action via
+              `metadata.action.id` (e.g. SPELLING, REPHRASE).
 
           project_id: The project ID (required for PAT auth, auto-resolved for API key auth)
 
@@ -208,7 +208,7 @@ class AsyncGenerateResource(AsyncAPIResource):
 
           locale: BCP-47 fallback locale for AI status messages.
 
-          model: Preferred AI model in "provider/id" form, e.g. "anthropic/claude-opus-4-7".
+          model: Preferred AI model in "provider/id" form, e.g. "anthropic/claude-opus-5".
               Optional — server resolves a default per output kind.
 
           extra_headers: Send extra headers
