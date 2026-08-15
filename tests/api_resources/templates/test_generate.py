@@ -61,6 +61,22 @@ class TestGenerate:
             project_id="projectId",
             context={
                 "available_tools": ["string"],
+                "brand": {
+                    "colors": {
+                        "accent": "accent",
+                        "primary": "primary",
+                        "secondary": "secondary",
+                    },
+                    "company_name": "companyName",
+                    "fonts": {
+                        "body": "body",
+                        "heading": "heading",
+                    },
+                    "guidelines": "guidelines",
+                    "product_description": "productDescription",
+                    "target_audience": "targetAudience",
+                    "voice": "voice",
+                },
                 "custom_tools": [
                     {
                         "options": {"foo": "bar"},
@@ -198,6 +214,22 @@ class TestAsyncGenerate:
             project_id="projectId",
             context={
                 "available_tools": ["string"],
+                "brand": {
+                    "colors": {
+                        "accent": "accent",
+                        "primary": "primary",
+                        "secondary": "secondary",
+                    },
+                    "company_name": "companyName",
+                    "fonts": {
+                        "body": "body",
+                        "heading": "heading",
+                    },
+                    "guidelines": "guidelines",
+                    "product_description": "productDescription",
+                    "target_audience": "targetAudience",
+                    "voice": "voice",
+                },
                 "custom_tools": [
                     {
                         "options": {"foo": "bar"},
