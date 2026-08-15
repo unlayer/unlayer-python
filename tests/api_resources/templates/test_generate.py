@@ -60,6 +60,12 @@ class TestGenerate:
             },
             project_id="projectId",
             context={
+                "available_fonts": [
+                    {
+                        "label": "x",
+                        "value": "x",
+                    }
+                ],
                 "available_tools": ["string"],
                 "brand": {
                     "colors": {
@@ -73,6 +79,10 @@ class TestGenerate:
                         "heading": "heading",
                     },
                     "guidelines": "guidelines",
+                    "logos": {
+                        "primary": "https://example.com",
+                        "secondary": "https://example.com",
+                    },
                     "product_description": "productDescription",
                     "target_audience": "targetAudience",
                     "voice": "voice",
@@ -213,6 +223,12 @@ class TestAsyncGenerate:
             },
             project_id="projectId",
             context={
+                "available_fonts": [
+                    {
+                        "label": "x",
+                        "value": "x",
+                    }
+                ],
                 "available_tools": ["string"],
                 "brand": {
                     "colors": {
@@ -226,6 +242,10 @@ class TestAsyncGenerate:
                         "heading": "heading",
                     },
                     "guidelines": "guidelines",
+                    "logos": {
+                        "primary": "https://example.com",
+                        "secondary": "https://example.com",
+                    },
                     "product_description": "productDescription",
                     "target_audience": "targetAudience",
                     "voice": "voice",

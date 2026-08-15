@@ -17,9 +17,11 @@ __all__ = [
     "MessageMetadataAction",
     "Output",
     "Context",
+    "ContextAvailableFont",
     "ContextBrand",
     "ContextBrandColors",
     "ContextBrandFonts",
+    "ContextBrandLogos",
     "ContextCustomTool",
     "ContextSelection",
 ]
@@ -116,6 +118,12 @@ class Output(TypedDict, total=False):
     schema_version: Annotated[int, PropertyInfo(alias="schemaVersion")]
 
 
+class ContextAvailableFont(TypedDict, total=False):
+    label: Required[str]
+
+    value: Required[str]
+
+
 class ContextBrandColors(TypedDict, total=False):
     accent: str
 
@@ -130,6 +138,12 @@ class ContextBrandFonts(TypedDict, total=False):
     heading: str
 
 
+class ContextBrandLogos(TypedDict, total=False):
+    primary: str
+
+    secondary: str
+
+
 class ContextBrand(TypedDict, total=False):
     colors: ContextBrandColors
 
@@ -138,6 +152,8 @@ class ContextBrand(TypedDict, total=False):
     fonts: ContextBrandFonts
 
     guidelines: str
+
+    logos: ContextBrandLogos
 
     product_description: Annotated[str, PropertyInfo(alias="productDescription")]
 
@@ -173,9 +189,11 @@ class Context(  # type: ignore[call-arg]
     total=False,
     extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
 ):
+    available_fonts: Annotated[Iterable[ContextAvailableFont], PropertyInfo(alias="availableFonts")]
+
     available_tools: Annotated[SequenceNotStr[str], PropertyInfo(alias="availableTools")]
 
-    brand: ContextBrand
+    brand: Optional[ContextBrand]
 
     custom_tools: Annotated[Iterable[ContextCustomTool], PropertyInfo(alias="customTools")]
 
