@@ -17,6 +17,9 @@ __all__ = [
     "MessageMetadataAction",
     "Output",
     "Context",
+    "ContextBrand",
+    "ContextBrandColors",
+    "ContextBrandFonts",
     "ContextCustomTool",
     "ContextSelection",
 ]
@@ -113,6 +116,36 @@ class Output(TypedDict, total=False):
     schema_version: Annotated[int, PropertyInfo(alias="schemaVersion")]
 
 
+class ContextBrandColors(TypedDict, total=False):
+    accent: str
+
+    primary: str
+
+    secondary: str
+
+
+class ContextBrandFonts(TypedDict, total=False):
+    body: str
+
+    heading: str
+
+
+class ContextBrand(TypedDict, total=False):
+    colors: ContextBrandColors
+
+    company_name: Annotated[str, PropertyInfo(alias="companyName")]
+
+    fonts: ContextBrandFonts
+
+    guidelines: str
+
+    product_description: Annotated[str, PropertyInfo(alias="productDescription")]
+
+    target_audience: Annotated[str, PropertyInfo(alias="targetAudience")]
+
+    voice: str
+
+
 class ContextCustomTool(  # type: ignore[call-arg]
     TypedDict,
     total=False,
@@ -141,6 +174,8 @@ class Context(  # type: ignore[call-arg]
     extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
 ):
     available_tools: Annotated[SequenceNotStr[str], PropertyInfo(alias="availableTools")]
+
+    brand: ContextBrand
 
     custom_tools: Annotated[Iterable[ContextCustomTool], PropertyInfo(alias="customTools")]
 
