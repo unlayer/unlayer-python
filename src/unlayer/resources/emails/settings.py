@@ -23,6 +23,8 @@ __all__ = ["SettingsResource", "AsyncSettingsResource"]
 
 
 class SettingsResource(SyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def with_raw_response(self) -> SettingsResourceWithRawResponse:
         """
@@ -99,6 +101,8 @@ class SettingsResource(SyncAPIResource):
 
 
 class AsyncSettingsResource(AsyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def with_raw_response(self) -> AsyncSettingsResourceWithRawResponse:
         """

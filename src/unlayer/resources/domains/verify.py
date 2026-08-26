@@ -21,6 +21,8 @@ __all__ = ["VerifyResource", "AsyncVerifyResource"]
 
 
 class VerifyResource(SyncAPIResource):
+    """Manage verified sender domains."""
+
     @cached_property
     def with_raw_response(self) -> VerifyResourceWithRawResponse:
         """
@@ -77,6 +79,8 @@ class VerifyResource(SyncAPIResource):
 
 
 class AsyncVerifyResource(AsyncAPIResource):
+    """Manage verified sender domains."""
+
     @cached_property
     def with_raw_response(self) -> AsyncVerifyResourceWithRawResponse:
         """

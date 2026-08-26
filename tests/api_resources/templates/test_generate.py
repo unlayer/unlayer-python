@@ -149,31 +149,6 @@ class TestGenerate:
 
         assert cast(Any, response.is_closed) is True
 
-    @parametrize
-    def test_method_retrieve(self, client: Unlayer) -> None:
-        generate = client.templates.generate.retrieve()
-        assert generate is None
-
-    @parametrize
-    def test_raw_response_retrieve(self, client: Unlayer) -> None:
-        response = client.templates.generate.with_raw_response.retrieve()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        generate = response.parse()
-        assert generate is None
-
-    @parametrize
-    def test_streaming_response_retrieve(self, client: Unlayer) -> None:
-        with client.templates.generate.with_streaming_response.retrieve() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            generate = response.parse()
-            assert generate is None
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncGenerate:
     parametrize = pytest.mark.parametrize(
@@ -309,30 +284,5 @@ class TestAsyncGenerate:
 
             generate = await response.parse()
             assert_matches_type(GenerateCreateResponse, generate, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_retrieve(self, async_client: AsyncUnlayer) -> None:
-        generate = await async_client.templates.generate.retrieve()
-        assert generate is None
-
-    @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncUnlayer) -> None:
-        response = await async_client.templates.generate.with_raw_response.retrieve()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        generate = await response.parse()
-        assert generate is None
-
-    @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncUnlayer) -> None:
-        async with async_client.templates.generate.with_streaming_response.retrieve() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            generate = await response.parse()
-            assert generate is None
 
         assert cast(Any, response.is_closed) is True

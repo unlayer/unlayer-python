@@ -21,6 +21,8 @@ __all__ = ["EventsResource", "AsyncEventsResource"]
 
 
 class EventsResource(SyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def with_raw_response(self) -> EventsResourceWithRawResponse:
         """
@@ -77,6 +79,8 @@ class EventsResource(SyncAPIResource):
 
 
 class AsyncEventsResource(AsyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def with_raw_response(self) -> AsyncEventsResourceWithRawResponse:
         """

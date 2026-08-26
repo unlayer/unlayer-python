@@ -25,6 +25,8 @@ __all__ = ["ExportPdfResource", "AsyncExportPdfResource"]
 
 
 class ExportPdfResource(SyncAPIResource):
+    """Render designs as HTML, images, PDFs, or ZIP files."""
+
     @cached_property
     def with_raw_response(self) -> ExportPdfResourceWithRawResponse:
         """
@@ -117,6 +119,8 @@ class ExportPdfResource(SyncAPIResource):
 
 
 class AsyncExportPdfResource(AsyncAPIResource):
+    """Render designs as HTML, images, PDFs, or ZIP files."""
+
     @cached_property
     def with_raw_response(self) -> AsyncExportPdfResourceWithRawResponse:
         """

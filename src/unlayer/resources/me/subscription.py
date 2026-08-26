@@ -22,6 +22,8 @@ __all__ = ["SubscriptionResource", "AsyncSubscriptionResource"]
 
 
 class SubscriptionResource(SyncAPIResource):
+    """Current user and token context."""
+
     @cached_property
     def with_raw_response(self) -> SubscriptionResourceWithRawResponse:
         """
@@ -85,6 +87,8 @@ class SubscriptionResource(SyncAPIResource):
 
 
 class AsyncSubscriptionResource(AsyncAPIResource):
+    """Current user and token context."""
+
     @cached_property
     def with_raw_response(self) -> AsyncSubscriptionResourceWithRawResponse:
         """

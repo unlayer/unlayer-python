@@ -24,6 +24,8 @@ __all__ = ["RenderResource", "AsyncRenderResource"]
 
 
 class RenderResource(SyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def with_raw_response(self) -> RenderResourceWithRawResponse:
         """
@@ -90,6 +92,8 @@ class RenderResource(SyncAPIResource):
 
 
 class AsyncRenderResource(AsyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def with_raw_response(self) -> AsyncRenderResourceWithRawResponse:
         """

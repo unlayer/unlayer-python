@@ -9,17 +9,17 @@ __all__ = ["AICreditsWebhooksDeliveriesattemptRetrieveResponse", "Attempt"]
 
 
 class Attempt(BaseModel):
-    attempt: Optional[float] = None
+    attempt: int
 
-    attempted_at: Optional[datetime] = None
+    attempted_at: datetime
 
     error: Optional[str] = None
 
-    status_code: Optional[float] = None
+    status_code: Optional[int] = None
 
 
 class AICreditsWebhooksDeliveriesattemptRetrieveResponse(BaseModel):
-    attempts: Optional[List[Attempt]] = None
+    attempts: List[Attempt]
 
-    total: Optional[float] = None
+    total: int
     """Total attempts for the delivery (ignores limit/offset)."""

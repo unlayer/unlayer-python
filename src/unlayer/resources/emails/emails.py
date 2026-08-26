@@ -84,32 +84,41 @@ __all__ = ["EmailsResource", "AsyncEmailsResource"]
 
 
 class EmailsResource(SyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def events(self) -> EventsResource:
+        """Send and manage transactional email."""
         return EventsResource(self._client)
 
     @cached_property
     def render(self) -> RenderResource:
+        """Send and manage transactional email."""
         return RenderResource(self._client)
 
     @cached_property
     def settings(self) -> SettingsResource:
+        """Send and manage transactional email."""
         return SettingsResource(self._client)
 
     @cached_property
     def stats(self) -> StatsResource:
+        """Send and manage transactional email."""
         return StatsResource(self._client)
 
     @cached_property
     def suppressions(self) -> SuppressionsResource:
+        """Send and manage transactional email."""
         return SuppressionsResource(self._client)
 
     @cached_property
     def suppressions_check(self) -> SuppressionsCheckResource:
+        """Send and manage transactional email."""
         return SuppressionsCheckResource(self._client)
 
     @cached_property
     def template(self) -> TemplateResource:
+        """Send and manage transactional email."""
         return TemplateResource(self._client)
 
     @cached_property
@@ -332,32 +341,41 @@ class EmailsResource(SyncAPIResource):
 
 
 class AsyncEmailsResource(AsyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def events(self) -> AsyncEventsResource:
+        """Send and manage transactional email."""
         return AsyncEventsResource(self._client)
 
     @cached_property
     def render(self) -> AsyncRenderResource:
+        """Send and manage transactional email."""
         return AsyncRenderResource(self._client)
 
     @cached_property
     def settings(self) -> AsyncSettingsResource:
+        """Send and manage transactional email."""
         return AsyncSettingsResource(self._client)
 
     @cached_property
     def stats(self) -> AsyncStatsResource:
+        """Send and manage transactional email."""
         return AsyncStatsResource(self._client)
 
     @cached_property
     def suppressions(self) -> AsyncSuppressionsResource:
+        """Send and manage transactional email."""
         return AsyncSuppressionsResource(self._client)
 
     @cached_property
     def suppressions_check(self) -> AsyncSuppressionsCheckResource:
+        """Send and manage transactional email."""
         return AsyncSuppressionsCheckResource(self._client)
 
     @cached_property
     def template(self) -> AsyncTemplateResource:
+        """Send and manage transactional email."""
         return AsyncTemplateResource(self._client)
 
     @cached_property
@@ -595,30 +613,37 @@ class EmailsResourceWithRawResponse:
 
     @cached_property
     def events(self) -> EventsResourceWithRawResponse:
+        """Send and manage transactional email."""
         return EventsResourceWithRawResponse(self._emails.events)
 
     @cached_property
     def render(self) -> RenderResourceWithRawResponse:
+        """Send and manage transactional email."""
         return RenderResourceWithRawResponse(self._emails.render)
 
     @cached_property
     def settings(self) -> SettingsResourceWithRawResponse:
+        """Send and manage transactional email."""
         return SettingsResourceWithRawResponse(self._emails.settings)
 
     @cached_property
     def stats(self) -> StatsResourceWithRawResponse:
+        """Send and manage transactional email."""
         return StatsResourceWithRawResponse(self._emails.stats)
 
     @cached_property
     def suppressions(self) -> SuppressionsResourceWithRawResponse:
+        """Send and manage transactional email."""
         return SuppressionsResourceWithRawResponse(self._emails.suppressions)
 
     @cached_property
     def suppressions_check(self) -> SuppressionsCheckResourceWithRawResponse:
+        """Send and manage transactional email."""
         return SuppressionsCheckResourceWithRawResponse(self._emails.suppressions_check)
 
     @cached_property
     def template(self) -> TemplateResourceWithRawResponse:
+        """Send and manage transactional email."""
         return TemplateResourceWithRawResponse(self._emails.template)
 
 
@@ -638,30 +663,37 @@ class AsyncEmailsResourceWithRawResponse:
 
     @cached_property
     def events(self) -> AsyncEventsResourceWithRawResponse:
+        """Send and manage transactional email."""
         return AsyncEventsResourceWithRawResponse(self._emails.events)
 
     @cached_property
     def render(self) -> AsyncRenderResourceWithRawResponse:
+        """Send and manage transactional email."""
         return AsyncRenderResourceWithRawResponse(self._emails.render)
 
     @cached_property
     def settings(self) -> AsyncSettingsResourceWithRawResponse:
+        """Send and manage transactional email."""
         return AsyncSettingsResourceWithRawResponse(self._emails.settings)
 
     @cached_property
     def stats(self) -> AsyncStatsResourceWithRawResponse:
+        """Send and manage transactional email."""
         return AsyncStatsResourceWithRawResponse(self._emails.stats)
 
     @cached_property
     def suppressions(self) -> AsyncSuppressionsResourceWithRawResponse:
+        """Send and manage transactional email."""
         return AsyncSuppressionsResourceWithRawResponse(self._emails.suppressions)
 
     @cached_property
     def suppressions_check(self) -> AsyncSuppressionsCheckResourceWithRawResponse:
+        """Send and manage transactional email."""
         return AsyncSuppressionsCheckResourceWithRawResponse(self._emails.suppressions_check)
 
     @cached_property
     def template(self) -> AsyncTemplateResourceWithRawResponse:
+        """Send and manage transactional email."""
         return AsyncTemplateResourceWithRawResponse(self._emails.template)
 
 
@@ -681,30 +713,37 @@ class EmailsResourceWithStreamingResponse:
 
     @cached_property
     def events(self) -> EventsResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return EventsResourceWithStreamingResponse(self._emails.events)
 
     @cached_property
     def render(self) -> RenderResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return RenderResourceWithStreamingResponse(self._emails.render)
 
     @cached_property
     def settings(self) -> SettingsResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return SettingsResourceWithStreamingResponse(self._emails.settings)
 
     @cached_property
     def stats(self) -> StatsResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return StatsResourceWithStreamingResponse(self._emails.stats)
 
     @cached_property
     def suppressions(self) -> SuppressionsResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return SuppressionsResourceWithStreamingResponse(self._emails.suppressions)
 
     @cached_property
     def suppressions_check(self) -> SuppressionsCheckResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return SuppressionsCheckResourceWithStreamingResponse(self._emails.suppressions_check)
 
     @cached_property
     def template(self) -> TemplateResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return TemplateResourceWithStreamingResponse(self._emails.template)
 
 
@@ -724,28 +763,35 @@ class AsyncEmailsResourceWithStreamingResponse:
 
     @cached_property
     def events(self) -> AsyncEventsResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return AsyncEventsResourceWithStreamingResponse(self._emails.events)
 
     @cached_property
     def render(self) -> AsyncRenderResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return AsyncRenderResourceWithStreamingResponse(self._emails.render)
 
     @cached_property
     def settings(self) -> AsyncSettingsResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return AsyncSettingsResourceWithStreamingResponse(self._emails.settings)
 
     @cached_property
     def stats(self) -> AsyncStatsResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return AsyncStatsResourceWithStreamingResponse(self._emails.stats)
 
     @cached_property
     def suppressions(self) -> AsyncSuppressionsResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return AsyncSuppressionsResourceWithStreamingResponse(self._emails.suppressions)
 
     @cached_property
     def suppressions_check(self) -> AsyncSuppressionsCheckResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return AsyncSuppressionsCheckResourceWithStreamingResponse(self._emails.suppressions_check)
 
     @cached_property
     def template(self) -> AsyncTemplateResourceWithStreamingResponse:
+        """Send and manage transactional email."""
         return AsyncTemplateResourceWithStreamingResponse(self._emails.template)

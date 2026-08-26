@@ -6,7 +6,7 @@ from typing import Union, Iterable
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -24,6 +24,10 @@ __all__ = ["GenerateResource", "AsyncGenerateResource"]
 
 
 class GenerateResource(SyncAPIResource):
+    """
+    Template management — list, retrieve, generate, import, export, and convert designs.
+    """
+
     @cached_property
     def with_raw_response(self) -> GenerateResourceWithRawResponse:
         """
@@ -123,27 +127,12 @@ class GenerateResource(SyncAPIResource):
             cast_to=GenerateCreateResponse,
         )
 
-    def retrieve(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return self._get(
-            "/v3/templates/generate",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
 
 class AsyncGenerateResource(AsyncAPIResource):
+    """
+    Template management — list, retrieve, generate, import, export, and convert designs.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncGenerateResourceWithRawResponse:
         """
@@ -245,25 +234,6 @@ class AsyncGenerateResource(AsyncAPIResource):
             cast_to=GenerateCreateResponse,
         )
 
-    async def retrieve(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return await self._get(
-            "/v3/templates/generate",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
 
 class GenerateResourceWithRawResponse:
     def __init__(self, generate: GenerateResource) -> None:
@@ -271,9 +241,6 @@ class GenerateResourceWithRawResponse:
 
         self.create = to_raw_response_wrapper(
             generate.create,
-        )
-        self.retrieve = to_raw_response_wrapper(
-            generate.retrieve,
         )
 
 
@@ -284,9 +251,6 @@ class AsyncGenerateResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             generate.create,
         )
-        self.retrieve = async_to_raw_response_wrapper(
-            generate.retrieve,
-        )
 
 
 class GenerateResourceWithStreamingResponse:
@@ -296,9 +260,6 @@ class GenerateResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             generate.create,
         )
-        self.retrieve = to_streamed_response_wrapper(
-            generate.retrieve,
-        )
 
 
 class AsyncGenerateResourceWithStreamingResponse:
@@ -307,7 +268,4 @@ class AsyncGenerateResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             generate.create,
-        )
-        self.retrieve = async_to_streamed_response_wrapper(
-            generate.retrieve,
         )

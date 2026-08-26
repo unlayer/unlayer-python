@@ -19,6 +19,7 @@ __all__ = ["MeResource", "AsyncMeResource"]
 class MeResource(SyncAPIResource):
     @cached_property
     def subscription(self) -> SubscriptionResource:
+        """Current user and token context."""
         return SubscriptionResource(self._client)
 
     @cached_property
@@ -44,6 +45,7 @@ class MeResource(SyncAPIResource):
 class AsyncMeResource(AsyncAPIResource):
     @cached_property
     def subscription(self) -> AsyncSubscriptionResource:
+        """Current user and token context."""
         return AsyncSubscriptionResource(self._client)
 
     @cached_property
@@ -72,6 +74,7 @@ class MeResourceWithRawResponse:
 
     @cached_property
     def subscription(self) -> SubscriptionResourceWithRawResponse:
+        """Current user and token context."""
         return SubscriptionResourceWithRawResponse(self._me.subscription)
 
 
@@ -81,6 +84,7 @@ class AsyncMeResourceWithRawResponse:
 
     @cached_property
     def subscription(self) -> AsyncSubscriptionResourceWithRawResponse:
+        """Current user and token context."""
         return AsyncSubscriptionResourceWithRawResponse(self._me.subscription)
 
 
@@ -90,6 +94,7 @@ class MeResourceWithStreamingResponse:
 
     @cached_property
     def subscription(self) -> SubscriptionResourceWithStreamingResponse:
+        """Current user and token context."""
         return SubscriptionResourceWithStreamingResponse(self._me.subscription)
 
 
@@ -99,4 +104,5 @@ class AsyncMeResourceWithStreamingResponse:
 
     @cached_property
     def subscription(self) -> AsyncSubscriptionResourceWithStreamingResponse:
+        """Current user and token context."""
         return AsyncSubscriptionResourceWithStreamingResponse(self._me.subscription)

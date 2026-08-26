@@ -25,6 +25,8 @@ __all__ = ["EditorSessionsResource", "AsyncEditorSessionsResource"]
 
 
 class EditorSessionsResource(SyncAPIResource):
+    """Ephemeral editor session creation and access."""
+
     @cached_property
     def with_raw_response(self) -> EditorSessionsResourceWithRawResponse:
         """
@@ -99,6 +101,8 @@ class EditorSessionsResource(SyncAPIResource):
 
 
 class AsyncEditorSessionsResource(AsyncAPIResource):
+    """Ephemeral editor session creation and access."""
+
     @cached_property
     def with_raw_response(self) -> AsyncEditorSessionsResourceWithRawResponse:
         """
