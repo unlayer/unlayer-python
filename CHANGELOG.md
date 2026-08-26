@@ -1,5 +1,75 @@
 # Changelog
 
+## 0.2.0 (2026-08-26)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/unlayer/unlayer-python/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** api update ([cc6bd70](https://github.com/unlayer/unlayer-python/commit/cc6bd702f993293b9b6d9302ec03842b424b4c36))
+* **api:** api update ([aad6e6f](https://github.com/unlayer/unlayer-python/commit/aad6e6f818bbd3451e9b0a933c747055d404b5ad))
+* **api:** api update ([98b4695](https://github.com/unlayer/unlayer-python/commit/98b469527513d85862d6c2a5e90068e2eee1f10f))
+* **api:** api update ([56cdce3](https://github.com/unlayer/unlayer-python/commit/56cdce3d52e384b2f13f4938d13076d4c951b1b0))
+* **api:** api update ([c0333b6](https://github.com/unlayer/unlayer-python/commit/c0333b6811a1aeaa979a89c5bf9cb5962f979574))
+* **api:** api update ([cd35d3b](https://github.com/unlayer/unlayer-python/commit/cd35d3b93bedcbc3834beb79c1085b45b81c46ce))
+* **api:** api update ([8e7ad05](https://github.com/unlayer/unlayer-python/commit/8e7ad05d2c31ac5e30d8336c0a2c612c37225298))
+* **api:** api update ([c6b629b](https://github.com/unlayer/unlayer-python/commit/c6b629ba3d6183805e939a2c7dca278bbbb7fed1))
+* **api:** api update ([afa74d0](https://github.com/unlayer/unlayer-python/commit/afa74d05a94c6614ff92ee5f714288bca8d13d7d))
+* **api:** api update ([a19b633](https://github.com/unlayer/unlayer-python/commit/a19b633a992b7f3c7fea7d3e0086d6df4d417b7f))
+* **api:** api update ([c85f087](https://github.com/unlayer/unlayer-python/commit/c85f0878584b737bc83016c20c0bba9fc81d498b))
+* **api:** api update ([808556a](https://github.com/unlayer/unlayer-python/commit/808556a0dad1364117d5b63c2285f47fa2bb641f))
+* **api:** api update ([7b6ee51](https://github.com/unlayer/unlayer-python/commit/7b6ee5197eff6de84b71685f2ceded7cac99d6a5))
+* **api:** api update ([167b11e](https://github.com/unlayer/unlayer-python/commit/167b11e590fda9652ca3f3c798b9d0c90c6b2ce1))
+* **api:** api update ([d8c02a2](https://github.com/unlayer/unlayer-python/commit/d8c02a28202f28aff216e1c51b4dc183bf758246))
+* **client:** add compatibility aliases for old type names ([65987ba](https://github.com/unlayer/unlayer-python/commit/65987ba2ea7ff4f674f3fca91869b3685af4fc55))
+* **internal:** implement indices array format for query and form serialization ([e8555c7](https://github.com/unlayer/unlayer-python/commit/e8555c785eb5ac3fd4f46eba86514c83279c8455))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([1105634](https://github.com/unlayer/unlayer-python/commit/1105634587e7908392c26243a3a22c44d5fa63e7))
+
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([75acb50](https://github.com/unlayer/unlayer-python/commit/75acb50baa973b93439b0e1e803e34ec5ea0f891))
+* **deps:** bump minimum typing-extensions version ([b7baa1e](https://github.com/unlayer/unlayer-python/commit/b7baa1e5d138b5a33b63bed9dae37bfabb6d968d))
+* ensure file data are only sent as 1 parameter ([16c4a95](https://github.com/unlayer/unlayer-python/commit/16c4a958a038f89843bfd0287656f14c222bbc9a))
+* **pydantic:** do not pass `by_alias` unless set ([d31637b](https://github.com/unlayer/unlayer-python/commit/d31637bd182be359df4af936cb715cc554d9a14b))
+* sanitize endpoint path params ([bc0d6b6](https://github.com/unlayer/unlayer-python/commit/bc0d6b6b147d33cd2f65855284e7f435bdee09f9))
+* **types:** avoid type-checker errors on params with additional properties ([d03691f](https://github.com/unlayer/unlayer-python/commit/d03691f5182f0919ab3cdbfe66692fd287471f1b))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([9e8bba9](https://github.com/unlayer/unlayer-python/commit/9e8bba9900b5252766dae4d7cd835fb264136ed4))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([3343492](https://github.com/unlayer/unlayer-python/commit/33434927ad6ab7c508d758335944cdc4123a5e17))
+* **ci:** skip uploading artifacts on stainless-internal branches ([907041a](https://github.com/unlayer/unlayer-python/commit/907041a9070f3c4a86605a21c9ab9a004a9bf553))
+* **internal:** allow the mock server port to be set with STAINLESS_MOCK_PORT ([ebe57c2](https://github.com/unlayer/unlayer-python/commit/ebe57c27651090638ebd7745b50c216dc08bd415))
+* **internal:** codegen related update ([f6dbe33](https://github.com/unlayer/unlayer-python/commit/f6dbe33abfbb2b8231e0ffc0250e426e0e26f14c))
+* **internal:** codegen related update ([0e34552](https://github.com/unlayer/unlayer-python/commit/0e34552078692776f7e709082aba188a8609f37f))
+* **internal:** codegen related update ([59d0d24](https://github.com/unlayer/unlayer-python/commit/59d0d244b61420a3358eef33ace74de3c8c3bda3))
+* **internal:** codegen related update ([c76b368](https://github.com/unlayer/unlayer-python/commit/c76b3685383f50f9446c8d0c6844aed7ad8f3696))
+* **internal:** codegen related update ([d58e1b8](https://github.com/unlayer/unlayer-python/commit/d58e1b80f026a3fbb93c51e57af8afedcdb866e9))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([caea803](https://github.com/unlayer/unlayer-python/commit/caea803e4fc873ade6fbc9b9b66ff67938780f65))
+* **internal:** more robust bootstrap script ([2543d0b](https://github.com/unlayer/unlayer-python/commit/2543d0b9a29711c39f5b8b5bfeac15dfc66b79b3))
+* **internal:** tweak CI branches ([4e152dc](https://github.com/unlayer/unlayer-python/commit/4e152dccd0191c2dd4d321e8ca7b6550dc6bc3f0))
+* **internal:** update gitignore ([5a510e6](https://github.com/unlayer/unlayer-python/commit/5a510e6edf2e26d612be067b6c95e70780d01d57))
+* **test:** do not count install time for mock server timeout ([3ad7bbb](https://github.com/unlayer/unlayer-python/commit/3ad7bbb203d27a7b7f69fda2d0f3aebea329c49e))
+* **tests:** bump steady to v0.19.4 ([775fe46](https://github.com/unlayer/unlayer-python/commit/775fe461f02f96ebc4b7cd6ff2d8cab4c52d291d))
+* **tests:** bump steady to v0.19.5 ([9ef3615](https://github.com/unlayer/unlayer-python/commit/9ef3615041ea171a462a29f8cfd268133df0c6fc))
+* **tests:** bump steady to v0.19.6 ([33d721e](https://github.com/unlayer/unlayer-python/commit/33d721e46826c23bf5b1ce78477d003cb9cd83da))
+* **tests:** bump steady to v0.19.7 ([3d09621](https://github.com/unlayer/unlayer-python/commit/3d09621f6d61c74d431b9af1336c6c51d8396d4f))
+* **tests:** bump steady to v0.20.1 ([649317d](https://github.com/unlayer/unlayer-python/commit/649317dda33455a5b5e25aedeb0210a746b767f2))
+* **tests:** bump steady to v0.20.2 ([2c51cba](https://github.com/unlayer/unlayer-python/commit/2c51cba746385da9a9e5ec0ea00bf6c4cdee2bbd))
+* **tests:** bump steady to v0.22.1 ([0a6f60a](https://github.com/unlayer/unlayer-python/commit/0a6f60a8acb8c85a937166884ba523cc59821b8f))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([d2618bd](https://github.com/unlayer/unlayer-python/commit/d2618bd109fcd053b5845009bc8221090930a369))
+* **types:** use `extra_items` from PEP 728 ([19677f4](https://github.com/unlayer/unlayer-python/commit/19677f4a04cd989500eecce93cbb0506cf1ebf32))
+
 ## 0.1.0 (2026-02-24)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/unlayer/unlayer-python/compare/v0.0.1...v0.1.0)

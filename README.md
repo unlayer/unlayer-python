@@ -199,10 +199,10 @@ from unlayer import Unlayer
 
 client = Unlayer()
 
-full_to_simple = client.convert.full_to_simple.create(
+convert_full_to_simple = client.templates.convert_full_to_simple.create(
     design={"body": {"foo": "bar"}},
 )
-print(full_to_simple.design)
+print(convert_full_to_simple.design)
 ```
 
 ## Handling errors
