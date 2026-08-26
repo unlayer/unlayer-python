@@ -9,13 +9,13 @@ __all__ = ["AICreditRetrieveResponse"]
 
 
 class AICreditRetrieveResponse(BaseModel):
-    credits_remaining: Optional[float] = None
+    credits_remaining: float
     """AI credits remaining in the current period."""
 
-    credits_total: Optional[float] = None
+    credits_total: float
     """Total AI credits available for the current period."""
 
-    credits_used: Optional[float] = None
+    credits_used: float
     """AI credits consumed so far in the current period."""
 
     reset_date: Optional[datetime] = None

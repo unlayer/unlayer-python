@@ -10,27 +10,27 @@ __all__ = ["AICreditsWebhooksDeliveryRetrieveResponse", "Delivery"]
 
 
 class Delivery(BaseModel):
-    id: Optional[str] = None
+    id: str
 
-    attempts: Optional[float] = None
+    attempts: int
 
-    created_at: Optional[datetime] = None
+    created_at: datetime
 
-    delivered_at: Optional[str] = None
+    delivered_at: Optional[datetime] = None
 
     end_user_id: Optional[str] = None
 
-    event: Optional[str] = None
+    event: Literal["ai.credits.usage_recorded", "ai.credits.threshold_reached", "ai.credits.exhausted"]
 
-    last_status_code: Optional[float] = None
+    last_status_code: Optional[int] = None
 
-    payload: Optional[Dict[str, object]] = None
+    payload: Dict[str, object]
 
-    status: Optional[Literal["pending", "delivered", "failed"]] = None
+    status: Literal["pending", "delivered", "failed"]
 
 
 class AICreditsWebhooksDeliveryRetrieveResponse(BaseModel):
-    deliveries: Optional[List[Delivery]] = None
+    deliveries: List[Delivery]
 
-    total: Optional[float] = None
+    total: int
     """Total deliveries matching the filter (ignores limit/offset)."""

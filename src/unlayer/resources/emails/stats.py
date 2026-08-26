@@ -24,6 +24,8 @@ __all__ = ["StatsResource", "AsyncStatsResource"]
 
 
 class StatsResource(SyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def with_raw_response(self) -> StatsResourceWithRawResponse:
         """
@@ -98,6 +100,8 @@ class StatsResource(SyncAPIResource):
 
 
 class AsyncStatsResource(AsyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def with_raw_response(self) -> AsyncStatsResourceWithRawResponse:
         """

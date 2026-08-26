@@ -37,8 +37,11 @@ __all__ = ["WebhooksResource", "AsyncWebhooksResource"]
 
 
 class WebhooksResource(SyncAPIResource):
+    """Manage Developer Email API webhooks."""
+
     @cached_property
     def rotate_secret(self) -> RotateSecretResource:
+        """Manage Developer Email API webhooks."""
         return RotateSecretResource(self._client)
 
     @cached_property
@@ -247,8 +250,11 @@ class WebhooksResource(SyncAPIResource):
 
 
 class AsyncWebhooksResource(AsyncAPIResource):
+    """Manage Developer Email API webhooks."""
+
     @cached_property
     def rotate_secret(self) -> AsyncRotateSecretResource:
+        """Manage Developer Email API webhooks."""
         return AsyncRotateSecretResource(self._client)
 
     @cached_property
@@ -478,6 +484,7 @@ class WebhooksResourceWithRawResponse:
 
     @cached_property
     def rotate_secret(self) -> RotateSecretResourceWithRawResponse:
+        """Manage Developer Email API webhooks."""
         return RotateSecretResourceWithRawResponse(self._webhooks.rotate_secret)
 
 
@@ -503,6 +510,7 @@ class AsyncWebhooksResourceWithRawResponse:
 
     @cached_property
     def rotate_secret(self) -> AsyncRotateSecretResourceWithRawResponse:
+        """Manage Developer Email API webhooks."""
         return AsyncRotateSecretResourceWithRawResponse(self._webhooks.rotate_secret)
 
 
@@ -528,6 +536,7 @@ class WebhooksResourceWithStreamingResponse:
 
     @cached_property
     def rotate_secret(self) -> RotateSecretResourceWithStreamingResponse:
+        """Manage Developer Email API webhooks."""
         return RotateSecretResourceWithStreamingResponse(self._webhooks.rotate_secret)
 
 
@@ -553,4 +562,5 @@ class AsyncWebhooksResourceWithStreamingResponse:
 
     @cached_property
     def rotate_secret(self) -> AsyncRotateSecretResourceWithStreamingResponse:
+        """Manage Developer Email API webhooks."""
         return AsyncRotateSecretResourceWithStreamingResponse(self._webhooks.rotate_secret)

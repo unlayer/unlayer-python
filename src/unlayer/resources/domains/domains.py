@@ -33,8 +33,11 @@ __all__ = ["DomainsResource", "AsyncDomainsResource"]
 
 
 class DomainsResource(SyncAPIResource):
+    """Manage verified sender domains."""
+
     @cached_property
     def verify(self) -> VerifyResource:
+        """Manage verified sender domains."""
         return VerifyResource(self._client)
 
     @cached_property
@@ -189,8 +192,11 @@ class DomainsResource(SyncAPIResource):
 
 
 class AsyncDomainsResource(AsyncAPIResource):
+    """Manage verified sender domains."""
+
     @cached_property
     def verify(self) -> AsyncVerifyResource:
+        """Manage verified sender domains."""
         return AsyncVerifyResource(self._client)
 
     @cached_property
@@ -363,6 +369,7 @@ class DomainsResourceWithRawResponse:
 
     @cached_property
     def verify(self) -> VerifyResourceWithRawResponse:
+        """Manage verified sender domains."""
         return VerifyResourceWithRawResponse(self._domains.verify)
 
 
@@ -385,6 +392,7 @@ class AsyncDomainsResourceWithRawResponse:
 
     @cached_property
     def verify(self) -> AsyncVerifyResourceWithRawResponse:
+        """Manage verified sender domains."""
         return AsyncVerifyResourceWithRawResponse(self._domains.verify)
 
 
@@ -407,6 +415,7 @@ class DomainsResourceWithStreamingResponse:
 
     @cached_property
     def verify(self) -> VerifyResourceWithStreamingResponse:
+        """Manage verified sender domains."""
         return VerifyResourceWithStreamingResponse(self._domains.verify)
 
 
@@ -429,4 +438,5 @@ class AsyncDomainsResourceWithStreamingResponse:
 
     @cached_property
     def verify(self) -> AsyncVerifyResourceWithStreamingResponse:
+        """Manage verified sender domains."""
         return AsyncVerifyResourceWithStreamingResponse(self._domains.verify)

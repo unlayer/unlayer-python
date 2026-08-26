@@ -25,6 +25,8 @@ __all__ = ["ExportHTMLResource", "AsyncExportHTMLResource"]
 
 
 class ExportHTMLResource(SyncAPIResource):
+    """Render designs as HTML, images, PDFs, or ZIP files."""
+
     @cached_property
     def with_raw_response(self) -> ExportHTMLResourceWithRawResponse:
         """
@@ -112,6 +114,8 @@ class ExportHTMLResource(SyncAPIResource):
 
 
 class AsyncExportHTMLResource(AsyncAPIResource):
+    """Render designs as HTML, images, PDFs, or ZIP files."""
+
     @cached_property
     def with_raw_response(self) -> AsyncExportHTMLResourceWithRawResponse:
         """

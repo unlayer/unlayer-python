@@ -126,22 +126,29 @@ class TemplatesResource(SyncAPIResource):
 
     @cached_property
     def export_html(self) -> ExportHTMLResource:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return ExportHTMLResource(self._client)
 
     @cached_property
     def export_image(self) -> ExportImageResource:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return ExportImageResource(self._client)
 
     @cached_property
     def export_pdf(self) -> ExportPdfResource:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return ExportPdfResource(self._client)
 
     @cached_property
     def export_zip(self) -> ExportZipResource:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return ExportZipResource(self._client)
 
     @cached_property
     def generate(self) -> GenerateResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
         return GenerateResource(self._client)
 
     @cached_property
@@ -307,22 +314,29 @@ class AsyncTemplatesResource(AsyncAPIResource):
 
     @cached_property
     def export_html(self) -> AsyncExportHTMLResource:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return AsyncExportHTMLResource(self._client)
 
     @cached_property
     def export_image(self) -> AsyncExportImageResource:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return AsyncExportImageResource(self._client)
 
     @cached_property
     def export_pdf(self) -> AsyncExportPdfResource:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return AsyncExportPdfResource(self._client)
 
     @cached_property
     def export_zip(self) -> AsyncExportZipResource:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return AsyncExportZipResource(self._client)
 
     @cached_property
     def generate(self) -> AsyncGenerateResource:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
         return AsyncGenerateResource(self._client)
 
     @cached_property
@@ -496,22 +510,29 @@ class TemplatesResourceWithRawResponse:
 
     @cached_property
     def export_html(self) -> ExportHTMLResourceWithRawResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return ExportHTMLResourceWithRawResponse(self._templates.export_html)
 
     @cached_property
     def export_image(self) -> ExportImageResourceWithRawResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return ExportImageResourceWithRawResponse(self._templates.export_image)
 
     @cached_property
     def export_pdf(self) -> ExportPdfResourceWithRawResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return ExportPdfResourceWithRawResponse(self._templates.export_pdf)
 
     @cached_property
     def export_zip(self) -> ExportZipResourceWithRawResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return ExportZipResourceWithRawResponse(self._templates.export_zip)
 
     @cached_property
     def generate(self) -> GenerateResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
         return GenerateResourceWithRawResponse(self._templates.generate)
 
     @cached_property
@@ -563,22 +584,29 @@ class AsyncTemplatesResourceWithRawResponse:
 
     @cached_property
     def export_html(self) -> AsyncExportHTMLResourceWithRawResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return AsyncExportHTMLResourceWithRawResponse(self._templates.export_html)
 
     @cached_property
     def export_image(self) -> AsyncExportImageResourceWithRawResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return AsyncExportImageResourceWithRawResponse(self._templates.export_image)
 
     @cached_property
     def export_pdf(self) -> AsyncExportPdfResourceWithRawResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return AsyncExportPdfResourceWithRawResponse(self._templates.export_pdf)
 
     @cached_property
     def export_zip(self) -> AsyncExportZipResourceWithRawResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return AsyncExportZipResourceWithRawResponse(self._templates.export_zip)
 
     @cached_property
     def generate(self) -> AsyncGenerateResourceWithRawResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
         return AsyncGenerateResourceWithRawResponse(self._templates.generate)
 
     @cached_property
@@ -630,22 +658,29 @@ class TemplatesResourceWithStreamingResponse:
 
     @cached_property
     def export_html(self) -> ExportHTMLResourceWithStreamingResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return ExportHTMLResourceWithStreamingResponse(self._templates.export_html)
 
     @cached_property
     def export_image(self) -> ExportImageResourceWithStreamingResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return ExportImageResourceWithStreamingResponse(self._templates.export_image)
 
     @cached_property
     def export_pdf(self) -> ExportPdfResourceWithStreamingResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return ExportPdfResourceWithStreamingResponse(self._templates.export_pdf)
 
     @cached_property
     def export_zip(self) -> ExportZipResourceWithStreamingResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return ExportZipResourceWithStreamingResponse(self._templates.export_zip)
 
     @cached_property
     def generate(self) -> GenerateResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
         return GenerateResourceWithStreamingResponse(self._templates.generate)
 
     @cached_property
@@ -697,22 +732,29 @@ class AsyncTemplatesResourceWithStreamingResponse:
 
     @cached_property
     def export_html(self) -> AsyncExportHTMLResourceWithStreamingResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return AsyncExportHTMLResourceWithStreamingResponse(self._templates.export_html)
 
     @cached_property
     def export_image(self) -> AsyncExportImageResourceWithStreamingResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return AsyncExportImageResourceWithStreamingResponse(self._templates.export_image)
 
     @cached_property
     def export_pdf(self) -> AsyncExportPdfResourceWithStreamingResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return AsyncExportPdfResourceWithStreamingResponse(self._templates.export_pdf)
 
     @cached_property
     def export_zip(self) -> AsyncExportZipResourceWithStreamingResponse:
+        """Render designs as HTML, images, PDFs, or ZIP files."""
         return AsyncExportZipResourceWithStreamingResponse(self._templates.export_zip)
 
     @cached_property
     def generate(self) -> AsyncGenerateResourceWithStreamingResponse:
+        """
+        Template management — list, retrieve, generate, import, export, and convert designs.
+        """
         return AsyncGenerateResourceWithStreamingResponse(self._templates.generate)
 
     @cached_property

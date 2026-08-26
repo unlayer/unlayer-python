@@ -24,6 +24,8 @@ __all__ = ["TemplateResource", "AsyncTemplateResource"]
 
 
 class TemplateResource(SyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def with_raw_response(self) -> TemplateResourceWithRawResponse:
         """
@@ -140,6 +142,8 @@ class TemplateResource(SyncAPIResource):
 
 
 class AsyncTemplateResource(AsyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def with_raw_response(self) -> AsyncTemplateResourceWithRawResponse:
         """

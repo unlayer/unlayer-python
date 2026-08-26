@@ -21,6 +21,8 @@ __all__ = ["RotateSecretResource", "AsyncRotateSecretResource"]
 
 
 class RotateSecretResource(SyncAPIResource):
+    """Manage Developer Email API webhooks."""
+
     @cached_property
     def with_raw_response(self) -> RotateSecretResourceWithRawResponse:
         """
@@ -77,6 +79,8 @@ class RotateSecretResource(SyncAPIResource):
 
 
 class AsyncRotateSecretResource(AsyncAPIResource):
+    """Manage Developer Email API webhooks."""
+
     @cached_property
     def with_raw_response(self) -> AsyncRotateSecretResourceWithRawResponse:
         """

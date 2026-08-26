@@ -22,6 +22,8 @@ __all__ = ["SuppressionsCheckResource", "AsyncSuppressionsCheckResource"]
 
 
 class SuppressionsCheckResource(SyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def with_raw_response(self) -> SuppressionsCheckResourceWithRawResponse:
         """
@@ -90,6 +92,8 @@ class SuppressionsCheckResource(SyncAPIResource):
 
 
 class AsyncSuppressionsCheckResource(AsyncAPIResource):
+    """Send and manage transactional email."""
+
     @cached_property
     def with_raw_response(self) -> AsyncSuppressionsCheckResourceWithRawResponse:
         """
